@@ -25,6 +25,13 @@ const PRESETS = {
   cinnabar: { background: "#f1e6df", text: "#492e2a", accent: "#c45f4e" }
 };
 
+const LAYOUT_RECIPES = {
+  folio: { fontFamily: "serif", titleFontFamily: "serif", titleSize: 56, titleWeight: 700, lineHeight: 1.88, paragraphSpacing: 1.15, pagePadding: 88, compositionStyle: "editorial", indent: true },
+  quiet: { fontFamily: "serif", titleFontFamily: "serif", titleSize: 50, titleWeight: 400, lineHeight: 1.98, paragraphSpacing: 1.35, pagePadding: 104, compositionStyle: "open", indent: false },
+  margin: { fontFamily: "serif", titleFontFamily: "sans-serif", titleSize: 64, titleWeight: 700, lineHeight: 1.82, paragraphSpacing: 1.05, pagePadding: 88, compositionStyle: "editorial", indent: true },
+  signal: { fontFamily: "serif", titleFontFamily: "sans-serif", titleSize: 72, titleWeight: 900, lineHeight: 1.72, paragraphSpacing: 0.9, pagePadding: 72, compositionStyle: "compact", indent: false }
+};
+
 const SLOGANS = [
   { text: "海阔凭鱼跃，天高任鸟飞。", source: "古语" },
   { text: "久在樊笼里，复得返自然。", source: "陶渊明" },
@@ -98,6 +105,7 @@ const settings = {
 };
 
 let alignment = "left";
+let layoutTemplate = "folio";
 let zoom = 0.7;
 let saveTimer;
 let toastTimer;
@@ -156,6 +164,8 @@ function render() {
   elements.poster.classList.toggle("hide-header", !settings.header.checked);
   elements.poster.classList.toggle("composition-compact", settings.compositionStyle.value === "compact");
   elements.poster.classList.toggle("composition-open", settings.compositionStyle.value === "open");
+  elements.poster.classList.remove("layout-folio", "layout-quiet", "layout-margin", "layout-signal");
+  elements.poster.classList.add(`layout-${layoutTemplate}`);
   $("#posterEdition").textContent = settings.editionText.value.trim() || "016 / LONGFORM";
   $("#posterKicker").textContent = settings.kickerText.value.trim() || "LONGFORM COMPOSITION / 016";
 
@@ -251,6 +261,7 @@ function getState() {
     author: elements.author.value,
     body: elements.body.value,
     alignment,
+    layoutTemplate,
     zoom,
     values: Object.fromEntries(Object.entries(settings).map(([key, input]) => [key, input.type === "checkbox" ? input.checked : input.value]))
   };
@@ -273,6 +284,7 @@ function loadState() {
     elements.author.value = state.author ?? elements.author.value;
     elements.body.value = state.body ?? elements.body.value;
     alignment = state.alignment ?? alignment;
+    layoutTemplate = LAYOUT_RECIPES[state.layoutTemplate] ? state.layoutTemplate : layoutTemplate;
     zoom = state.zoom ?? zoom;
     Object.entries(state.values || {}).forEach(([key, value]) => {
       if (!settings[key]) return;
@@ -339,6 +351,29 @@ function setPreset(name) {
   settings.accentColor.value = preset.accent;
   $$(".preset").forEach((button) => button.classList.toggle("active", button.dataset.preset === name));
   render();
+}
+
+function setLayoutTemplate(name, applyRecipe = true) {
+  const recipe = LAYOUT_RECIPES[name];
+  if (!recipe) return;
+  layoutTemplate = name;
+  if (applyRecipe) {
+    Object.entries(recipe).forEach(([key, value]) => {
+      const input = settings[key];
+      if (!input) return;
+      if (input.type === "checkbox") input.checked = value;
+      else input.value = value;
+    });
+    alignment = "left";
+    $$('[data-align]').forEach((item) => item.classList.toggle("active", item.dataset.align === alignment));
+  }
+  $$("[data-layout-template]").forEach((button) => button.classList.toggle("active", button.dataset.layoutTemplate === name));
+  render();
+  if (applyRecipe) showToast(`已应用${buttonLabel(name)}版式`);
+}
+
+function buttonLabel(name) {
+  return document.querySelector(`[data-layout-template="${name}"] strong`)?.textContent || "所选";
 }
 
 function drawTextWithSpacing(ctx, text, x, y, spacing) {
@@ -409,27 +444,36 @@ function getCanvasLayout(scale = 2) {
   const lineHeight = fontSize * Number(settings.lineHeight.value);
   const letterSpacing = Number(settings.letterSpacing.value);
   const paragraphGap = fontSize * Number(settings.paragraphSpacing.value);
-  const usableWidth = width - padding * 2;
+  const fullWidth = width - padding * 2;
+  const templateGeometry = {
+    folio: { inset: 0, ratio: 1, indexStep: 64, accentWidth: 16, accentHeight: 48, accentStep: 96, ruleGap: 56 },
+    quiet: { inset: fullWidth * 0.09, ratio: 0.82, indexStep: 88, accentWidth: 64, accentHeight: 4, accentStep: 58, ruleGap: 72 },
+    margin: { inset: 72, ratio: 1, indexStep: 72, accentWidth: 4, accentHeight: 152, accentStep: 104, ruleGap: 56 },
+    signal: { inset: 0, ratio: 1, indexStep: 48, accentWidth: fullWidth, accentHeight: 6, accentStep: 44, ruleGap: 48 }
+  }[layoutTemplate] || null;
+  const contentX = padding + templateGeometry.inset;
+  const usableWidth = layoutTemplate === "margin" ? fullWidth - templateGeometry.inset : fullWidth * templateGeometry.ratio;
+  const titleX = contentX;
+  const titleWidth = layoutTemplate === "signal" ? usableWidth * 0.84 : usableWidth;
   const measure = document.createElement("canvas").getContext("2d");
   measure.font = `${fontSize}px ${FONT_STACKS[settings.fontFamily.value]}`;
   const indentWidth = settings.indent.checked ? fontSize * 2 : 0;
   const paragraphs = textParagraphs().map((text) => wrapParagraph(measure, text, usableWidth, letterSpacing, indentWidth));
   measure.font = `${titleWeight} ${titleSize}px ${FONT_STACKS[settings.titleFontFamily.value]}`;
-  const titleLines = wrapText(measure, generatedDocument.title, usableWidth, 0);
+  const titleLines = wrapText(measure, generatedDocument.title, titleWidth, 0);
   const bodyHeight = paragraphs.reduce((height, lines) => height + lines.length * lineHeight + paragraphGap, 0);
   const topPadding = 48;
   const titleLineHeight = titleSize * 1.22;
-  const composition = settings.compositionStyle.value;
-  const indexStep = composition === "compact" ? 48 : composition === "open" ? 96 : 64;
-  const accentHeight = composition === "compact" ? 16 : composition === "open" ? 80 : 48;
-  const accentStep = composition === "compact" ? 48 : composition === "open" ? 152 : 96;
-  const ruleGap = composition === "compact" ? 40 : composition === "open" ? 80 : 56;
+  const { indexStep, accentWidth, accentHeight, accentStep, ruleGap } = templateGeometry;
   const titleStart = settings.header.checked
     ? topPadding + indexStep + accentStep + titleSize + 24
     : topPadding + titleSize + 40;
   const bodyStart = titleStart + titleLines.length * titleLineHeight + 16 + ruleGap;
   const footerHeight = settings.signature.checked ? padding + 45 : padding;
-  return { scale, width, padding, topPadding, fontSize, titleSize, titleWeight, titleLineHeight, lineHeight, letterSpacing, paragraphGap, usableWidth, paragraphs, titleLines, indexStep, accentHeight, accentStep, ruleGap, titleStart, bodyStart, height: Math.ceil(bodyStart + bodyHeight + footerHeight) };
+  const accentX = layoutTemplate === "quiet" ? padding + (fullWidth - accentWidth) / 2 : padding;
+  const ruleWidth = layoutTemplate === "quiet" ? 72 : layoutTemplate === "signal" ? usableWidth * 0.38 : titleWidth;
+  const ruleX = layoutTemplate === "quiet" ? padding + (fullWidth - ruleWidth) / 2 : titleX;
+  return { scale, width, padding, topPadding, fontSize, titleSize, titleWeight, titleLineHeight, lineHeight, letterSpacing, paragraphGap, fullWidth, contentX, usableWidth, titleX, titleWidth, paragraphs, titleLines, indexStep, accentX, accentWidth, accentHeight, accentStep, ruleX, ruleWidth, ruleGap, titleStart, bodyStart, height: Math.ceil(bodyStart + bodyHeight + footerHeight) };
 }
 
 function exportImage() {
@@ -466,10 +510,15 @@ function exportImage() {
     y += layout.indexStep;
 
     ctx.fillStyle = settings.accentColor.value;
-    ctx.fillRect(layout.padding, y, 16, layout.accentHeight);
+    ctx.fillRect(layout.accentX, y, layout.accentWidth, layout.accentHeight);
     y += layout.accentStep;
     ctx.font = "700 12px Arial, sans-serif";
-    drawTextWithSpacing(ctx, settings.kickerText.value.trim() || "LONGFORM COMPOSITION / 016", layout.padding, y, 2);
+    const kicker = settings.kickerText.value.trim() || "LONGFORM COMPOSITION / 016";
+    if (layoutTemplate === "quiet") {
+      drawTextWithSpacing(ctx, kicker, layout.width / 2 - measuredWidth(ctx, kicker, 2) / 2, y, 2);
+    } else {
+      drawTextWithSpacing(ctx, kicker, layout.titleX, y, 2);
+    }
     y += layout.titleSize + 24;
   } else {
     y = layout.titleStart;
@@ -477,17 +526,23 @@ function exportImage() {
 
   ctx.fillStyle = settings.textColor.value;
   ctx.font = `${layout.titleWeight} ${layout.titleSize}px ${FONT_STACKS[settings.titleFontFamily.value]}`;
-  layout.titleLines.forEach((line) => { ctx.fillText(line, layout.padding, y); y += layout.titleLineHeight; });
+  if (layoutTemplate === "quiet") ctx.textAlign = "center";
+  layout.titleLines.forEach((line) => {
+    ctx.fillText(line, layoutTemplate === "quiet" ? layout.width / 2 : layout.titleX, y);
+    y += layout.titleLineHeight;
+  });
+  ctx.textAlign = "left";
   y += 16;
-  ctx.globalAlpha = 0.18;
-  ctx.fillRect(layout.padding, y, layout.usableWidth, 1);
+  ctx.globalAlpha = layoutTemplate === "signal" ? 1 : 0.18;
+  ctx.fillStyle = layoutTemplate === "signal" || layoutTemplate === "quiet" ? settings.accentColor.value : settings.textColor.value;
+  ctx.fillRect(layout.ruleX, y, layout.ruleWidth, layoutTemplate === "signal" ? 3 : 1);
   ctx.globalAlpha = 1;
   y += layout.ruleGap;
 
   ctx.font = `${layout.fontSize}px ${FONT_STACKS[settings.fontFamily.value]}`;
   layout.paragraphs.forEach((lines) => {
     lines.forEach((line, lineIndex) => {
-      let x = layout.padding;
+      let x = layout.contentX;
       const indent = settings.indent.checked && lineIndex === 0 ? layout.fontSize * 2 : 0;
       const lineWidth = measuredWidth(ctx, line, layout.letterSpacing);
       if (alignment === "center") x += (layout.usableWidth - lineWidth) / 2;
@@ -501,14 +556,14 @@ function exportImage() {
   if (settings.signature.checked) {
     y += 32;
     ctx.fillStyle = settings.accentColor.value;
-    ctx.fillRect(layout.padding, y - 8, 48, 4);
+    ctx.fillRect(layout.contentX, y - 8, 48, 4);
     ctx.fillStyle = settings.textColor.value;
     ctx.font = `600 14px ${FONT_STACKS["sans-serif"]}`;
-    drawTextWithSpacing(ctx, generatedDocument.author, layout.padding + 64, y, 1);
+    drawTextWithSpacing(ctx, generatedDocument.author, layout.contentX + 64, y, 1);
     ctx.globalAlpha = 0.5;
     ctx.font = "700 10px Arial, sans-serif";
     const mark = "XVI / 十六开";
-    ctx.fillText(mark, layout.width - layout.padding - ctx.measureText(mark).width, y);
+    ctx.fillText(mark, layout.contentX + layout.usableWidth - ctx.measureText(mark).width, y);
     ctx.globalAlpha = 1;
   }
 
@@ -558,6 +613,7 @@ $$('[data-align]').forEach((button) => button.addEventListener("click", () => {
 }));
 
 $$('[data-preset]').forEach((button) => button.addEventListener("click", () => setPreset(button.dataset.preset)));
+$$("[data-layout-template]").forEach((button) => button.addEventListener("click", () => setLayoutTemplate(button.dataset.layoutTemplate)));
 $("#randomPresetButton").addEventListener("click", () => {
   const names = Object.keys(PRESETS);
   const current = $$(".preset").find((button) => button.classList.contains("active"))?.dataset.preset;
@@ -587,5 +643,6 @@ $$('[data-format]').forEach((button) => button.addEventListener("click", () => {
 
 loadState();
 $$('[data-align]').forEach((item) => item.classList.toggle("active", item.dataset.align === alignment));
+$$("[data-layout-template]").forEach((button) => button.classList.toggle("active", button.dataset.layoutTemplate === layoutTemplate));
 updateControlLabels();
 scheduleSave();
