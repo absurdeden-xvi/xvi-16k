@@ -83,6 +83,7 @@ input[type="text"]:focus, textarea:focus, select:focus, .rich-editor:focus { bor
 .format-toolbar button:hover, .format-toolbar button.active { background: #fff; color: #31443d; box-shadow: 0 1px 4px rgba(52, 70, 63, .1); }
 .format-toolbar button:last-child { margin-left: auto; font: 17px/1 Arial, sans-serif; }
 .rich-editor { min-height: 390px; max-height: 56vh; overflow: auto; padding: 16px; font: 14px/1.8 "Songti SC", SimSun, serif; white-space: pre-wrap; }
+.rich-editor, .poster { font-synthesis: weight style; }
 .rich-editor:empty::before { content: "粘贴或输入正文"; color: #a1aaa6; }
 .rich-editor p, .rich-editor div { margin: 0 0 1em; }
 .quick-actions { display: flex; gap: 8px; justify-content: flex-end; }
@@ -238,6 +239,11 @@ input[type="color"] { width: 28px; height: 28px; border: 2px solid #fff; padding
 .poster-rule { width: 100%; height: 1px; margin-bottom: 56px; background: color-mix(in srgb, var(--poster-text) 18%, transparent); }
 .poster-body { font-size: var(--poster-font-size); line-height: var(--poster-line-height); letter-spacing: var(--poster-letter-spacing); text-align: left; line-break: strict; word-break: normal; overflow-wrap: break-word; }
 .poster-body p { margin: 0 0 var(--poster-paragraph-spacing); white-space: pre-wrap; }
+.poster-body .rich-bold { font-weight: 700; }
+.poster-body .rich-italic { font-style: italic; }
+.poster-body .rich-underline { text-decoration-line: underline; text-decoration-thickness: .06em; text-underline-offset: .12em; }
+.poster-body .rich-strike { text-decoration-line: line-through; text-decoration-thickness: .06em; }
+.poster-body .rich-underline.rich-strike { text-decoration-line: underline line-through; }
 .poster-body.indent p { text-indent: 2em; }
 .poster-body.align-justify { text-align: justify; }
 .poster-body.align-center { text-align: center; }

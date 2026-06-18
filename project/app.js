@@ -193,9 +193,10 @@ function render() {
     runs.forEach((run) => {
       const span = document.createElement("span");
       span.textContent = run.text;
-      span.style.fontWeight = run.bold ? "700" : "inherit";
-      span.style.fontStyle = run.italic ? "italic" : "normal";
-      span.style.textDecoration = [run.underline && "underline", run.strike && "line-through"].filter(Boolean).join(" ") || "none";
+      span.classList.toggle("rich-bold", Boolean(run.bold));
+      span.classList.toggle("rich-italic", Boolean(run.italic));
+      span.classList.toggle("rich-underline", Boolean(run.underline));
+      span.classList.toggle("rich-strike", Boolean(run.strike));
       paragraph.append(span);
     });
     return paragraph;
@@ -761,8 +762,11 @@ $$('[data-format-command]').forEach((button) => {
   button.addEventListener("click", () => {
     elements.body.focus();
     document.execCommand(button.dataset.formatCommand, false);
-    syncFormattingToGeneratedDocument();
+    requestAnimationFrame(syncFormattingToGeneratedDocument);
   });
+});
+elements.body.addEventListener("input", (event) => {
+  if (event.inputType?.startsWith("format")) requestAnimationFrame(syncFormattingToGeneratedDocument);
 });
 document.addEventListener("selectionchange", () => {
   if (!elements.body.contains(document.getSelection()?.anchorNode)) return;
