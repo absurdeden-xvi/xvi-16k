@@ -28,8 +28,24 @@ const PRESETS = {
   deepPine: { background: "#17231f", text: "#dbe4dc", accent: "#789788" },
   wine: { background: "#2a171d", text: "#eadde0", accent: "#a97883" },
   nightPlum: { background: "#211a2a", text: "#e5ddec", accent: "#9a86b0" },
-  deepSea: { background: "#142529", text: "#d9e5e4", accent: "#6f9da0" }
+  deepSea: { background: "#142529", text: "#d9e5e4", accent: "#6f9da0" },
+  umber: { background: "#241f18", text: "#eee4d2", accent: "#b59a6a" },
+  blueprint: { background: "#f8f8f4", text: "#17469e", accent: "#b52b35" },
+  vermilion: { background: "#b83238", text: "#fff8ef", accent: "#fff1c7" },
+  newsprint: { background: "#f3efe4", text: "#171717", accent: "#b52b35" },
+  acidNight: { background: "#171917", text: "#edf1e8", accent: "#bdd34c" }
 };
+
+const PALETTE_FAMILIES = {
+  neutral: { light: "mist", dark: "inkstone" },
+  rose: { light: "blush", dark: "wine" },
+  green: { light: "moss", dark: "deepPine" },
+  purple: { light: "lilac", dark: "nightPlum" },
+  amber: { light: "butter", dark: "umber" },
+  blue: { light: "indigo", dark: "midnight" }
+};
+
+const SPECIAL_PRESETS = ["blueprint", "vermilion", "newsprint", "acidNight"];
 
 const LAYOUT_RECIPES = {
   folio: { fontFamily: "serif", titleFontFamily: "serif", titleSize: 56, titleWeight: 700, lineHeight: 1.88, paragraphSpacing: 1.15, pagePadding: 88, compositionStyle: "editorial", indent: true },
@@ -116,6 +132,9 @@ const settings = {
 
 let alignment = "left";
 let layoutTemplate = "folio";
+let paletteMode = "light";
+let paletteFamily = "neutral";
+let activeSpecialPreset = null;
 let zoom = 0.7;
 let saveTimer;
 let toastTimer;
@@ -383,6 +402,9 @@ function getState() {
     bodyHtml: elements.body.innerHTML,
     alignment,
     layoutTemplate,
+    paletteMode,
+    paletteFamily,
+    activeSpecialPreset,
     zoom,
     values: Object.fromEntries(Object.entries(settings).map(([key, input]) => [key, input.type === "checkbox" ? input.checked : input.value]))
   };
@@ -407,6 +429,9 @@ function loadState() {
     else if (state.body) setBodyText(state.body);
     alignment = state.alignment ?? alignment;
     layoutTemplate = "folio";
+    paletteMode = state.paletteMode === "dark" ? "dark" : "light";
+    paletteFamily = PALETTE_FAMILIES[state.paletteFamily] ? state.paletteFamily : "neutral";
+    activeSpecialPreset = SPECIAL_PRESETS.includes(state.activeSpecialPreset) ? state.activeSpecialPreset : null;
     zoom = state.zoom ?? zoom;
     Object.entries(state.values || {}).forEach(([key, value]) => {
       if (!settings[key]) return;
@@ -465,14 +490,30 @@ async function loadCustomFont(file) {
   }
 }
 
-function setPreset(name) {
+function setPreset(name, fromFamily = false) {
   const preset = PRESETS[name];
   if (!preset) return;
   settings.backgroundColor.value = preset.background;
   settings.textColor.value = preset.text;
   settings.accentColor.value = preset.accent;
-  $$(".preset").forEach((button) => button.classList.toggle("active", button.dataset.preset === name));
+  activeSpecialPreset = fromFamily ? null : (SPECIAL_PRESETS.includes(name) ? name : null);
+  syncPaletteControls();
   render();
+}
+
+function syncPaletteControls() {
+  $$("[data-palette-mode]").forEach((button) => button.classList.toggle("active", button.dataset.paletteMode === paletteMode));
+  $$("[data-palette-family]").forEach((button) => button.classList.toggle("active", !activeSpecialPreset && button.dataset.paletteFamily === paletteFamily));
+  $$("[data-preset]").forEach((button) => button.classList.toggle("active", button.dataset.preset === activeSpecialPreset));
+}
+
+function setPaletteFamily(mode = paletteMode, family = paletteFamily) {
+  if (!["light", "dark"].includes(mode) || !PALETTE_FAMILIES[family]) return;
+  paletteMode = mode;
+  paletteFamily = family;
+  activeSpecialPreset = null;
+  syncPaletteControls();
+  setPreset(PALETTE_FAMILIES[family][mode], true);
 }
 
 function setLayoutTemplate(name, applyRecipe = true) {
@@ -835,12 +876,15 @@ $$('[data-align]').forEach((button) => button.addEventListener("click", () => {
 }));
 
 $$('[data-preset]').forEach((button) => button.addEventListener("click", () => setPreset(button.dataset.preset)));
+$$("[data-palette-mode]").forEach((button) => button.addEventListener("click", () => setPaletteFamily(button.dataset.paletteMode, paletteFamily)));
+$$("[data-palette-family]").forEach((button) => button.addEventListener("click", () => setPaletteFamily(paletteMode, button.dataset.paletteFamily)));
 $$("[data-layout-template]").forEach((button) => button.addEventListener("click", () => setLayoutTemplate(button.dataset.layoutTemplate)));
 $("#randomPresetButton").addEventListener("click", () => {
-  const names = Object.keys(PRESETS);
-  const current = $$(".preset").find((button) => button.classList.contains("active"))?.dataset.preset;
-  const alternatives = names.filter((name) => name !== current);
-  setPreset(alternatives[Math.floor(Math.random() * alternatives.length)]);
+  const familyChoices = Object.keys(PALETTE_FAMILIES).flatMap((family) => ["light", "dark"].map((mode) => ({ family, mode })));
+  const choices = [...familyChoices, ...SPECIAL_PRESETS];
+  const choice = choices[Math.floor(Math.random() * choices.length)];
+  if (typeof choice === "string") setPreset(choice);
+  else setPaletteFamily(choice.mode, choice.family);
 });
 $("#customFontInput").addEventListener("change", (event) => loadCustomFont(event.target.files[0]));
 let sloganIndex = 0;
@@ -866,5 +910,6 @@ $$('[data-format]').forEach((button) => button.addEventListener("click", () => {
 loadState();
 $$('[data-align]').forEach((item) => item.classList.toggle("active", item.dataset.align === alignment));
 $$("[data-layout-template]").forEach((button) => button.classList.toggle("active", button.dataset.layoutTemplate === layoutTemplate));
+syncPaletteControls();
 updateControlLabels();
 scheduleSave();

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://fontsapi.zeoseven.com/7/main/result.css" />
     <link rel="stylesheet" href="https://fontsapi.zeoseven.com/22/main/result.css" />
     <link rel="stylesheet" href="https://fontsapi.zeoseven.com/192/main/result.css" />
-    <link rel="stylesheet" href="styles.css?v=0.6.1" />
+    <link rel="stylesheet" href="styles.css?v=0.6.2" />
   </head>
   <body>
     <header class="app-header">
@@ -60,25 +60,24 @@
         <section class="tab-panel" data-panel="design">
           <div class="field-group">
             <div class="field-group-title"><span>配色灵感</span><button id="randomPresetButton" type="button">换一个</button></div>
-            <div class="preset-grid" id="presetGrid">
-              <button class="preset active" data-preset="mist" type="button"><i class="mist"></i><span>晨雾</span></button>
-              <button class="preset" data-preset="blush" type="button"><i class="blush"></i><span>薄暮</span></button>
-              <button class="preset" data-preset="moss" type="button"><i class="moss"></i><span>苔庭</span></button>
-              <button class="preset" data-preset="lilac" type="button"><i class="lilac"></i><span>梦紫</span></button>
-              <button class="preset" data-preset="butter" type="button"><i class="butter"></i><span>麦光</span></button>
-              <button class="preset" data-preset="night" type="button"><i class="night"></i><span>夜航</span></button>
-              <button class="preset" data-preset="mica" type="button"><i class="mica"></i><span>云母</span></button>
-              <button class="preset" data-preset="almond" type="button"><i class="almond"></i><span>杏仁</span></button>
-              <button class="preset" data-preset="salt" type="button"><i class="salt"></i><span>海盐</span></button>
-              <button class="preset" data-preset="berry" type="button"><i class="berry"></i><span>莓影</span></button>
-              <button class="preset" data-preset="indigo" type="button"><i class="indigo"></i><span>靛青</span></button>
-              <button class="preset" data-preset="cinnabar" type="button"><i class="cinnabar"></i><span>朱砂</span></button>
-              <button class="preset" data-preset="midnight" type="button"><i class="midnight"></i><span>午夜</span></button>
-              <button class="preset" data-preset="inkstone" type="button"><i class="inkstone"></i><span>砚黑</span></button>
-              <button class="preset" data-preset="deepPine" type="button"><i class="deepPine"></i><span>深松</span></button>
-              <button class="preset" data-preset="wine" type="button"><i class="wine"></i><span>酒渍</span></button>
-              <button class="preset" data-preset="nightPlum" type="button"><i class="nightPlum"></i><span>夜梅</span></button>
-              <button class="preset" data-preset="deepSea" type="button"><i class="deepSea"></i><span>深海</span></button>
+            <div class="palette-mode" aria-label="明暗主题">
+              <button class="active" data-palette-mode="light" type="button">浅色</button>
+              <button data-palette-mode="dark" type="button">深色</button>
+            </div>
+            <div class="palette-family-row" aria-label="色系">
+              <button class="family-neutral active" data-palette-family="neutral" type="button" title="中性" aria-label="中性色系"></button>
+              <button class="family-rose" data-palette-family="rose" type="button" title="红" aria-label="红色系"></button>
+              <button class="family-green" data-palette-family="green" type="button" title="绿" aria-label="绿色系"></button>
+              <button class="family-purple" data-palette-family="purple" type="button" title="紫" aria-label="紫色系"></button>
+              <button class="family-amber" data-palette-family="amber" type="button" title="黄" aria-label="黄色系"></button>
+              <button class="family-blue" data-palette-family="blue" type="button" title="蓝" aria-label="蓝色系"></button>
+            </div>
+            <div class="special-palette-title">特别配色</div>
+            <div class="special-palette-grid">
+              <button class="special-preset" data-preset="blueprint" type="button"><i class="blueprint"></i><span>蓝字白纸</span></button>
+              <button class="special-preset" data-preset="vermilion" type="button"><i class="vermilion"></i><span>红底白字</span></button>
+              <button class="special-preset" data-preset="newsprint" type="button"><i class="newsprint"></i><span>黑白朱标</span></button>
+              <button class="special-preset" data-preset="acidNight" type="button"><i class="acidNight"></i><span>黑底酸绿</span></button>
             </div>
           </div>
           <div class="color-grid">
@@ -142,6 +141,6 @@
       </section>
     </main>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="app.js?v=0.6.1"></script>
+    <script src="app.js?v=0.6.2"></script>
   </body>
 </html>
