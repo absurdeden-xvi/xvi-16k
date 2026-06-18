@@ -23,13 +23,13 @@ const PRESETS = {
   berry: { background: "#f1e7ec", text: "#452f3c", accent: "#b57c98" },
   indigo: { background: "#e8ecf2", text: "#27344d", accent: "#7d93b5" },
   cinnabar: { background: "#f1e6df", text: "#492e2a", accent: "#c45f4e" },
-  midnight: { background: "#171c24", text: "#d9dde5", accent: "#7e91ad" },
+  midnight: { background: "#192b4a", text: "#e7ecf5", accent: "#91a9d0" },
   inkstone: { background: "#20201e", text: "#e8e3d8", accent: "#a18f78" },
-  deepPine: { background: "#17231f", text: "#dbe4dc", accent: "#789788" },
-  wine: { background: "#2a171d", text: "#eadde0", accent: "#a97883" },
-  nightPlum: { background: "#211a2a", text: "#e5ddec", accent: "#9a86b0" },
+  deepPine: { background: "#18352d", text: "#e4eee7", accent: "#8fbd9f" },
+  wine: { background: "#4a2029", text: "#f5e5e8", accent: "#d58b9c" },
+  nightPlum: { background: "#322544", text: "#eee6f5", accent: "#b39bc9" },
   deepSea: { background: "#142529", text: "#d9e5e4", accent: "#6f9da0" },
-  umber: { background: "#241f18", text: "#eee4d2", accent: "#b59a6a" },
+  umber: { background: "#3a2b1b", text: "#f3e7d2", accent: "#d0a969" },
   blueprint: { background: "#f8f8f4", text: "#17469e", accent: "#b52b35" },
   vermilion: { background: "#b83238", text: "#fff8ef", accent: "#fff1c7" },
   newsprint: { background: "#f3efe4", text: "#171717", accent: "#b52b35" },
@@ -37,7 +37,7 @@ const PRESETS = {
 };
 
 const PALETTE_FAMILIES = {
-  neutral: { light: "mist", dark: "inkstone" },
+  neutral: { light: "mist", dark: "night" },
   rose: { light: "blush", dark: "wine" },
   green: { light: "moss", dark: "deepPine" },
   purple: { light: "lilac", dark: "nightPlum" },
@@ -45,7 +45,13 @@ const PALETTE_FAMILIES = {
   blue: { light: "indigo", dark: "midnight" }
 };
 
+const PALETTE_NAMES = {
+  light: { neutral: "晨雾", rose: "薄暮", green: "苔庭", purple: "梦紫", amber: "麦光", blue: "靛青" },
+  dark: { neutral: "夜航", rose: "酒渍", green: "深松", purple: "夜梅", amber: "琥珀", blue: "蓝夜" }
+};
+
 const SPECIAL_PRESETS = ["blueprint", "vermilion", "newsprint", "acidNight"];
+const SPECIAL_PRESET_NAMES = { blueprint: "蓝晒", vermilion: "绛雪", newsprint: "铅字", acidNight: "夜萤" };
 
 const LAYOUT_RECIPES = {
   folio: { fontFamily: "serif", titleFontFamily: "serif", titleSize: 56, titleWeight: 700, lineHeight: 1.88, paragraphSpacing: 1.15, pagePadding: 88, compositionStyle: "editorial", indent: true },
@@ -503,8 +509,19 @@ function setPreset(name, fromFamily = false) {
 
 function syncPaletteControls() {
   $$("[data-palette-mode]").forEach((button) => button.classList.toggle("active", button.dataset.paletteMode === paletteMode));
-  $$("[data-palette-family]").forEach((button) => button.classList.toggle("active", !activeSpecialPreset && button.dataset.paletteFamily === paletteFamily));
+  $$("[data-palette-family]").forEach((button) => {
+    const family = button.dataset.paletteFamily;
+    const preset = PRESETS[PALETTE_FAMILIES[family][paletteMode]];
+    const name = PALETTE_NAMES[paletteMode][family];
+    button.classList.toggle("active", !activeSpecialPreset && family === paletteFamily);
+    button.style.backgroundColor = preset.accent;
+    button.title = name;
+    button.setAttribute("aria-label", name);
+  });
   $$("[data-preset]").forEach((button) => button.classList.toggle("active", button.dataset.preset === activeSpecialPreset));
+  $("#paletteSelectionName").textContent = activeSpecialPreset
+    ? SPECIAL_PRESET_NAMES[activeSpecialPreset]
+    : PALETTE_NAMES[paletteMode][paletteFamily];
 }
 
 function setPaletteFamily(mode = paletteMode, family = paletteFamily) {
