@@ -143,6 +143,15 @@ function extractRichParagraphs() {
     if (["I", "EM"].includes(node.tagName)) style.italic = true;
     if (node.tagName === "U") style.underline = true;
     if (["S", "STRIKE"].includes(node.tagName)) style.strike = true;
+    const inlineStyle = node.style;
+    if (inlineStyle) {
+      const numericWeight = Number.parseInt(inlineStyle.fontWeight, 10);
+      if (inlineStyle.fontWeight === "bold" || numericWeight >= 600) style.bold = true;
+      if (inlineStyle.fontStyle === "italic") style.italic = true;
+      const decoration = `${inlineStyle.textDecoration} ${inlineStyle.textDecorationLine}`;
+      if (decoration.includes("underline")) style.underline = true;
+      if (decoration.includes("line-through")) style.strike = true;
+    }
     [...node.childNodes].forEach((child) => walk(child, style, runs));
   };
   blocks.forEach((block) => {
@@ -304,6 +313,20 @@ function markContentDirty() {
   elements.exportButton.disabled = true;
   $("#exportPanelButton").disabled = true;
   elements.generateButton.querySelector("strong").textContent = "内容已更改，重新生成";
+}
+
+function syncFormattingToGeneratedDocument() {
+  if (!generatedDocument) {
+    scheduleSave();
+    return;
+  }
+  generatedDocument.body = bodyText();
+  generatedDocument.paragraphs = extractRichParagraphs();
+  contentIsDirty = false;
+  elements.exportButton.disabled = false;
+  $("#exportPanelButton").disabled = false;
+  elements.generateButton.querySelector("strong").textContent = "重新排版并生成";
+  render();
 }
 
 function getState() {
@@ -738,7 +761,7 @@ $$('[data-format-command]').forEach((button) => {
   button.addEventListener("click", () => {
     elements.body.focus();
     document.execCommand(button.dataset.formatCommand, false);
-    markContentDirty();
+    syncFormattingToGeneratedDocument();
   });
 });
 document.addEventListener("selectionchange", () => {
