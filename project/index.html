@@ -34,18 +34,17 @@
             <label><span>标题</span><input id="titleInput" type="text" maxlength="80" value="我仍然愿意相信文字" /></label>
             <label><span>署名</span><input id="authorInput" type="text" maxlength="40" value="写作者 / 无名" /></label>
           </div>
-          <label class="field-group text-field">
+          <div class="field-group text-field">
             <span class="field-heading"><span>正文</span><span id="charCount">0 字</span></span>
-            <textarea id="bodyInput" spellcheck="false">有时候，写作并不是为了得到一个答案。
-
-它更像是在安静的房间里点亮一盏灯，让那些没有被说出口的感受，终于拥有形状。
-
-我们把日子拆成句子，把犹豫放进标点，把想念留在段落之间。然后在某个深夜，重新读到从前的自己。
-
-原来文字真正保存下来的，不只是故事，还有我们曾经认真生活过的证据。
-
-所以，请继续写吧。</textarea>
-          </label>
+            <div class="format-toolbar" aria-label="文字格式">
+              <button type="button" data-format-command="bold" title="粗体" aria-label="粗体"><strong>B</strong></button>
+              <button type="button" data-format-command="italic" title="斜体" aria-label="斜体"><i>I</i></button>
+              <button type="button" data-format-command="underline" title="下划线" aria-label="下划线"><u>U</u></button>
+              <button type="button" data-format-command="strikeThrough" title="删除线" aria-label="删除线"><s>S</s></button>
+              <button type="button" data-format-command="removeFormat" title="清除格式" aria-label="清除格式">×</button>
+            </div>
+            <div id="bodyInput" class="rich-editor" contenteditable="true" spellcheck="false"><p>有时候，写作并不是为了得到一个答案。</p><p>它更像是在安静的房间里点亮一盏灯，让那些没有被说出口的感受，终于拥有形状。</p><p>我们把日子拆成句子，把犹豫放进标点，把想念留在段落之间。然后在某个深夜，重新读到从前的自己。</p><p>原来文字真正保存下来的，不只是故事，还有我们曾经认真生活过的证据。</p><p>所以，请继续写吧。</p></div>
+          </div>
           <div class="preference-block">
             <div class="preference-title">文本处理</div>
             <label class="toggle-row generation-option"><span><strong>清理并智能分段</strong><small>仅在粘贴后的换行混乱时开启</small></span><input id="smartParagraphToggle" type="checkbox" /></label>
@@ -59,9 +58,9 @@
             <div class="field-group-title"><span>版式模板</span></div>
             <div class="layout-template-grid" id="layoutTemplateGrid">
               <button class="layout-template active" data-layout-template="folio" type="button"><i class="layout-folio"><b></b><em></em><span></span></i><strong>刊页</strong></button>
-              <button class="layout-template" data-layout-template="quiet" type="button"><i class="layout-quiet"><b></b><em></em><span></span></i><strong>留白</strong></button>
-              <button class="layout-template" data-layout-template="margin" type="button"><i class="layout-margin"><b></b><em></em><span></span></i><strong>边注</strong></button>
-              <button class="layout-template" data-layout-template="signal" type="button"><i class="layout-signal"><b></b><em></em><span></span></i><strong>题签</strong></button>
+              <button class="layout-template" data-layout-template="quiet" type="button"><i class="layout-quiet"><b></b><em></em><span></span></i><strong>对页</strong></button>
+              <button class="layout-template" data-layout-template="margin" type="button"><i class="layout-margin"><b></b><em></em><span></span></i><strong>竖题</strong></button>
+              <button class="layout-template" data-layout-template="signal" type="button"><i class="layout-signal"><b></b><em></em><span></span></i><strong>章页</strong></button>
             </div>
           </div>
           <div class="field-group">

@@ -27,9 +27,9 @@ const PRESETS = {
 
 const LAYOUT_RECIPES = {
   folio: { fontFamily: "serif", titleFontFamily: "serif", titleSize: 56, titleWeight: 700, lineHeight: 1.88, paragraphSpacing: 1.15, pagePadding: 88, compositionStyle: "editorial", indent: true },
-  quiet: { fontFamily: "serif", titleFontFamily: "serif", titleSize: 50, titleWeight: 400, lineHeight: 1.98, paragraphSpacing: 1.35, pagePadding: 104, compositionStyle: "open", indent: false },
-  margin: { fontFamily: "serif", titleFontFamily: "sans-serif", titleSize: 64, titleWeight: 700, lineHeight: 1.82, paragraphSpacing: 1.05, pagePadding: 88, compositionStyle: "editorial", indent: true },
-  signal: { fontFamily: "serif", titleFontFamily: "sans-serif", titleSize: 72, titleWeight: 900, lineHeight: 1.72, paragraphSpacing: 0.9, pagePadding: 72, compositionStyle: "compact", indent: false }
+  quiet: { fontFamily: "serif", titleFontFamily: "serif", titleSize: 54, titleWeight: 400, lineHeight: 1.95, paragraphSpacing: 1.3, pagePadding: 88, compositionStyle: "open", indent: false },
+  margin: { fontFamily: "serif", titleFontFamily: "serif", titleSize: 52, titleWeight: 700, lineHeight: 1.84, paragraphSpacing: 1.05, pagePadding: 80, compositionStyle: "editorial", indent: true },
+  signal: { fontFamily: "serif", titleFontFamily: "sans-serif", titleSize: 78, titleWeight: 900, lineHeight: 1.74, paragraphSpacing: 0.95, pagePadding: 72, compositionStyle: "compact", indent: false }
 };
 
 const SLOGANS = [
@@ -113,13 +113,54 @@ let generatedDocument = null;
 let contentIsDirty = false;
 let exportFormat = "png";
 
+function bodyText() {
+  return elements.body.innerText.replace(/\u00a0/g, " ").replace(/\n{3,}/g, "\n\n").trim();
+}
+
+function setBodyText(text) {
+  elements.body.replaceChildren(...text.split(/\n\s*\n/).filter(Boolean).map((content) => {
+    const paragraph = document.createElement("p");
+    paragraph.textContent = content;
+    return paragraph;
+  }));
+}
+
+function extractRichParagraphs() {
+  const blocks = [...elements.body.childNodes];
+  const paragraphs = [];
+  const walk = (node, inherited, runs) => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      if (node.textContent) runs.push({ text: node.textContent, ...inherited });
+      return;
+    }
+    if (node.nodeType !== Node.ELEMENT_NODE) return;
+    if (node.tagName === "BR") {
+      runs.push({ text: "\n", ...inherited });
+      return;
+    }
+    const style = { ...inherited };
+    if (["B", "STRONG"].includes(node.tagName)) style.bold = true;
+    if (["I", "EM"].includes(node.tagName)) style.italic = true;
+    if (node.tagName === "U") style.underline = true;
+    if (["S", "STRIKE"].includes(node.tagName)) style.strike = true;
+    [...node.childNodes].forEach((child) => walk(child, style, runs));
+  };
+  blocks.forEach((block) => {
+    const runs = [];
+    walk(block, {}, runs);
+    if (runs.some((run) => run.text.trim())) paragraphs.push(runs);
+  });
+  if (!paragraphs.length && bodyText()) paragraphs.push([{ text: bodyText() }]);
+  return paragraphs;
+}
+
 function textParagraphs() {
   if (!generatedDocument) return [];
-  return generatedDocument.body.split(/\n\s*\n/).map((text) => text.trim()).filter(Boolean);
+  return generatedDocument.paragraphs;
 }
 
 function updateControlLabels() {
-  elements.charCount.textContent = `${elements.body.value.replace(/\s/g, "").length} 字`;
+  elements.charCount.textContent = `${bodyText().replace(/\s/g, "").length} 字`;
   $$(".number-field").forEach((input) => { input.value = settings[input.dataset.setting].value; });
   $("#backgroundColorValue").value = settings.backgroundColor.value.toUpperCase();
   $("#textColorValue").value = settings.textColor.value.toUpperCase();
@@ -138,9 +179,16 @@ function render() {
 
   elements.previewTitle.textContent = generatedDocument.title;
   elements.previewAuthor.textContent = generatedDocument.author;
-  elements.previewBody.replaceChildren(...textParagraphs().map((text) => {
+  elements.previewBody.replaceChildren(...textParagraphs().map((runs) => {
     const paragraph = document.createElement("p");
-    paragraph.textContent = text;
+    runs.forEach((run) => {
+      const span = document.createElement("span");
+      span.textContent = run.text;
+      span.style.fontWeight = run.bold ? "700" : "inherit";
+      span.style.fontStyle = run.italic ? "italic" : "normal";
+      span.style.textDecoration = [run.underline && "underline", run.strike && "line-through"].filter(Boolean).join(" ") || "none";
+      paragraph.append(span);
+    });
     return paragraph;
   }));
 
@@ -219,7 +267,7 @@ function applyAutomaticTypography(characterCount) {
 }
 
 function generateDocument() {
-  const rawText = elements.body.value.trim();
+  const rawText = bodyText();
   if (!rawText) {
     showToast("请先完成正文输入");
     elements.body.focus();
@@ -231,7 +279,10 @@ function generateDocument() {
   generatedDocument = {
     title: elements.title.value.trim() || "未命名文字",
     author: elements.author.value.trim() || "佚名",
-    body
+    body,
+    paragraphs: settings.smartParagraph.checked
+      ? body.split(/\n\s*\n/).map((text) => [{ text }])
+      : extractRichParagraphs()
   };
   contentIsDirty = false;
   elements.poster.hidden = false;
@@ -259,7 +310,8 @@ function getState() {
   return {
     title: elements.title.value,
     author: elements.author.value,
-    body: elements.body.value,
+    body: bodyText(),
+    bodyHtml: elements.body.innerHTML,
     alignment,
     layoutTemplate,
     zoom,
@@ -282,7 +334,8 @@ function loadState() {
     if (!state) return;
     elements.title.value = state.title ?? elements.title.value;
     elements.author.value = state.author ?? elements.author.value;
-    elements.body.value = state.body ?? elements.body.value;
+    if (state.bodyHtml) elements.body.innerHTML = state.bodyHtml;
+    else if (state.body) setBodyText(state.body);
     alignment = state.alignment ?? alignment;
     layoutTemplate = LAYOUT_RECIPES[state.layoutTemplate] ? state.layoutTemplate : layoutTemplate;
     zoom = state.zoom ?? zoom;
@@ -435,6 +488,58 @@ function wrapParagraph(ctx, text, maxWidth, spacing, indentWidth) {
   return lines;
 }
 
+function richFont(run, fontSize) {
+  return `${run.italic ? "italic " : ""}${run.bold ? "700" : "400"} ${fontSize}px ${FONT_STACKS[settings.fontFamily.value]}`;
+}
+
+function richLineWidth(ctx, line, fontSize, spacing) {
+  return line.reduce((width, glyph, index) => {
+    ctx.font = richFont(glyph, fontSize);
+    return width + ctx.measureText(glyph.char).width + (index ? spacing : 0);
+  }, 0);
+}
+
+function wrapRichParagraph(ctx, runs, maxWidth, fontSize, spacing, indentWidth) {
+  const glyphs = runs.flatMap((run) => [...run.text].map((char) => ({ ...run, char })));
+  const lines = [];
+  let line = [];
+  for (const glyph of glyphs) {
+    if (glyph.char === "\n") {
+      lines.push(line);
+      line = [];
+      continue;
+    }
+    const availableWidth = maxWidth - (lines.length === 0 ? indentWidth : 0);
+    const candidate = [...line, glyph];
+    if (line.length && richLineWidth(ctx, candidate, fontSize, spacing) > availableWidth) {
+      if (FORBIDDEN_LINE_START.has(glyph.char)) {
+        line.push(glyph);
+        continue;
+      }
+      const carry = [];
+      while (line.length && FORBIDDEN_LINE_END.has(line[line.length - 1].char)) carry.unshift(line.pop());
+      if (line.length) lines.push(line);
+      line = [...carry, glyph];
+    } else {
+      line = candidate;
+    }
+  }
+  if (line.length) lines.push(line);
+  return lines.length ? lines : [[]];
+}
+
+function drawRichLine(ctx, line, x, baseline, fontSize, spacing) {
+  let currentX = x;
+  line.forEach((glyph, index) => {
+    ctx.font = richFont(glyph, fontSize);
+    const width = ctx.measureText(glyph.char).width;
+    ctx.fillText(glyph.char, currentX, baseline);
+    if (glyph.underline) ctx.fillRect(currentX, baseline + fontSize * 0.12, width, Math.max(1, fontSize * 0.045));
+    if (glyph.strike) ctx.fillRect(currentX, baseline - fontSize * 0.32, width, Math.max(1, fontSize * 0.045));
+    currentX += width + (index < line.length - 1 ? spacing : 0);
+  });
+}
+
 function getCanvasLayout(scale = 2) {
   const width = Number(settings.contentWidth.value);
   const padding = Number(settings.pagePadding.value);
@@ -447,20 +552,19 @@ function getCanvasLayout(scale = 2) {
   const fullWidth = width - padding * 2;
   const templateGeometry = {
     folio: { inset: 0, ratio: 1, indexStep: 64, accentWidth: 16, accentHeight: 48, accentStep: 96, ruleGap: 56 },
-    quiet: { inset: fullWidth * 0.09, ratio: 0.82, indexStep: 88, accentWidth: 64, accentHeight: 4, accentStep: 58, ruleGap: 72 },
-    margin: { inset: 72, ratio: 1, indexStep: 72, accentWidth: 4, accentHeight: 152, accentStep: 104, ruleGap: 56 },
+    quiet: { inset: fullWidth * 0.28, ratio: 0.72, indexStep: 74, accentWidth: fullWidth * 0.22, accentHeight: 4, accentStep: 52, ruleGap: 64 },
+    margin: { inset: 180, ratio: 1, indexStep: 72, accentWidth: 4, accentHeight: 360, accentStep: 48, ruleGap: 0 },
     signal: { inset: 0, ratio: 1, indexStep: 48, accentWidth: fullWidth, accentHeight: 6, accentStep: 44, ruleGap: 48 }
   }[layoutTemplate] || null;
   const contentX = padding + templateGeometry.inset;
   const usableWidth = layoutTemplate === "margin" ? fullWidth - templateGeometry.inset : fullWidth * templateGeometry.ratio;
   const titleX = contentX;
-  const titleWidth = layoutTemplate === "signal" ? usableWidth * 0.84 : usableWidth;
+  const titleWidth = layoutTemplate === "signal" ? usableWidth * 0.88 : layoutTemplate === "margin" ? 110 : usableWidth;
   const measure = document.createElement("canvas").getContext("2d");
-  measure.font = `${fontSize}px ${FONT_STACKS[settings.fontFamily.value]}`;
   const indentWidth = settings.indent.checked ? fontSize * 2 : 0;
-  const paragraphs = textParagraphs().map((text) => wrapParagraph(measure, text, usableWidth, letterSpacing, indentWidth));
+  const paragraphs = textParagraphs().map((runs) => wrapRichParagraph(measure, runs, usableWidth, fontSize, letterSpacing, indentWidth));
   measure.font = `${titleWeight} ${titleSize}px ${FONT_STACKS[settings.titleFontFamily.value]}`;
-  const titleLines = wrapText(measure, generatedDocument.title, titleWidth, 0);
+  const titleLines = layoutTemplate === "margin" ? [generatedDocument.title] : wrapText(measure, generatedDocument.title, titleWidth, 0);
   const bodyHeight = paragraphs.reduce((height, lines) => height + lines.length * lineHeight + paragraphGap, 0);
   const topPadding = 48;
   const titleLineHeight = titleSize * 1.22;
@@ -468,12 +572,13 @@ function getCanvasLayout(scale = 2) {
   const titleStart = settings.header.checked
     ? topPadding + indexStep + accentStep + titleSize + 24
     : topPadding + titleSize + 40;
-  const bodyStart = titleStart + titleLines.length * titleLineHeight + 16 + ruleGap;
+  const bodyStart = layoutTemplate === "margin" ? 220 : titleStart + titleLines.length * titleLineHeight + 16 + ruleGap;
   const footerHeight = settings.signature.checked ? padding + 45 : padding;
-  const accentX = layoutTemplate === "quiet" ? padding + (fullWidth - accentWidth) / 2 : padding;
-  const ruleWidth = layoutTemplate === "quiet" ? 72 : layoutTemplate === "signal" ? usableWidth * 0.38 : titleWidth;
-  const ruleX = layoutTemplate === "quiet" ? padding + (fullWidth - ruleWidth) / 2 : titleX;
-  return { scale, width, padding, topPadding, fontSize, titleSize, titleWeight, titleLineHeight, lineHeight, letterSpacing, paragraphGap, fullWidth, contentX, usableWidth, titleX, titleWidth, paragraphs, titleLines, indexStep, accentX, accentWidth, accentHeight, accentStep, ruleX, ruleWidth, ruleGap, titleStart, bodyStart, height: Math.ceil(bodyStart + bodyHeight + footerHeight) };
+  const accentX = layoutTemplate === "margin" ? padding + 128 : padding;
+  const ruleWidth = layoutTemplate === "signal" ? usableWidth * 0.38 : titleWidth;
+  const ruleX = titleX;
+  const titleVerticalHeight = layoutTemplate === "margin" ? [...generatedDocument.title].length * titleSize * 1.08 + 180 : 0;
+  return { scale, width, padding, topPadding, fontSize, titleSize, titleWeight, titleLineHeight, lineHeight, letterSpacing, paragraphGap, fullWidth, contentX, usableWidth, titleX, titleWidth, paragraphs, titleLines, indexStep, accentX, accentWidth, accentHeight, accentStep, ruleX, ruleWidth, ruleGap, titleStart, bodyStart, height: Math.ceil(Math.max(bodyStart + bodyHeight + footerHeight, titleVerticalHeight + padding)) };
 }
 
 function exportImage() {
@@ -496,6 +601,13 @@ function exportImage() {
       for (let x = 4 + (y % 18); x < layout.width; x += 18) ctx.fillRect(x, y, 1, 1);
     }
   }
+  if (layoutTemplate === "signal") {
+    ctx.fillStyle = settings.textColor.value;
+    ctx.globalAlpha = 0.07;
+    ctx.font = "900 132px Georgia, serif";
+    ctx.fillText("XVI", layout.padding, 180);
+    ctx.globalAlpha = 1;
+  }
 
   let y = layout.topPadding;
   if (settings.header.checked) {
@@ -514,40 +626,52 @@ function exportImage() {
     y += layout.accentStep;
     ctx.font = "700 12px Arial, sans-serif";
     const kicker = settings.kickerText.value.trim() || "LONGFORM COMPOSITION / 016";
-    if (layoutTemplate === "quiet") {
-      drawTextWithSpacing(ctx, kicker, layout.width / 2 - measuredWidth(ctx, kicker, 2) / 2, y, 2);
-    } else {
-      drawTextWithSpacing(ctx, kicker, layout.titleX, y, 2);
+    if (layoutTemplate !== "margin") {
+      const kickerX = layoutTemplate === "quiet" ? layout.padding : layout.titleX;
+      drawTextWithSpacing(ctx, kicker, kickerX, y, 2);
     }
-    y += layout.titleSize + 24;
+    if (layoutTemplate !== "margin") {
+      y += layout.titleSize + 24;
+    } else {
+      y = 170 + layout.titleSize;
+    }
   } else {
     y = layout.titleStart;
   }
 
   ctx.fillStyle = settings.textColor.value;
   ctx.font = `${layout.titleWeight} ${layout.titleSize}px ${FONT_STACKS[settings.titleFontFamily.value]}`;
-  if (layoutTemplate === "quiet") ctx.textAlign = "center";
-  layout.titleLines.forEach((line) => {
-    ctx.fillText(line, layoutTemplate === "quiet" ? layout.width / 2 : layout.titleX, y);
-    y += layout.titleLineHeight;
-  });
+  if (layoutTemplate === "margin") {
+    [...generatedDocument.title].forEach((char) => {
+      ctx.fillText(char, layout.padding, y);
+      y += layout.titleSize * 1.08;
+    });
+    y = layout.bodyStart;
+  } else {
+    layout.titleLines.forEach((line) => {
+      ctx.fillText(line, layout.titleX, y);
+      y += layout.titleLineHeight;
+    });
+  }
   ctx.textAlign = "left";
-  y += 16;
-  ctx.globalAlpha = layoutTemplate === "signal" ? 1 : 0.18;
-  ctx.fillStyle = layoutTemplate === "signal" || layoutTemplate === "quiet" ? settings.accentColor.value : settings.textColor.value;
-  ctx.fillRect(layout.ruleX, y, layout.ruleWidth, layoutTemplate === "signal" ? 3 : 1);
-  ctx.globalAlpha = 1;
-  y += layout.ruleGap;
+  if (layoutTemplate !== "margin") {
+    y += 16;
+    ctx.globalAlpha = layoutTemplate === "signal" ? 1 : 0.18;
+    ctx.fillStyle = layoutTemplate === "signal" || layoutTemplate === "quiet" ? settings.accentColor.value : settings.textColor.value;
+    ctx.fillRect(layout.ruleX, y, layout.ruleWidth, layoutTemplate === "signal" ? 3 : 1);
+    ctx.globalAlpha = 1;
+    y += layout.ruleGap;
+  }
 
-  ctx.font = `${layout.fontSize}px ${FONT_STACKS[settings.fontFamily.value]}`;
+  ctx.fillStyle = settings.textColor.value;
   layout.paragraphs.forEach((lines) => {
     lines.forEach((line, lineIndex) => {
       let x = layout.contentX;
       const indent = settings.indent.checked && lineIndex === 0 ? layout.fontSize * 2 : 0;
-      const lineWidth = measuredWidth(ctx, line, layout.letterSpacing);
+      const lineWidth = richLineWidth(ctx, line, layout.fontSize, layout.letterSpacing);
       if (alignment === "center") x += (layout.usableWidth - lineWidth) / 2;
       else x += indent;
-      drawTextWithSpacing(ctx, line, x, y, layout.letterSpacing);
+      drawRichLine(ctx, line, x, y, layout.fontSize, layout.letterSpacing);
       y += layout.lineHeight;
     });
     y += layout.paragraphGap;
@@ -605,6 +729,25 @@ $$('.number-field').forEach((input) => input.addEventListener("change", () => {
   render();
 }));
 [elements.title, elements.author, elements.body].forEach((input) => input.addEventListener("input", markContentDirty));
+elements.body.addEventListener("paste", (event) => {
+  event.preventDefault();
+  document.execCommand("insertText", false, event.clipboardData.getData("text/plain"));
+});
+$$('[data-format-command]').forEach((button) => {
+  button.addEventListener("mousedown", (event) => event.preventDefault());
+  button.addEventListener("click", () => {
+    elements.body.focus();
+    document.execCommand(button.dataset.formatCommand, false);
+    markContentDirty();
+  });
+});
+document.addEventListener("selectionchange", () => {
+  if (!elements.body.contains(document.getSelection()?.anchorNode)) return;
+  $$('[data-format-command]').forEach((button) => {
+    if (button.dataset.formatCommand === "removeFormat") return;
+    button.classList.toggle("active", document.queryCommandState(button.dataset.formatCommand));
+  });
+});
 
 $$('[data-align]').forEach((button) => button.addEventListener("click", () => {
   alignment = button.dataset.align;
@@ -631,8 +774,8 @@ $("#sloganButton").addEventListener("click", () => {
 
 $("#zoomOut").addEventListener("click", () => { zoom = Math.max(0.35, zoom - 0.05); render(); });
 $("#zoomIn").addEventListener("click", () => { zoom = Math.min(1, zoom + 0.05); render(); });
-$("#clearButton").addEventListener("click", () => { elements.body.value = ""; markContentDirty(); elements.body.focus(); });
-$("#sampleButton").addEventListener("click", () => { elements.body.value = SAMPLE_TEXT; markContentDirty(); });
+$("#clearButton").addEventListener("click", () => { elements.body.replaceChildren(); markContentDirty(); elements.body.focus(); });
+$("#sampleButton").addEventListener("click", () => { setBodyText(SAMPLE_TEXT); markContentDirty(); });
 elements.generateButton.addEventListener("click", generateDocument);
 elements.exportButton.addEventListener("click", exportImage);
 $("#exportPanelButton").addEventListener("click", exportImage);
