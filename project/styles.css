@@ -161,6 +161,12 @@ input[type="range"] { width: 100%; accent-color: #819d93; }
 .preset .berry { background: #f1e7ec; color: #b57c98; }
 .preset .indigo { background: #e8ecf2; color: #7d93b5; }
 .preset .cinnabar { background: #f1e6df; color: #c45f4e; }
+.preset .midnight { background: #171c24; color: #7e91ad; }
+.preset .inkstone { background: #20201e; color: #a18f78; }
+.preset .deepPine { background: #17231f; color: #789788; }
+.preset .wine { background: #2a171d; color: #a97883; }
+.preset .nightPlum { background: #211a2a; color: #9a86b0; }
+.preset .deepSea { background: #142529; color: #6f9da0; }
 
 .color-grid { display: grid; margin-bottom: 24px; border-top: 1px solid var(--line); }
 .color-grid > label { min-height: 52px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); color: #59635f; font-size: 11px; font-weight: 700; }

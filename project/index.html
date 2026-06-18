@@ -6,7 +6,10 @@
     <meta name="theme-color" content="#eef1ef" />
     <title>XVI / 十六开</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-regular.css" />
-    <link rel="stylesheet" href="styles.css?v=0.5.3" />
+    <link rel="stylesheet" href="https://fontsapi.zeoseven.com/256/main/result.css" />
+    <link rel="stylesheet" href="https://fontsapi.zeoseven.com/7/main/result.css" />
+    <link rel="stylesheet" href="https://fontsapi.zeoseven.com/92/main/result.css" />
+    <link rel="stylesheet" href="styles.css?v=0.6.0" />
   </head>
   <body>
     <header class="app-header">
@@ -55,15 +58,6 @@
 
         <section class="tab-panel" data-panel="design">
           <div class="field-group">
-            <div class="field-group-title"><span>版式模板</span></div>
-            <div class="layout-template-grid" id="layoutTemplateGrid">
-              <button class="layout-template active" data-layout-template="folio" type="button"><i class="layout-folio"><b></b><em></em><span></span></i><strong>刊页</strong></button>
-              <button class="layout-template" data-layout-template="quiet" type="button"><i class="layout-quiet"><b></b><em></em><span></span></i><strong>对页</strong></button>
-              <button class="layout-template" data-layout-template="margin" type="button"><i class="layout-margin"><b></b><em></em><span></span></i><strong>竖题</strong></button>
-              <button class="layout-template" data-layout-template="signal" type="button"><i class="layout-signal"><b></b><em></em><span></span></i><strong>章页</strong></button>
-            </div>
-          </div>
-          <div class="field-group">
             <div class="field-group-title"><span>配色灵感</span><button id="randomPresetButton" type="button">换一个</button></div>
             <div class="preset-grid" id="presetGrid">
               <button class="preset active" data-preset="mist" type="button"><i class="mist"></i><span>晨雾</span></button>
@@ -78,6 +72,12 @@
               <button class="preset" data-preset="berry" type="button"><i class="berry"></i><span>莓影</span></button>
               <button class="preset" data-preset="indigo" type="button"><i class="indigo"></i><span>靛青</span></button>
               <button class="preset" data-preset="cinnabar" type="button"><i class="cinnabar"></i><span>朱砂</span></button>
+              <button class="preset" data-preset="midnight" type="button"><i class="midnight"></i><span>午夜</span></button>
+              <button class="preset" data-preset="inkstone" type="button"><i class="inkstone"></i><span>砚黑</span></button>
+              <button class="preset" data-preset="deepPine" type="button"><i class="deepPine"></i><span>深松</span></button>
+              <button class="preset" data-preset="wine" type="button"><i class="wine"></i><span>酒渍</span></button>
+              <button class="preset" data-preset="nightPlum" type="button"><i class="nightPlum"></i><span>夜梅</span></button>
+              <button class="preset" data-preset="deepSea" type="button"><i class="deepSea"></i><span>深海</span></button>
             </div>
           </div>
           <div class="color-grid">
@@ -86,8 +86,8 @@
             <label>强调<span class="color-input-wrap"><input id="accentColor" type="color" value="#9ebbc4" /><output id="accentColorValue">#9EBBC4</output></span></label>
           </div>
           <div class="field-group compact-grid font-selectors">
-            <label>正文字体<select id="fontFamily"><option value="serif">宋体</option><option value="sans-serif">黑体</option><option value="lxgw">霞鹜文楷</option><option value="kai">楷体</option><option value="fangSong">仿宋</option><option value="rounded">圆体</option><option value="lanting">兰亭黑</option><option value="hannotate">手札体</option><option value="hanzipen">翩翩体</option><option value="xingkai">行楷</option><option value="libian">隶变</option><option value="weibei">魏碑</option><option value="mono">等宽</option></select></label>
-            <label>标题字体<select id="titleFontFamily"><option value="serif">宋体</option><option value="sans-serif">黑体</option><option value="lxgw">霞鹜文楷</option><option value="kai">楷体</option><option value="fangSong">仿宋</option><option value="rounded">圆体</option><option value="lanting">兰亭黑</option><option value="hannotate">手札体</option><option value="hanzipen">翩翩体</option><option value="xingkai">行楷</option><option value="libian">隶变</option><option value="weibei">魏碑</option><option value="mono">等宽</option></select></label>
+            <label>正文字体<select id="fontFamily"><option value="serif">宋体</option><option value="sans-serif">黑体</option><option value="lxgw">霞鹜文楷</option><option value="huiwen">汇文明朝体</option><option value="zhuque">朱雀仿宋</option><option value="smiley">得意黑</option><option value="mono">等宽</option></select></label>
+            <label>标题字体<select id="titleFontFamily"><option value="serif">宋体</option><option value="sans-serif">黑体</option><option value="lxgw">霞鹜文楷</option><option value="huiwen">汇文明朝体</option><option value="zhuque">朱雀仿宋</option><option value="smiley">得意黑</option><option value="mono">等宽</option></select></label>
           </div>
           <label class="font-upload" for="customFontInput"><input id="customFontInput" type="file" accept=".ttf,.otf,.woff,.woff2,font/ttf,font/otf,font/woff,font/woff2" /><span>＋ 导入本地字体</span><small id="customFontName">TTF · OTF · WOFF</small></label>
           <div class="control-row"><label>正文字号<span><input class="number-field" data-setting="fontSize" type="number" min="16" max="72" value="34" /> px</span></label><input id="fontSize" type="range" min="16" max="72" value="34" /></div>
@@ -97,7 +97,7 @@
             <div class="advanced-content">
               <div class="field-group compact-grid">
                 <label>标题字重<select id="titleWeight"><option value="400">Regular / 400</option><option value="600">Semibold / 600</option><option value="700" selected>Bold / 700</option><option value="900">Black / 900</option></select></label>
-                <label>版式结构<select id="compositionStyle"><option value="editorial">Editorial</option><option value="compact">Compact</option><option value="open">Open</option></select></label>
+                <label>版式结构<select id="compositionStyle"><option value="editorial">标准</option><option value="compact">紧凑</option><option value="open">舒展</option></select></label>
               </div>
               <div class="field-group compact-grid header-copy-fields">
                 <label>右上角文字<input id="editionText" type="text" maxlength="40" value="016 / LONGFORM" /></label>
@@ -120,7 +120,7 @@
         <section class="tab-panel" data-panel="export">
           <div class="export-summary"><span>当前画布</span><strong id="exportCanvasInfo">896 px · 自动高度</strong></div>
           <fieldset class="field-group"><legend>文件格式</legend><div class="segmented-control export-format"><button type="button" data-format="png" class="active">PNG</button><button type="button" data-format="jpeg">JPG</button></div></fieldset>
-          <div class="field-group"><label for="exportScale">清晰度</label><select id="exportScale"><option value="1">适合预览</option><option value="2" selected>适合发布</option><option value="3">适合存档</option></select></div>
+          <div class="field-group"><label for="exportScale">清晰度</label><select id="exportScale"><option value="1">1×</option><option value="2" selected>2×</option><option value="3">3×</option></select></div>
           <div class="field-group"><label for="exportFileName">文件名</label><input id="exportFileName" type="text" placeholder="默认使用文章标题" /></div>
           <div class="export-note"><strong>内容仅在本地生成</strong><span>正文、字体和图片不会上传。</span></div>
           <button class="generate-button export-action" id="exportPanelButton" type="button" disabled><span><b>↓</b><small>EXPORT</small></span><strong>导出图片</strong><i aria-hidden="true">→</i></button>
@@ -141,6 +141,6 @@
       </section>
     </main>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="app.js?v=0.5.3"></script>
+    <script src="app.js?v=0.6.0"></script>
   </body>
 </html>

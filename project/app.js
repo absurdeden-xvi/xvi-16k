@@ -22,7 +22,13 @@ const PRESETS = {
   salt: { background: "#e7f0ed", text: "#29433d", accent: "#74a69a" },
   berry: { background: "#f1e7ec", text: "#452f3c", accent: "#b57c98" },
   indigo: { background: "#e8ecf2", text: "#27344d", accent: "#7d93b5" },
-  cinnabar: { background: "#f1e6df", text: "#492e2a", accent: "#c45f4e" }
+  cinnabar: { background: "#f1e6df", text: "#492e2a", accent: "#c45f4e" },
+  midnight: { background: "#171c24", text: "#d9dde5", accent: "#7e91ad" },
+  inkstone: { background: "#20201e", text: "#e8e3d8", accent: "#a18f78" },
+  deepPine: { background: "#17231f", text: "#dbe4dc", accent: "#789788" },
+  wine: { background: "#2a171d", text: "#eadde0", accent: "#a97883" },
+  nightPlum: { background: "#211a2a", text: "#e5ddec", accent: "#9a86b0" },
+  deepSea: { background: "#142529", text: "#d9e5e4", accent: "#6f9da0" }
 };
 
 const LAYOUT_RECIPES = {
@@ -47,6 +53,9 @@ const FONT_STACKS = {
   serif: '"Songti SC", STSong, SimSun, serif',
   "sans-serif": '"PingFang SC", "Microsoft YaHei", sans-serif',
   lxgw: '"LXGW WenKai", "Kaiti SC", KaiTi, serif',
+  huiwen: '"Huiwen-mincho", "Songti SC", SimSun, serif',
+  zhuque: '"Zhuque Fangsong (technical preview)", "Zhuque Fangsong", STFangsong, FangSong, serif',
+  smiley: '"Smiley Sans Oblique", "PingFang SC", sans-serif',
   kai: '"Kaiti SC", STKaiti, KaiTi, serif',
   fangSong: 'STFangsong, FangSong, "FangSong SC", serif',
   rounded: '"Hiragino Maru Gothic ProN", "Yuanti SC", "Arial Rounded MT Bold", sans-serif',
@@ -396,7 +405,7 @@ function loadState() {
     if (state.bodyHtml) elements.body.innerHTML = state.bodyHtml;
     else if (state.body) setBodyText(state.body);
     alignment = state.alignment ?? alignment;
-    layoutTemplate = LAYOUT_RECIPES[state.layoutTemplate] ? state.layoutTemplate : layoutTemplate;
+    layoutTemplate = "folio";
     zoom = state.zoom ?? zoom;
     Object.entries(state.values || {}).forEach(([key, value]) => {
       if (!settings[key]) return;
@@ -609,8 +618,14 @@ function getCanvasLayout(scale = 2) {
   const letterSpacing = Number(settings.letterSpacing.value);
   const paragraphGap = fontSize * Number(settings.paragraphSpacing.value);
   const fullWidth = width - padding * 2;
+  const composition = settings.compositionStyle.value;
+  const folioGeometry = composition === "compact"
+    ? { inset: 0, ratio: 1, indexStep: 48, accentWidth: 16, accentHeight: 16, accentStep: 48, ruleGap: 40 }
+    : composition === "open"
+      ? { inset: 0, ratio: 1, indexStep: 96, accentWidth: 16, accentHeight: 80, accentStep: 152, ruleGap: 80 }
+      : { inset: 0, ratio: 1, indexStep: 64, accentWidth: 16, accentHeight: 48, accentStep: 96, ruleGap: 56 };
   const templateGeometry = {
-    folio: { inset: 0, ratio: 1, indexStep: 64, accentWidth: 16, accentHeight: 48, accentStep: 96, ruleGap: 56 },
+    folio: folioGeometry,
     quiet: { inset: fullWidth * 0.28, ratio: 0.72, indexStep: 74, accentWidth: fullWidth * 0.22, accentHeight: 4, accentStep: 52, ruleGap: 64 },
     margin: { inset: 180, ratio: 1, indexStep: 72, accentWidth: 4, accentHeight: 360, accentStep: 48, ruleGap: 0 },
     signal: { inset: 0, ratio: 1, indexStep: 48, accentWidth: fullWidth, accentHeight: 6, accentStep: 44, ruleGap: 48 }
@@ -640,11 +655,12 @@ function getCanvasLayout(scale = 2) {
   return { scale, width, padding, topPadding, fontSize, titleSize, titleWeight, titleLineHeight, lineHeight, letterSpacing, paragraphGap, fullWidth, contentX, usableWidth, titleX, titleWidth, paragraphs, titleLines, indexStep, accentX, accentWidth, accentHeight, accentStep, ruleX, ruleWidth, ruleGap, titleStart, bodyStart, height: Math.ceil(Math.max(bodyStart + bodyHeight + footerHeight, titleVerticalHeight + padding)) };
 }
 
-function exportImage() {
+async function exportImage() {
   if (!generatedDocument || contentIsDirty) {
     showToast("请先完成自动排版");
     return;
   }
+  await document.fonts.ready;
   const layout = getCanvasLayout(Number($("#exportScale").value));
   const canvas = document.createElement("canvas");
   canvas.width = layout.width * layout.scale;
