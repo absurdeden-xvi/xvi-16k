@@ -163,6 +163,40 @@ function extractRichParagraphs() {
   return paragraphs;
 }
 
+function applyFormattingToComposedText(composedText, sourceParagraphs) {
+  const styledCharacters = sourceParagraphs
+    .flatMap((runs) => runs)
+    .flatMap((run) => [...run.text].filter((char) => !/\s/.test(char)).map((char) => ({
+      char,
+      bold: Boolean(run.bold),
+      italic: Boolean(run.italic),
+      underline: Boolean(run.underline),
+      strike: Boolean(run.strike)
+    })));
+  let sourceIndex = 0;
+  let lastStyle = {};
+  return composedText.split(/\n\s*\n/).map((paragraphText) => {
+    const runs = [];
+    [...paragraphText].forEach((char) => {
+      let style = lastStyle;
+      if (!/\s/.test(char)) {
+        const source = styledCharacters[sourceIndex++];
+        style = source ? { bold: source.bold, italic: source.italic, underline: source.underline, strike: source.strike } : {};
+        lastStyle = style;
+      }
+      const previous = runs[runs.length - 1];
+      const sameStyle = previous
+        && Boolean(previous.bold) === Boolean(style.bold)
+        && Boolean(previous.italic) === Boolean(style.italic)
+        && Boolean(previous.underline) === Boolean(style.underline)
+        && Boolean(previous.strike) === Boolean(style.strike);
+      if (sameStyle) previous.text += char;
+      else runs.push({ text: char, ...style });
+    });
+    return runs;
+  });
+}
+
 function textParagraphs() {
   if (!generatedDocument) return [];
   return generatedDocument.paragraphs;
@@ -285,14 +319,15 @@ function generateDocument() {
   }
   const body = composeText(rawText);
   const characterCount = body.replace(/\s/g, "").length;
+  const sourceParagraphs = extractRichParagraphs();
   if (!generatedDocument) applyAutomaticTypography(characterCount);
   generatedDocument = {
     title: elements.title.value.trim() || "未命名文字",
     author: elements.author.value.trim() || "佚名",
     body,
     paragraphs: settings.smartParagraph.checked
-      ? body.split(/\n\s*\n/).map((text) => [{ text }])
-      : extractRichParagraphs()
+      ? applyFormattingToComposedText(body, sourceParagraphs)
+      : sourceParagraphs
   };
   contentIsDirty = false;
   elements.poster.hidden = false;
