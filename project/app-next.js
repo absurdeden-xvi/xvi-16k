@@ -31,7 +31,7 @@ const PRESETS = {
   deepSea: { background: "#142529", text: "#d9e5e4", accent: "#6f9da0" },
   umber: { background: "#3a2b1b", text: "#f3e7d2", accent: "#d0a969" },
   blueprint: { background: "#f8f8f4", text: "#17469e", accent: "#b52b35" },
-  vermilion: { background: "#d8dbd4", text: "#202421", accent: "#9f431c" },
+  vermilion: { background: "#d5eef0", text: "#153c4a", accent: "#b04727" },
   newsprint: { background: "#f3efe4", text: "#171717", accent: "#b52b35" },
   acidNight: { background: "#171917", text: "#edf1e8", accent: "#bdd34c" },
   farTide: { background: "#f8f6ef", text: "#1948a0", accent: "#ed5b4d" },
@@ -39,13 +39,13 @@ const PRESETS = {
   oriole: { background: "#f2e9dd", text: "#4a1820", accent: "#b43b3f" },
   seaMark: { background: "#cbe5dc", text: "#17424b", accent: "#df594a" },
   blueCurtain: { background: "#1238a3", text: "#fffdf4", accent: "#d8e0ff" },
-  mulberry: { background: "#8b3233", text: "#fff4df", accent: "#e0bd78" },
+  mulberry: { background: "#f3e69a", text: "#164a4b", accent: "#a83e36" },
   pineSmoke: { background: "#f2eee3", text: "#172a22", accent: "#2f6b50" },
-  latePeach: { background: "#d8def7", text: "#20264e", accent: "#a8322c" },
-  gooseShadow: { background: "#cfd4d2", text: "#242829", accent: "#973b1c" },
+  latePeach: { background: "#d8d1f0", text: "#2e2862", accent: "#9d315d" },
+  gooseShadow: { background: "#e4edb8", text: "#3b2146", accent: "#b84322" },
   nightSakura: { background: "#1d1d22", text: "#f2aec5", accent: "#9bd3c2" },
   camelliaPaper: { background: "#f3efe1", text: "#1e5a4d", accent: "#cc6355" },
-  aster: { background: "#191918", text: "#f1e9d9", accent: "#e37232" }
+  aster: { background: "#151c28", text: "#e9e5dc", accent: "#7896bd" }
 };
 
 const PALETTE_FAMILIES = {
@@ -63,25 +63,14 @@ const PALETTE_NAMES = {
 };
 
 const SPECIAL_PRESETS = ["blueprint", "vermilion", "newsprint", "acidNight", "farTide", "roseLetter", "oriole", "seaMark", "blueCurtain", "mulberry", "pineSmoke", "latePeach", "gooseShadow", "nightSakura", "camelliaPaper", "aster"];
-const SPECIAL_PRESET_NAMES = { blueprint: "蓝晒", vermilion: "银幕", newsprint: "铅字", acidNight: "夜萤", farTide: "远潮", roseLetter: "常春藤", oriole: "绯页", seaMark: "潮痕", blueCurtain: "蓝钟", mulberry: "砖红函", pineSmoke: "青案", latePeach: "新月蓝", gooseShadow: "银橙", nightSakura: "夜樱", camelliaPaper: "山茶笺", aster: "黑脊" };
+const SPECIAL_PRESET_NAMES = { blueprint: "蓝晒", vermilion: "玻璃海", newsprint: "铅字", acidNight: "夜萤", farTide: "远潮水", roseLetter: "常春藤", oriole: "绯页", seaMark: "潮痕", blueCurtain: "蓝钟", mulberry: "日晷", pineSmoke: "青案", latePeach: "星盘", gooseShadow: "春雷", nightSakura: "夜樱", camelliaPaper: "山茶笺", aster: "夜汐" };
 
 const LAYOUT_RECIPES = {
-  folio: { fontFamily: "serif", titleFontFamily: "serif", titleSize: 56, titleWeight: 700, lineHeight: 1.88, paragraphSpacing: 1, pagePadding: 88, compositionStyle: "editorial", indent: true },
-  quiet: { fontFamily: "serif", titleFontFamily: "serif", titleSize: 48, titleWeight: 600, lineHeight: 1.92, paragraphSpacing: 1, pagePadding: 78, compositionStyle: "editorial", indent: true },
-  margin: { fontFamily: "serif", titleFontFamily: "serif", titleSize: 52, titleWeight: 700, lineHeight: 1.86, paragraphSpacing: 1.25, pagePadding: 70, compositionStyle: "open", indent: true },
-  signal: { fontFamily: "serif", titleFontFamily: "serif", titleSize: 72, titleWeight: 700, lineHeight: 1.82, paragraphSpacing: 1.5, pagePadding: 84, compositionStyle: "open", indent: false }
+  folio: { titleSize: 56, titleWeight: 700, lineHeight: 1.88, paragraphSpacing: 1, pagePadding: 88, compositionStyle: "editorial", indent: true },
+  book: { titleSize: 58, titleWeight: 600, lineHeight: 1.92, paragraphSpacing: 1, pagePadding: 88, compositionStyle: "editorial", indent: true },
+  letter: { titleSize: 54, titleWeight: 600, lineHeight: 2, paragraphSpacing: 1.25, pagePadding: 86, compositionStyle: "open", indent: false },
+  section: { titleSize: 68, titleWeight: 600, lineHeight: 1.86, paragraphSpacing: 1.25, pagePadding: 84, compositionStyle: "open", indent: false }
 };
-
-const SLOGANS = [
-  { text: "让文字自己呼吸。", source: "XVI" },
-  { text: "把句子放回风里。", source: "XVI" },
-  { text: "留白不是空着。", source: "XVI" },
-  { text: "写完，再慢慢排好。", source: "XVI" },
-  { text: "纸面有它自己的潮汐。", source: "XVI" },
-  { text: "给长文一张安静的脸。", source: "XVI" },
-  { text: "先自由，再成形。", source: "XVI" },
-  { text: "每一段都可以有余地。", source: "XVI" }
-];
 
 const FORBIDDEN_LINE_START = new Set([..."，。！？；：、）》】」』〕〉”’…—～·,.!?;:%)]}›»"]);
 const FORBIDDEN_LINE_END = new Set([..."（《【「『〔〈“‘([{‹«"]);
@@ -94,6 +83,8 @@ const FONT_STACKS = {
   huiwen: '"Huiwen-mincho", "Songti SC", SimSun, serif',
   zhuque: '"Zhuque Fangsong (technical preview)", "Zhuque Fangsong", STFangsong, FangSong, serif',
   yozai: '"Yozai", "Kaiti SC", KaiTi, serif',
+  wenjin: '"WenJin Mincho Plane 0", "Songti SC", STSong, serif',
+  winsong: '"CorpSrcWinSong", "Songti SC", STSong, serif',
   kai: '"Kaiti SC", STKaiti, KaiTi, serif',
   fangSong: 'STFangsong, FangSong, "FangSong SC", serif',
   rounded: '"Hiragino Maru Gothic ProN", "Yuanti SC", "Arial Rounded MT Bold", sans-serif',
@@ -136,6 +127,12 @@ const settings = {
   compositionStyle: $("#compositionStyle"),
   editionText: $("#editionText"),
   kickerText: $("#kickerText"),
+  chapterText: $("#chapterText"),
+  sectionNumber: $("#sectionNumber"),
+  chapterSize: $("#chapterSize"),
+  sectionNumberSize: $("#sectionNumberSize"),
+  leadStyle: $("#leadStyle"),
+  leadScale: $("#leadScale"),
   fontSize: $("#fontSize"),
   titleSize: $("#titleSize"),
   lineHeight: $("#lineHeight"),
@@ -145,6 +142,7 @@ const settings = {
   pagePadding: $("#pagePadding"),
   backgroundColor: $("#backgroundColor"),
   textColor: $("#textColor"),
+  titleColor: $("#titleColor"),
   accentColor: $("#accentColor"),
   indent: $("#indentToggle"),
   texture: $("#textureToggle"),
@@ -164,6 +162,15 @@ let toastTimer;
 let generatedDocument = null;
 let contentIsDirty = false;
 let exportFormat = "png";
+let activePreviewTarget = null;
+
+const PREVIEW_EDITORS = {
+  title: { label: "标题", size: "titleSize", color: "titleColor", step: 2, suffix: " px" },
+  chapter: { label: "章节标识", size: "chapterSize", color: "accentColor", step: 1, suffix: " px" },
+  lead: { label: "首段", size: "leadScale", color: "accentColor", step: 0.05, suffix: " 倍", leadModes: true },
+  body: { label: "正文", size: "fontSize", color: "textColor", step: 1, suffix: " px", formatModes: true },
+  section: { label: "节号", size: "sectionNumberSize", color: "accentColor", step: 2, suffix: " px" }
+};
 
 function bodyText() {
   return elements.body.innerText.replace(/\u00a0/g, " ").replace(/\n{3,}/g, "\n\n").trim();
@@ -177,8 +184,8 @@ function setBodyText(text) {
   }));
 }
 
-function extractRichParagraphs() {
-  const blocks = [...elements.body.childNodes];
+function extractRichParagraphsFrom(root = elements.body) {
+  const blocks = [...root.childNodes];
   const paragraphs = [];
   const walk = (node, inherited, runs) => {
     if (node.nodeType === Node.TEXT_NODE) {
@@ -195,6 +202,10 @@ function extractRichParagraphs() {
     if (["I", "EM"].includes(node.tagName)) style.italic = true;
     if (node.tagName === "U") style.underline = true;
     if (["S", "STRIKE"].includes(node.tagName)) style.strike = true;
+    if (node.classList?.contains("rich-bold")) style.bold = true;
+    if (node.classList?.contains("rich-italic")) style.italic = true;
+    if (node.classList?.contains("rich-underline")) style.underline = true;
+    if (node.classList?.contains("rich-strike")) style.strike = true;
     const inlineStyle = node.style;
     if (inlineStyle) {
       const numericWeight = Number.parseInt(inlineStyle.fontWeight, 10);
@@ -211,8 +222,13 @@ function extractRichParagraphs() {
     walk(block, {}, runs);
     if (runs.some((run) => run.text.trim())) paragraphs.push(runs);
   });
-  if (!paragraphs.length && bodyText()) paragraphs.push([{ text: bodyText() }]);
+  const fallbackText = root.innerText?.replace(/\u00a0/g, " ").trim() || "";
+  if (!paragraphs.length && fallbackText) paragraphs.push([{ text: fallbackText }]);
   return paragraphs;
+}
+
+function extractRichParagraphs() {
+  return extractRichParagraphsFrom(elements.body);
 }
 
 function applyFormattingToComposedText(composedText, sourceParagraphs) {
@@ -259,12 +275,52 @@ function updateControlLabels() {
   $$(".number-field").forEach((input) => { input.value = settings[input.dataset.setting].value; });
   $("#backgroundColorValue").value = settings.backgroundColor.value.toUpperCase();
   $("#textColorValue").value = settings.textColor.value.toUpperCase();
+  $("#titleColorValue").value = settings.titleColor.value.toUpperCase();
   $("#accentColorValue").value = settings.accentColor.value.toUpperCase();
   $("#zoomValue").value = `${Math.round(zoom * 100)}%`;
   elements.canvasInfo.textContent = `${settings.contentWidth.value} × 自动高度`;
   updateExportScaleLabels();
   $("#exportCanvasInfo").textContent = `${exportPixelWidth()} px · ${exportScaleLabel()}`;
+  elements.exportButton.title = `${exportFormat.toUpperCase()} · ${exportPixelWidth()} px · 自动高度`;
   syncParagraphGapControls();
+  syncLeadStyleControls();
+  syncTemplateSettings();
+  syncPreviewInspector();
+}
+
+function syncLeadStyleControls() {
+  $$('[data-lead-style]').forEach((button) => button.classList.toggle("active", button.dataset.leadStyle === settings.leadStyle.value));
+}
+
+function syncTemplateSettings() {
+  $$(".book-settings").forEach((group) => group.hidden = layoutTemplate !== "book");
+  $$(".section-settings").forEach((group) => group.hidden = layoutTemplate !== "section");
+}
+
+function syncPreviewInspector() {
+  const inspector = $("#previewInspector");
+  const editor = PREVIEW_EDITORS[activePreviewTarget];
+  elements.poster.querySelectorAll(".preview-editing").forEach((node) => node.classList.remove("preview-editing"));
+  if (!editor || !generatedDocument) {
+    inspector.hidden = true;
+    $("#previewLeadModes").hidden = true;
+    $("#previewFormatModes").hidden = true;
+    return;
+  }
+  inspector.hidden = false;
+  $("#previewInspectorLabel").textContent = editor.label;
+  $("#previewInspectorValue").value = `${Number(settings[editor.size].value).toFixed(editor.step < 1 ? 2 : 0).replace(/\.00$/, "")}${editor.suffix}`;
+  $("#previewInspectorColor").value = settings[editor.color].value;
+  $("#previewLeadModes").hidden = !editor.leadModes;
+  $("#previewFormatModes").hidden = !editor.formatModes;
+  elements.poster.querySelector(`[data-preview-target="${activePreviewTarget}"]`)?.classList.add("preview-editing");
+}
+
+function closePreviewInspector(clearSelection = true) {
+  activePreviewTarget = null;
+  syncPreviewInspector();
+  if (clearSelection) document.getSelection()?.removeAllRanges();
+  elements.previewBody.blur();
 }
 
 function exportScaleLabel() {
@@ -301,6 +357,7 @@ function render() {
   }
 
   elements.previewTitle.textContent = generatedDocument.title;
+  elements.previewTitle.dataset.previewTarget = "title";
   elements.previewAuthor.textContent = generatedDocument.author;
   elements.previewBody.replaceChildren(...textParagraphs().map((runs) => {
     const paragraph = document.createElement("p");
@@ -315,6 +372,8 @@ function render() {
     });
     return paragraph;
   }));
+  elements.previewBody.firstElementChild?.setAttribute("data-preview-target", "lead");
+  elements.previewBody.dataset.previewTarget = "body";
 
   elements.previewBody.className = `poster-body align-${alignment}${settings.indent.checked ? " indent" : ""}`;
   elements.previewFooter.hidden = !settings.signature.checked;
@@ -331,15 +390,29 @@ function render() {
   elements.poster.style.setProperty("--poster-padding", `${settings.pagePadding.value}px`);
   elements.poster.style.setProperty("--poster-bg", settings.backgroundColor.value);
   elements.poster.style.setProperty("--poster-text", settings.textColor.value);
+  elements.poster.style.setProperty("--poster-title-color", settings.titleColor.value);
   elements.poster.style.setProperty("--poster-accent", settings.accentColor.value);
+  elements.poster.style.setProperty("--poster-lead-scale", settings.leadScale.value);
+  elements.poster.style.setProperty("--poster-chapter-size", `${settings.chapterSize.value}px`);
+  elements.poster.style.setProperty("--poster-section-size", `${settings.sectionNumberSize.value}px`);
   elements.poster.style.setProperty("--preview-scale", zoom);
   elements.poster.classList.toggle("hide-header", !settings.header.checked);
   elements.poster.classList.toggle("composition-compact", settings.compositionStyle.value === "compact");
   elements.poster.classList.toggle("composition-open", settings.compositionStyle.value === "open");
-  elements.poster.classList.remove("layout-folio", "layout-quiet", "layout-margin", "layout-signal");
+  elements.poster.classList.remove("layout-folio", "layout-book", "layout-letter", "layout-section");
   elements.poster.classList.add(`layout-${layoutTemplate}`);
-  $("#posterEdition").textContent = settings.editionText.value.trim() || "016 / LONGFORM";
-  $("#posterKicker").textContent = settings.kickerText.value.trim() || "LONGFORM COMPOSITION / 016";
+  elements.poster.classList.remove("lead-none", "lead-line", "lead-color");
+  elements.poster.classList.add(`lead-${settings.leadStyle.value}`);
+  const sectionNumber = settings.sectionNumber.value.trim();
+  elements.poster.classList.toggle("has-section-number", layoutTemplate === "section" && Boolean(sectionNumber));
+  const posterAccent = elements.poster.querySelector(".poster-accent");
+  posterAccent.textContent = layoutTemplate === "book" ? (settings.chapterText.value.trim() || "Chapter 01") : (layoutTemplate === "section" ? sectionNumber : "");
+  if (layoutTemplate === "book") posterAccent.dataset.previewTarget = "chapter";
+  else if (layoutTemplate === "section" && sectionNumber) posterAccent.dataset.previewTarget = "section";
+  else posterAccent.removeAttribute("data-preview-target");
+  $("#posterEdition").textContent = settings.editionText.value.trim() || "XVI / 016";
+  $("#posterKicker").textContent = settings.kickerText.value.trim();
+  syncPreviewInspector();
 
   scheduleSave();
 }
@@ -445,6 +518,27 @@ function syncFormattingToGeneratedDocument() {
   render();
 }
 
+function syncPreviewBodyEdits() {
+  if (!generatedDocument) return;
+  generatedDocument.body = elements.previewBody.innerText.replace(/\u00a0/g, " ").trim();
+  generatedDocument.paragraphs = extractRichParagraphsFrom(elements.previewBody);
+  elements.body.innerHTML = elements.previewBody.innerHTML;
+  elements.body.querySelectorAll("[data-preview-target]").forEach((node) => node.removeAttribute("data-preview-target"));
+  elements.body.querySelectorAll(".preview-editing").forEach((node) => node.classList.remove("preview-editing"));
+  contentIsDirty = false;
+  elements.exportButton.disabled = false;
+  $("#exportPanelButton").disabled = false;
+  updateControlLabels();
+  scheduleSave();
+}
+
+function applyPreviewFormatting(command) {
+  const selection = document.getSelection();
+  if (!selection?.rangeCount || !elements.previewBody.contains(selection.anchorNode)) return;
+  document.execCommand(command, false);
+  syncPreviewBodyEdits();
+}
+
 function getState() {
   return {
     title: elements.title.value,
@@ -479,7 +573,7 @@ function loadState() {
     if (state.bodyHtml) elements.body.innerHTML = state.bodyHtml;
     else if (state.body) setBodyText(state.body);
     alignment = state.alignment ?? alignment;
-    layoutTemplate = "folio";
+    layoutTemplate = LAYOUT_RECIPES[state.layoutTemplate] ? state.layoutTemplate : "folio";
     paletteMode = state.paletteMode === "dark" ? "dark" : "light";
     paletteFamily = PALETTE_FAMILIES[state.paletteFamily] ? state.paletteFamily : "neutral";
     activeSpecialPreset = SPECIAL_PRESETS.includes(state.activeSpecialPreset) ? state.activeSpecialPreset : null;
@@ -490,6 +584,8 @@ function loadState() {
       else if (settings[key].tagName === "SELECT" && ![...settings[key].options].some((option) => option.value === value)) return;
       else settings[key].value = value;
     });
+    if (settings.editionText.value === "016 / LONGFORM") settings.editionText.value = "XVI / 016";
+    if (settings.kickerText.value === "LONGFORM COMPOSITION / 016") settings.kickerText.value = "";
   } catch (_) {
     localStorage.removeItem("xvi-next-v1");
   }
@@ -584,6 +680,7 @@ function setPreset(name, fromFamily = false) {
   if (!preset) return;
   settings.backgroundColor.value = preset.background;
   settings.textColor.value = preset.text;
+  settings.titleColor.value = preset.text;
   settings.accentColor.value = preset.accent;
   activeSpecialPreset = fromFamily ? null : (SPECIAL_PRESETS.includes(name) ? name : null);
   syncPaletteControls();
@@ -620,6 +717,7 @@ function setLayoutTemplate(name, applyRecipe = true) {
   const recipe = LAYOUT_RECIPES[name];
   if (!recipe) return;
   layoutTemplate = name;
+  if ((activePreviewTarget === "chapter" && name !== "book") || (activePreviewTarget === "section" && name !== "section")) activePreviewTarget = null;
   if (applyRecipe) {
     Object.entries(recipe).forEach(([key, value]) => {
       const input = settings[key];
@@ -759,8 +857,10 @@ function getCanvasLayout(scale = 2) {
   const lineHeight = fontSize * Number(settings.lineHeight.value);
   const letterSpacing = Number(settings.letterSpacing.value);
   const paragraphGap = fontSize * Number(settings.paragraphSpacing.value);
+  const leadScale = Number(settings.leadScale.value);
   const fullWidth = width - padding * 2;
   const composition = settings.compositionStyle.value;
+  const sectionNumber = settings.sectionNumber.value.trim();
   const folioGeometry = composition === "compact"
     ? { inset: 0, ratio: 1, indexStep: 38, accentWidth: 20, accentHeight: 20, accentStep: 38, ruleGap: 34 }
     : composition === "open"
@@ -768,32 +868,43 @@ function getCanvasLayout(scale = 2) {
       : { inset: 0, ratio: 1, indexStep: 76, accentWidth: 27, accentHeight: 27, accentStep: 48, ruleGap: 54 };
   const templateGeometry = {
     folio: { ...folioGeometry, titleOffset: 0, bodyOffset: 0, frameInset: 0 },
-    quiet: { inset: 0, ratio: 1, indexStep: 46, accentWidth: 56, accentHeight: 2, accentStep: 34, ruleGap: 42, titleOffset: 0, bodyOffset: 0, frameInset: 0 },
-    margin: { inset: 32, ratio: 1, indexStep: 58, accentWidth: 18, accentHeight: 18, accentStep: 48, ruleGap: 58, titleOffset: 0, bodyOffset: 0, frameInset: 22 },
-    signal: { inset: 0, ratio: 0.94, indexStep: 92, accentWidth: 78, accentHeight: 5, accentStep: 54, ruleGap: 70, titleOffset: 0, bodyOffset: 0, frameInset: 0 }
+    book: { inset: 0, ratio: 1, indexStep: 76, accentWidth: 0, accentHeight: 0, accentStep: 40, ruleGap: 68, titleOffset: 0, bodyOffset: 0, frameInset: 0 },
+    letter: { inset: 0, ratio: 1, indexStep: 72, accentWidth: 46, accentHeight: 2, accentStep: 42, ruleGap: 54, titleOffset: 0, bodyOffset: 0, frameInset: 0 },
+    section: { inset: 0, ratio: 1, indexStep: 84, accentWidth: 0, accentHeight: 0, accentStep: sectionNumber ? Math.max(92, Number(settings.sectionNumberSize.value) * .92) : 38, ruleGap: 68, titleOffset: 0, bodyOffset: 0, frameInset: 0 }
   }[layoutTemplate] || null;
   const contentX = padding + templateGeometry.inset;
   const usableWidth = fullWidth * templateGeometry.ratio - templateGeometry.inset * 2;
-  const titleX = contentX;
-  const titleWidth = layoutTemplate === "signal" ? usableWidth * 0.9 : usableWidth;
+  const sectionTitleInset = layoutTemplate === "section" && sectionNumber ? Math.min(170, Number(settings.sectionNumberSize.value) * 1.35) : 0;
+  const titleX = contentX + sectionTitleInset;
+  const titleWidth = layoutTemplate === "section" ? usableWidth - sectionTitleInset : (["book", "letter"].includes(layoutTemplate) ? usableWidth * 0.84 : usableWidth);
+  const bodyX = contentX;
+  const bodyWidth = usableWidth;
   const measure = document.createElement("canvas").getContext("2d");
   const indentWidth = settings.indent.checked ? fontSize * 2 : 0;
-  const paragraphs = textParagraphs().map((runs) => wrapRichParagraph(measure, runs, usableWidth, fontSize, letterSpacing, indentWidth));
+  const paragraphFontSizes = textParagraphs().map((_, index) => index === 0 ? fontSize * leadScale : fontSize);
+  const paragraphLineHeights = paragraphFontSizes.map((size) => lineHeight * (size / fontSize));
+  const paragraphs = textParagraphs().map((runs, index) => {
+    const firstLineOffset = index === 0 && settings.leadStyle.value === "line" ? 38 : (index === 0 && settings.leadStyle.value === "color" ? 42 : 0);
+    const paragraphIndent = settings.indent.checked && !(index === 0 && settings.leadStyle.value !== "none") ? paragraphFontSizes[index] * 2 : 0;
+    return wrapRichParagraph(measure, runs, bodyWidth - firstLineOffset, paragraphFontSizes[index], letterSpacing, paragraphIndent);
+  });
   measure.font = `${titleWeight} ${titleSize}px ${FONT_STACKS[settings.titleFontFamily.value]}`;
   const titleLines = wrapText(measure, generatedDocument.title, titleWidth, 0);
-  const bodyHeight = paragraphs.reduce((height, lines) => height + lines.length * lineHeight + paragraphGap, 0);
+  const bodyHeight = paragraphs.reduce((height, lines, index) => height + lines.length * paragraphLineHeights[index] + paragraphGap, 0);
   const topPadding = 48;
   const titleLineHeight = titleSize * 1.22;
   const { indexStep, accentWidth, accentHeight, accentStep, ruleGap } = templateGeometry;
   const titleStart = settings.header.checked
-    ? topPadding + indexStep + accentStep + titleSize
+    ? (layoutTemplate === "section"
+      ? topPadding + indexStep + titleSize * .9
+      : topPadding + indexStep + accentStep + titleSize)
     : topPadding + titleSize + 40;
   const bodyStart = titleStart + titleLines.length * titleLineHeight + (layoutTemplate === "folio" ? ruleGap : 16 + ruleGap);
   const footerHeight = settings.signature.checked ? padding + 45 : padding;
-  const accentX = layoutTemplate === "margin" ? contentX : padding;
-  const ruleWidth = layoutTemplate === "signal" ? usableWidth * 0.38 : titleWidth;
-  const ruleX = titleX;
-  return { scale, width, padding, topPadding, fontSize, titleSize, titleWeight, titleLineHeight, lineHeight, letterSpacing, paragraphGap, fullWidth, contentX, usableWidth, titleX, titleWidth, paragraphs, titleLines, indexStep, accentX, accentWidth, accentHeight, accentStep, ruleX, ruleWidth, ruleGap, titleStart, bodyStart, frameInset: templateGeometry.frameInset, height: Math.ceil(bodyStart + bodyHeight + footerHeight) };
+  const accentX = padding;
+  const ruleWidth = layoutTemplate === "section" ? usableWidth : titleWidth;
+  const ruleX = layoutTemplate === "section" ? contentX : titleX;
+  return { scale, width, padding, topPadding, fontSize, titleSize, titleWeight, titleLineHeight, lineHeight, letterSpacing, paragraphGap, fullWidth, contentX, usableWidth, bodyX, bodyWidth, titleX, titleWidth, paragraphs, paragraphFontSizes, paragraphLineHeights, titleLines, indexStep, accentX, accentWidth, accentHeight, accentStep, ruleX, ruleWidth, ruleGap, titleStart, bodyStart, frameInset: templateGeometry.frameInset, height: Math.ceil(bodyStart + bodyHeight + footerHeight) };
 }
 
 async function exportImage() {
@@ -811,43 +922,29 @@ async function exportImage() {
 
   ctx.fillStyle = settings.backgroundColor.value;
   ctx.fillRect(0, 0, layout.width, layout.height);
-  if (layoutTemplate === "margin") {
-    ctx.save();
-    ctx.globalAlpha = 0.18;
-    ctx.strokeStyle = settings.accentColor.value;
-    ctx.lineWidth = 2;
-    const frame = layout.frameInset;
-    ctx.beginPath();
-    ctx.roundRect(frame, frame, layout.width - frame * 2, layout.height - frame * 2, 28);
-    ctx.stroke();
-    ctx.restore();
-  }
   if (settings.texture.checked) {
     ctx.fillStyle = `${settings.textColor.value}10`;
     for (let y = 4; y < layout.height; y += 9) {
       for (let x = 4 + (y % 18); x < layout.width; x += 18) ctx.fillRect(x, y, 1, 1);
     }
   }
-  if (layoutTemplate === "signal") {
-    ctx.fillStyle = settings.textColor.value;
-    ctx.globalAlpha = 0.07;
-    ctx.font = "900 132px Georgia, serif";
-    ctx.fillText("XVI", layout.padding, 180);
-    ctx.globalAlpha = 1;
-  }
-
   let y = layout.topPadding;
   if (settings.header.checked) {
-    const headerLeft = layoutTemplate === "margin" ? layout.contentX : layout.padding;
-    const headerRight = layoutTemplate === "margin" ? layout.width - layout.contentX : layout.width - layout.padding;
+    const headerLeft = layout.padding;
+    const headerRight = layout.width - layout.padding;
     ctx.fillStyle = settings.textColor.value;
     ctx.font = "900 20px Arial, sans-serif";
     ctx.fillText("XVI", headerLeft, y + 16);
     ctx.globalAlpha = 0.56;
     ctx.font = "700 11px Arial, sans-serif";
-    const edition = settings.editionText.value.trim() || "016 / LONGFORM";
+    const edition = settings.editionText.value.trim() || "XVI / 016";
     ctx.fillText(edition, headerRight - ctx.measureText(edition).width, y + 14);
     ctx.globalAlpha = 1;
+    if (layoutTemplate === "book") {
+      ctx.globalAlpha = 0.55;
+      ctx.fillRect(layout.padding, y + 30, layout.fullWidth, 1);
+      ctx.globalAlpha = 1;
+    }
     y += layout.indexStep;
 
     ctx.fillStyle = settings.accentColor.value;
@@ -855,59 +952,73 @@ async function exportImage() {
       ctx.beginPath();
       ctx.roundRect(layout.accentX, y, layout.accentWidth, layout.accentHeight, [14, 14, 14, 4]);
       ctx.fill();
-    } else {
+    } else if (layoutTemplate === "letter") {
       ctx.fillRect(layout.accentX, y, layout.accentWidth, layout.accentHeight);
     }
-    ctx.font = "700 12px Arial, sans-serif";
-    const kicker = settings.kickerText.value.trim() || "LONGFORM COMPOSITION / 016";
-    if (layoutTemplate !== "margin") {
-      const kickerX = layoutTemplate === "quiet" ? layout.titleX + layout.accentWidth + 18 : layout.titleX + (layoutTemplate === "folio" ? layout.accentWidth + 13 : 0);
-      const kickerY = layoutTemplate === "folio" ? y + Math.min(layout.accentHeight * .67, 22) : y + Math.max(layout.accentHeight, 12);
+    const kicker = settings.kickerText.value.trim();
+    if (layoutTemplate === "book") {
+      const chapterSize = Number(settings.chapterSize.value);
+      ctx.font = `italic ${chapterSize}px Georgia, serif`;
+      ctx.fillText(settings.chapterText.value.trim() || "Chapter 01", layout.contentX, y + chapterSize);
+    } else if (layoutTemplate === "section" && settings.sectionNumber.value.trim()) {
+      const sectionSize = Number(settings.sectionNumberSize.value);
+      ctx.font = `italic ${sectionSize}px Georgia, serif`;
+      ctx.fillText(settings.sectionNumber.value.trim(), layout.contentX, y + sectionSize * .8);
+      if (kicker) {
+        ctx.font = "700 11px Arial, sans-serif";
+        drawTextWithSpacing(ctx, kicker, layout.titleX, y + Math.min(56, sectionSize * .65), 1.4);
+      }
+    } else if (kicker) {
+      ctx.font = "700 12px Arial, sans-serif";
+      const kickerX = layout.titleX + (layoutTemplate === "folio" ? layout.accentWidth + 13 : 0);
+      const kickerY = layoutTemplate === "folio" ? y + Math.min(layout.accentHeight * .67, 22) : y + 20;
       drawTextWithSpacing(ctx, kicker, kickerX, kickerY, 2);
     }
-    if (layoutTemplate !== "margin") {
-      y += layoutTemplate === "folio" ? layout.accentStep + layout.titleSize : layout.accentStep + layout.titleSize + 24;
-    } else {
-      ctx.globalAlpha = 0.74;
-      drawTextWithSpacing(ctx, settings.kickerText.value.trim() || "LONGFORM COMPOSITION / 016", layout.titleX + layout.accentWidth + 14, y + Math.min(layout.accentHeight * .9, 18), 1.4);
-      ctx.globalAlpha = 1;
-      y += layout.accentStep + layout.titleSize;
-    }
+    y = layout.titleStart;
   } else {
     y = layout.titleStart;
   }
 
-  ctx.fillStyle = settings.textColor.value;
+  ctx.fillStyle = settings.titleColor.value;
   ctx.font = `${layout.titleWeight} ${layout.titleSize}px ${FONT_STACKS[settings.titleFontFamily.value]}`;
   layout.titleLines.forEach((line) => {
     ctx.fillText(line, layout.titleX, y);
     y += layout.titleLineHeight;
   });
   ctx.textAlign = "left";
-  if (layoutTemplate !== "margin") {
-    y += layoutTemplate === "folio" ? layout.ruleGap : 16;
-    if (layoutTemplate !== "folio") {
-    ctx.globalAlpha = layoutTemplate === "signal" ? 1 : 0.18;
-    ctx.fillStyle = layoutTemplate === "signal" || layoutTemplate === "quiet" ? settings.accentColor.value : settings.textColor.value;
-    ctx.fillRect(layout.ruleX, y, layout.ruleWidth, layoutTemplate === "signal" ? 3 : 1);
+  if (layoutTemplate !== "folio" && layoutTemplate !== "book") {
+    y += 16;
+    ctx.globalAlpha = layoutTemplate === "section" ? 1 : 0.48;
+    ctx.fillStyle = settings.accentColor.value;
+    ctx.fillRect(layout.ruleX, y, layout.ruleWidth, layoutTemplate === "section" ? 3 : 1);
     ctx.globalAlpha = 1;
     y += layout.ruleGap;
-    }
+  } else {
+    y += layout.ruleGap;
   }
 
   ctx.fillStyle = settings.textColor.value;
   layout.paragraphs.forEach((lines, paragraphIndex) => {
+    const paragraphTop = y;
+    const paragraphFontSize = layout.paragraphFontSizes[paragraphIndex];
+    const paragraphLineHeight = layout.paragraphLineHeights[paragraphIndex];
+    if (paragraphIndex === 0 && settings.leadStyle.value === "line") {
+      ctx.fillStyle = settings.accentColor.value;
+      ctx.fillRect(layout.contentX, paragraphTop - paragraphFontSize * 0.8, 3, Math.max(paragraphLineHeight, lines.length * paragraphLineHeight - paragraphFontSize * 0.15));
+    }
     lines.forEach((line, lineIndex) => {
-      let x = layout.contentX;
-      const indent = settings.indent.checked && lineIndex === 0 ? layout.fontSize * 2 : 0;
-      const lineWidth = richLineWidth(ctx, line, layout.fontSize, layout.letterSpacing);
-      if (alignment === "center") x += (layout.usableWidth - lineWidth) / 2;
-      else if (layoutTemplate === "folio" && paragraphIndex === 0) x += 42;
+      let x = layout.bodyX;
+      const allowIndent = !(paragraphIndex === 0 && settings.leadStyle.value !== "none");
+      const indent = settings.indent.checked && allowIndent && lineIndex === 0 ? paragraphFontSize * 2 : 0;
+      const lineWidth = richLineWidth(ctx, line, paragraphFontSize, layout.letterSpacing);
+      if (alignment === "center") x += (layout.bodyWidth - lineWidth) / 2;
+      else if (paragraphIndex === 0 && settings.leadStyle.value === "color") x += 42;
+      else if (paragraphIndex === 0 && settings.leadStyle.value === "line") x += 38;
       else x += indent;
-      if (layoutTemplate === "folio" && paragraphIndex === 0) ctx.fillStyle = settings.accentColor.value;
+      if (paragraphIndex === 0 && settings.leadStyle.value === "color") ctx.fillStyle = settings.accentColor.value;
       else ctx.fillStyle = settings.textColor.value;
-      drawRichLine(ctx, line, x, y, layout.fontSize, layout.letterSpacing);
-      y += layout.lineHeight;
+      drawRichLine(ctx, line, x, y, paragraphFontSize, layout.letterSpacing);
+      y += paragraphLineHeight;
     });
     y += layout.paragraphGap;
   });
@@ -915,14 +1026,14 @@ async function exportImage() {
   if (settings.signature.checked) {
     y += 32;
     ctx.fillStyle = settings.accentColor.value;
-    ctx.fillRect(layout.contentX, y - 8, 48, 4);
+    ctx.fillRect(layout.bodyX, y - 8, 48, 4);
     ctx.fillStyle = settings.textColor.value;
     ctx.font = `600 14px ${FONT_STACKS["sans-serif"]}`;
-    drawTextWithSpacing(ctx, generatedDocument.author, layout.contentX + 64, y, 1);
+    drawTextWithSpacing(ctx, generatedDocument.author, layout.bodyX + 64, y, 1);
     ctx.globalAlpha = 0.5;
     ctx.font = "700 10px Arial, sans-serif";
     const mark = "XVI / 十六开";
-    ctx.fillText(mark, layout.contentX + layout.usableWidth - ctx.measureText(mark).width, y);
+    ctx.fillText(mark, layout.bodyX + layout.bodyWidth - ctx.measureText(mark).width, y);
     ctx.globalAlpha = 1;
   }
 
@@ -981,7 +1092,16 @@ elements.body.addEventListener("input", (event) => {
   if (event.inputType?.startsWith("format")) requestAnimationFrame(syncFormattingToGeneratedDocument);
 });
 document.addEventListener("selectionchange", () => {
-  if (!elements.body.contains(document.getSelection()?.anchorNode)) return;
+  const selection = document.getSelection();
+  if (elements.previewBody.contains(selection?.anchorNode)) {
+    if (!selection.isCollapsed) {
+      activePreviewTarget = "body";
+      syncPreviewInspector();
+    }
+    $$('[data-preview-format]').forEach((button) => button.classList.toggle("active", document.queryCommandState(button.dataset.previewFormat)));
+    return;
+  }
+  if (!elements.body.contains(selection?.anchorNode)) return;
   $$('[data-format-command]').forEach((button) => {
     if (button.dataset.formatCommand === "removeFormat") return;
     button.classList.toggle("active", document.queryCommandState(button.dataset.formatCommand));
@@ -991,6 +1111,11 @@ document.addEventListener("selectionchange", () => {
 $$('[data-align]').forEach((button) => button.addEventListener("click", () => {
   alignment = button.dataset.align;
   $$('[data-align]').forEach((item) => item.classList.toggle("active", item === button));
+  render();
+}));
+
+$$('[data-lead-style]').forEach((button) => button.addEventListener("click", () => {
+  settings.leadStyle.value = button.dataset.leadStyle;
   render();
 }));
 
@@ -1004,25 +1129,35 @@ $$("[data-palette-mode]").forEach((button) => button.addEventListener("click", (
 $$("[data-palette-family]").forEach((button) => button.addEventListener("click", () => setPaletteFamily(paletteMode, button.dataset.paletteFamily)));
 $$("[data-layout-template]").forEach((button) => button.addEventListener("click", () => setLayoutTemplate(button.dataset.layoutTemplate)));
 $("#randomPresetButton").addEventListener("click", () => {
-  const familyChoices = Object.keys(PALETTE_FAMILIES).flatMap((family) => ["light", "dark"].map((mode) => ({ family, mode })));
-  const choices = [...familyChoices, ...SPECIAL_PRESETS];
+  const familyChoices = Object.keys(PALETTE_FAMILIES).flatMap((family) => ["light", "dark"].map((mode) => ({ family, mode, key: `family:${mode}:${family}` })));
+  const specialChoices = SPECIAL_PRESETS.map((preset) => ({ preset, key: `special:${preset}` }));
+  const currentKey = activeSpecialPreset ? `special:${activeSpecialPreset}` : `family:${paletteMode}:${paletteFamily}`;
+  const choices = [...familyChoices, ...specialChoices].filter((choice) => choice.key !== currentKey);
   const choice = choices[Math.floor(Math.random() * choices.length)];
-  if (typeof choice === "string") setPreset(choice);
+  if (choice.preset) setPreset(choice.preset);
   else setPaletteFamily(choice.mode, choice.family);
 });
 $("#customFontInput").addEventListener("change", (event) => loadCustomFont(event.target.files[0]));
-let sloganIndex = 0;
-$("#sloganButton").addEventListener("click", () => {
-  sloganIndex = (sloganIndex + 1) % SLOGANS.length;
-  const slogan = SLOGANS[sloganIndex];
-  $("#sloganButton").textContent = slogan.text;
-  $("#sloganButton").title = `${slogan.source} · 换一句`;
-});
 $("#feedbackOpenButton").addEventListener("click", openFeedback);
 $$("[data-feedback-close]").forEach((button) => button.addEventListener("click", closeFeedback));
 elements.feedbackForm.addEventListener("submit", submitFeedback);
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && !elements.feedbackModal.hidden) closeFeedback();
+  if (event.key === "Escape") {
+    if (!elements.feedbackModal.hidden) closeFeedback();
+    else if (activePreviewTarget) closePreviewInspector();
+    return;
+  }
+  const selection = document.getSelection();
+  if (!(event.metaKey || event.ctrlKey) || !elements.previewBody.contains(selection?.anchorNode)) return;
+  const key = event.key.toLowerCase();
+  const command = key === "b" ? "bold"
+    : key === "i" ? "italic"
+      : key === "u" ? "underline"
+        : (key === "x" && event.shiftKey) ? "strikeThrough"
+          : null;
+  if (!command) return;
+  event.preventDefault();
+  applyPreviewFormatting(command);
 });
 
 $("#zoomOut").addEventListener("click", () => { zoom = Math.max(0.35, zoom - 0.05); render(); });
@@ -1036,7 +1171,49 @@ $("#exportPanelButton").addEventListener("click", exportImage);
 $$('[data-format]').forEach((button) => button.addEventListener("click", () => {
   exportFormat = button.dataset.format;
   $$('[data-format]').forEach((item) => item.classList.toggle("active", item === button));
+  updateControlLabels();
 }));
+
+elements.poster.addEventListener("click", (event) => {
+  const target = event.target.closest("[data-preview-target]");
+  if (!target) return;
+  activePreviewTarget = target.dataset.previewTarget;
+  syncPreviewInspector();
+});
+
+elements.previewBody.addEventListener("input", syncPreviewBodyEdits);
+
+$$('[data-preview-format]').forEach((button) => {
+  button.addEventListener("mousedown", (event) => event.preventDefault());
+  button.addEventListener("click", () => applyPreviewFormatting(button.dataset.previewFormat));
+});
+
+$$('[data-preview-step]').forEach((button) => button.addEventListener("click", () => {
+  const editor = PREVIEW_EDITORS[activePreviewTarget];
+  if (!editor) return;
+  const input = settings[editor.size];
+  const direction = Number(button.dataset.previewStep);
+  const min = Number(input.min);
+  const max = Number(input.max);
+  const next = Math.min(max, Math.max(min, Number(input.value) + editor.step * direction));
+  input.value = editor.step < 1 ? next.toFixed(2) : next;
+  render();
+}));
+
+$("#previewInspectorColor").addEventListener("input", (event) => {
+  const editor = PREVIEW_EDITORS[activePreviewTarget];
+  if (!editor) return;
+  settings[editor.color].value = event.target.value;
+  render();
+});
+
+$("#previewInspectorClose").addEventListener("click", () => closePreviewInspector());
+
+document.addEventListener("pointerdown", (event) => {
+  if (!activePreviewTarget) return;
+  if (event.target.closest("#previewInspector") || event.target.closest("[data-preview-target]")) return;
+  closePreviewInspector();
+});
 
 loadState();
 $$('[data-align]').forEach((item) => item.classList.toggle("active", item.dataset.align === alignment));

@@ -10,20 +10,21 @@
     <link rel="stylesheet" href="https://fontsapi.zeoseven.com/7/main/result.css" />
     <link rel="stylesheet" href="https://fontsapi.zeoseven.com/22/main/result.css" />
     <link rel="stylesheet" href="https://fontsapi.zeoseven.com/192/main/result.css" />
+    <link rel="stylesheet" href="https://fontsapi.zeoseven.com/376/main/result.css" />
+    <link rel="stylesheet" href="https://fontsapi.zeoseven.com/634/main/result.css" />
     <link rel="stylesheet" href="styles.css?v=0.6.3" />
-    <link rel="stylesheet" href="xvi-next.css?v=0.1.4" />
+    <link rel="stylesheet" href="xvi-next.css?v=0.2.6" />
   </head>
   <body>
     <header class="app-header">
       <div class="brand-block">
         <div class="brand-mark" aria-label="XVI"><span>X</span><span>V</span><i>I</i></div>
-        <div><h1>十六开</h1><p>LONGFORM STUDIO</p></div>
+        <div><h1>十六开</h1><p>XVI / 016</p></div>
       </div>
       <div class="header-actions">
-        <button class="build-label slogan-button" id="sloganButton" type="button" title="换一句">让文字自己呼吸。</button>
         <span class="save-state" id="saveState">已保存</span>
         <button class="button feedback-button" id="feedbackOpenButton" type="button">来信</button>
-        <button class="button button-primary" id="exportButton" type="button" disabled><span aria-hidden="true">↓</span>导出</button>
+        <button class="button button-primary" id="exportButton" type="button" title="PNG · 1792 px · 自动高度" disabled><span aria-hidden="true">↓</span>快速导出</button>
       </div>
     </header>
 
@@ -61,7 +62,7 @@
 
         <section class="tab-panel" data-panel="design">
           <div class="field-group">
-            <div class="field-group-title"><span>配色灵感</span><button id="randomPresetButton" type="button">换一个</button></div>
+            <div class="field-group-title"><span>配色灵感</span><button id="randomPresetButton" type="button" title="从全部配色中随机选择" aria-label="从全部配色中随机选择">随机</button></div>
             <div class="palette-mode" aria-label="明暗主题">
               <button class="active" data-palette-mode="light" type="button">浅色</button>
               <button data-palette-mode="dark" type="button">深色</button>
@@ -78,40 +79,41 @@
             <div class="special-palette-title">特别配色</div>
             <div class="special-palette-grid">
               <button class="special-preset" data-preset="blueprint" type="button"><i class="blueprint"></i><span>蓝晒</span></button>
-              <button class="special-preset" data-preset="vermilion" type="button"><i class="vermilion"></i><span>银幕</span></button>
+              <button class="special-preset" data-preset="roseLetter" type="button"><i class="roseLetter"></i><span>常春藤</span></button>
+              <button class="special-preset" data-preset="vermilion" type="button"><i class="vermilion"></i><span>玻璃海</span></button>
+              <button class="special-preset" data-preset="aster" type="button"><i class="aster"></i><span>夜汐</span></button>
               <button class="special-preset" data-preset="newsprint" type="button"><i class="newsprint"></i><span>铅字</span></button>
               <button class="special-preset" data-preset="acidNight" type="button"><i class="acidNight"></i><span>夜萤</span></button>
-              <button class="special-preset" data-preset="farTide" type="button"><i class="farTide"></i><span>远潮</span></button>
-              <button class="special-preset" data-preset="roseLetter" type="button"><i class="roseLetter"></i><span>常春藤</span></button>
-              <button class="special-preset" data-preset="oriole" type="button"><i class="oriole"></i><span>绯页</span></button>
+              <button class="special-preset" data-preset="latePeach" type="button"><i class="latePeach"></i><span>星盘</span></button>
               <button class="special-preset" data-preset="seaMark" type="button"><i class="seaMark"></i><span>潮痕</span></button>
-              <button class="special-preset" data-preset="blueCurtain" type="button"><i class="blueCurtain"></i><span>蓝钟</span></button>
-              <button class="special-preset" data-preset="mulberry" type="button"><i class="mulberry"></i><span>砖红函</span></button>
+              <button class="special-preset" data-preset="farTide" type="button"><i class="farTide"></i><span>远潮水</span></button>
               <button class="special-preset" data-preset="pineSmoke" type="button"><i class="pineSmoke"></i><span>青案</span></button>
-              <button class="special-preset" data-preset="latePeach" type="button"><i class="latePeach"></i><span>新月蓝</span></button>
-              <button class="special-preset" data-preset="gooseShadow" type="button"><i class="gooseShadow"></i><span>银橙</span></button>
+              <button class="special-preset" data-preset="oriole" type="button"><i class="oriole"></i><span>绯页</span></button>
+              <button class="special-preset" data-preset="gooseShadow" type="button"><i class="gooseShadow"></i><span>春雷</span></button>
+              <button class="special-preset" data-preset="blueCurtain" type="button"><i class="blueCurtain"></i><span>蓝钟</span></button>
+              <button class="special-preset" data-preset="mulberry" type="button"><i class="mulberry"></i><span>日晷</span></button>
               <button class="special-preset" data-preset="nightSakura" type="button"><i class="nightSakura"></i><span>夜樱</span></button>
               <button class="special-preset" data-preset="camelliaPaper" type="button"><i class="camelliaPaper"></i><span>山茶笺</span></button>
-              <button class="special-preset" data-preset="aster" type="button"><i class="aster"></i><span>黑脊</span></button>
             </div>
           </div>
           <div class="color-grid">
             <label>背景<span class="color-input-wrap"><input id="backgroundColor" type="color" value="#eef2f3" /><output id="backgroundColorValue">#EEF2F3</output></span></label>
             <label>文字<span class="color-input-wrap"><input id="textColor" type="color" value="#26333a" /><output id="textColorValue">#26333A</output></span></label>
+            <label>标题<span class="color-input-wrap"><input id="titleColor" type="color" value="#26333a" /><output id="titleColorValue">#26333A</output></span></label>
             <label>强调<span class="color-input-wrap"><input id="accentColor" type="color" value="#9ebbc4" /><output id="accentColorValue">#9EBBC4</output></span></label>
           </div>
           <div class="field-group layout-family">
             <div class="field-group-title"><span>刊页模板</span></div>
             <div class="layout-template-grid">
               <button class="layout-template layout-folio active" data-layout-template="folio" type="button"><i><b></b><em></em><span></span></i><strong>标准刊页</strong></button>
-              <button class="layout-template layout-quiet" data-layout-template="quiet" type="button"><i><b></b><em></em><span></span></i><strong>文档页</strong></button>
-              <button class="layout-template layout-margin" data-layout-template="margin" type="button"><i><b></b><em></em><span></span></i><strong>卡片页</strong></button>
-              <button class="layout-template layout-signal" data-layout-template="signal" type="button"><i><b></b><em></em><span></span></i><strong>摘录页</strong></button>
+              <button class="layout-template layout-book" data-layout-template="book" type="button"><i><b></b><em></em><span></span></i><strong>书页</strong></button>
+              <button class="layout-template layout-letter" data-layout-template="letter" type="button"><i><b></b><em></em><span></span></i><strong>信笺</strong></button>
+              <button class="layout-template layout-section" data-layout-template="section" type="button"><i><b></b><em></em><span></span></i><strong>分节长页</strong></button>
             </div>
           </div>
           <div class="field-group compact-grid font-selectors">
-            <label>正文字体<select id="fontFamily"><option value="serif">宋体</option><option value="sans-serif">黑体</option><option value="neoZhiSong">霞鹜新致宋</option><option value="lxgw">霞鹜文楷</option><option value="huiwen">汇文明朝体</option><option value="zhuque">朱雀仿宋</option><option value="yozai">悠哉字体</option><option value="mono">等宽</option></select></label>
-            <label>标题字体<select id="titleFontFamily"><option value="serif">宋体</option><option value="sans-serif">黑体</option><option value="neoZhiSong">霞鹜新致宋</option><option value="lxgw">霞鹜文楷</option><option value="huiwen">汇文明朝体</option><option value="zhuque">朱雀仿宋</option><option value="yozai">悠哉字体</option><option value="mono">等宽</option></select></label>
+            <label>正文字体<select id="fontFamily"><option value="serif">宋体</option><option value="neoZhiSong">霞鹜新致宋</option><option value="wenjin">文津宋体</option><option value="huiwen">汇文明朝体</option><option value="zhuque">朱雀仿宋</option><option value="winsong">司源赢宋</option><option value="lxgw">霞鹜文楷</option><option value="yozai">悠哉字体</option><option value="mono">等宽</option></select></label>
+            <label>标题字体<select id="titleFontFamily"><option value="serif">宋体</option><option value="neoZhiSong">霞鹜新致宋</option><option value="wenjin">文津宋体</option><option value="huiwen">汇文明朝体</option><option value="zhuque">朱雀仿宋</option><option value="winsong">司源赢宋</option><option value="lxgw">霞鹜文楷</option><option value="yozai">悠哉字体</option><option value="mono">等宽</option></select></label>
           </div>
           <label class="font-upload" for="customFontInput"><input id="customFontInput" type="file" accept=".ttf,.otf,.woff,.woff2,font/ttf,font/otf,font/woff,font/woff2" /><span>＋ 导入本地字体</span><small id="customFontName">TTF · OTF · WOFF</small></label>
           <div class="control-row"><label>正文字号<span><input class="number-field" data-setting="fontSize" type="number" min="16" max="72" value="34" /> px</span></label><input id="fontSize" type="range" min="16" max="72" value="34" /></div>
@@ -120,6 +122,16 @@
           <div class="field-group paragraph-tools">
             <div class="field-group-title"><span>段落</span></div>
             <label class="toggle-row compact-toggle"><span><strong>首行缩进</strong><small>每段开头退两个字</small></span><input id="indentToggle" type="checkbox" checked /></label>
+            <fieldset class="field-group lead-style-field">
+              <legend>首段强调</legend>
+              <div class="segmented-control lead-style-control">
+                <button type="button" data-lead-style="none">无</button>
+                <button type="button" data-lead-style="line" class="active">引线</button>
+                <button type="button" data-lead-style="color">变色</button>
+              </div>
+              <input id="leadStyle" type="hidden" value="line" />
+            </fieldset>
+            <div class="control-row lead-scale-row"><label>首段字号<span><input class="number-field" data-setting="leadScale" type="number" min="0.8" max="1.5" step="0.05" value="1.05" /> 倍</span></label><input id="leadScale" type="range" min="0.8" max="1.5" step="0.05" value="1.05" /></div>
             <fieldset class="field-group paragraph-gap-field">
               <legend>段间</legend>
               <div class="segmented-control paragraph-gap-control">
@@ -140,8 +152,16 @@
                 <label>版式结构<select id="compositionStyle"><option value="editorial">标准</option><option value="compact">紧凑</option><option value="open">舒展</option></select></label>
               </div>
               <div class="field-group compact-grid header-copy-fields">
-                <label>右上角文字<input id="editionText" type="text" maxlength="40" value="016 / LONGFORM" /></label>
-                <label>标题上方文字<input id="kickerText" type="text" maxlength="50" value="LONGFORM COMPOSITION / 016" /></label>
+                <label>右上角文字<input id="editionText" type="text" maxlength="40" value="XVI / 016" /></label>
+                <label>标题上方文字<input id="kickerText" type="text" maxlength="50" value="" placeholder="可留空，或填写章节 / 日期 / 栏目" /></label>
+              </div>
+              <div class="template-specific-settings book-settings">
+                <label>章节标识（仅书页）<input id="chapterText" type="text" maxlength="24" value="Chapter 01" /></label>
+                <div class="control-row"><label>章节字号<span><input class="number-field" data-setting="chapterSize" type="number" min="10" max="52" value="18" /> px</span></label><input id="chapterSize" type="range" min="10" max="52" value="18" /></div>
+              </div>
+              <div class="template-specific-settings section-settings">
+                <label>节号（仅分节长页）<input id="sectionNumber" type="text" maxlength="12" value="" placeholder="例如 01 / 第一章；留空不显示" /></label>
+                <div class="control-row"><label>节号字号<span><input class="number-field" data-setting="sectionNumberSize" type="number" min="36" max="140" step="2" value="82" /> px</span></label><input id="sectionNumberSize" type="range" min="36" max="140" step="2" value="82" /></div>
               </div>
               <div class="control-row"><label>字距<span><input class="number-field" data-setting="letterSpacing" type="number" min="-2" max="12" step="0.5" value="2" /> px</span></label><input id="letterSpacing" type="range" min="-2" max="12" step="0.5" value="2" /></div>
               <div class="control-row"><label>段距<span><input class="number-field" data-setting="paragraphSpacing" type="number" min="0" max="3" step="0.05" value="1" /> em</span></label><input id="paragraphSpacing" type="range" min="0" max="3" step="0.05" value="1" /></div>
@@ -167,12 +187,27 @@
 
       <section class="preview-stage" aria-label="长图预览">
         <div class="preview-toolbar"><div><strong>长图预览</strong><span id="canvasInfo">896 × 自动高度</span></div><div class="zoom-control"><button id="zoomOut" type="button" aria-label="缩小预览" title="缩小预览">−</button><output id="zoomValue">70%</output><button id="zoomIn" type="button" aria-label="放大预览" title="放大预览">＋</button></div></div>
+        <div class="preview-inspector" id="previewInspector" hidden>
+          <strong id="previewInspectorLabel">标题</strong>
+          <button type="button" data-preview-step="-1" aria-label="减小字号">−</button>
+          <output id="previewInspectorValue">56 px</output>
+          <button type="button" data-preview-step="1" aria-label="增大字号">＋</button>
+          <label title="颜色"><input id="previewInspectorColor" type="color" /></label>
+          <div class="preview-lead-modes" id="previewLeadModes" hidden><button type="button" data-lead-style="none">无</button><button type="button" data-lead-style="line">线</button><button type="button" data-lead-style="color">色</button></div>
+          <div class="preview-format-modes" id="previewFormatModes" hidden>
+            <button type="button" data-preview-format="bold" aria-label="加粗" title="加粗（⌘/Ctrl+B）"><b>B</b></button>
+            <button type="button" data-preview-format="italic" aria-label="斜体" title="斜体（⌘/Ctrl+I）"><i>I</i></button>
+            <button type="button" data-preview-format="underline" aria-label="下划线" title="下划线（⌘/Ctrl+U）"><u>U</u></button>
+            <button type="button" data-preview-format="strikeThrough" aria-label="删除线" title="删除线（⌘/Ctrl+Shift+X）"><s>S</s></button>
+          </div>
+          <button class="preview-inspector-close" id="previewInspectorClose" type="button" aria-label="关闭">×</button>
+        </div>
         <div class="preview-scroll" id="previewScroll">
           <div class="preview-empty" id="previewEmpty"><span>XVI</span><strong>尚未生成</strong></div>
           <article class="poster" id="poster" hidden>
-            <div class="poster-index"><span>XVI</span><span id="posterEdition">016 / LONGFORM</span></div><div class="poster-accent"></div>
-            <header class="poster-header"><p class="poster-kicker" id="posterKicker">LONGFORM COMPOSITION / 016</p><h2 id="previewTitle"></h2></header>
-            <div class="poster-rule"></div><div class="poster-body" id="previewBody"></div>
+            <div class="poster-index"><span>XVI</span><span id="posterEdition">XVI / 016</span></div><div class="poster-accent"></div>
+            <header class="poster-header"><p class="poster-kicker" id="posterKicker"></p><h2 id="previewTitle"></h2></header>
+            <div class="poster-rule"></div><div class="poster-body" id="previewBody" contenteditable="true" spellcheck="false" aria-label="可直接编辑的正文"></div>
             <footer class="poster-footer" id="previewFooter"><span class="footer-line"></span><p id="previewAuthor"></p><span class="footer-edition">XVI / 十六开</span></footer>
           </article>
         </div>
@@ -196,6 +231,6 @@
       </form>
     </div>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="app-next.js?v=0.1.4"></script>
+    <script src="app-next.js?v=0.2.6"></script>
   </body>
 </html>
