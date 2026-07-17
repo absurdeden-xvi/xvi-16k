@@ -4,7 +4,7 @@
 
 - 当前版本：`v0.7.1`
 - 产品阶段：公开预览版，尚未进入 V1
-- 在线使用：[teal-duckanoo-b85abe.netlify.app](https://teal-duckanoo-b85abe.netlify.app/)
+- 在线使用：[xvi-16k.netlify.app](https://xvi-16k.netlify.app/)
 - 代码仓库：[absurdeden-xvi/xvi-16k](https://github.com/absurdeden-xvi/xvi-16k/tree/main/project)
 - 反馈邮箱：[absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com)
 

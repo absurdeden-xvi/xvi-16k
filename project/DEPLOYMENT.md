@@ -4,8 +4,8 @@
 
 - GitHub：[`absurdeden-xvi/xvi-16k`](https://github.com/absurdeden-xvi/xvi-16k)
 - 正式分支：`main`
-- Netlify 项目：`teal-duckanoo-b85abe`
-- 正式地址：[teal-duckanoo-b85abe.netlify.app](https://teal-duckanoo-b85abe.netlify.app/)
+- Netlify 项目：`xvi-16k`
+- 正式地址：[xvi-16k.netlify.app](https://xvi-16k.netlify.app/)
 - 发布目录：`project`
 - 构建命令：无，直接发布静态文件
 
