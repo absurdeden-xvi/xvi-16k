@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>XVI / 字体候选研究</title>
+  <link rel="stylesheet" href="research.css" />
+</head>
+<body>
+  <header class="study-header">
+    <a class="study-brand" href="research-naming.html"><b>XVI</b><span>V1 DESIGN STUDY / 04</span></a>
+    <nav class="study-nav"><a href="research-naming.html">命名</a><a href="research-color.html">配色</a><a href="research-layout.html">刊页</a><a class="active" href="research-fonts.html">字体</a></nav>
+  </header>
+  <main class="study-main">
+    <section class="study-intro">
+      <div><span class="eyebrow">04 / TYPE CANDIDATES</span><h1>先确认授权与字集，再谈“好看”。</h1></div>
+      <p>这一轮只建立候选池，不把字体文件接进正式网页。<strong>正文优先完整字集、屏幕阅读和标点质量；标题字体可以更有性格。</strong></p>
+    </section>
+
+    <div class="section-head"><h2>建议保留与新增</h2><p>字体聚合站只负责发现线索。正式内置前，还要回到作者或项目原始页面核对授权、网页嵌入范围与版本。</p></div>
+    <table class="font-table">
+      <thead><tr><th>字体</th><th>建议用途</th><th>判断</th><th>状态</th></tr></thead>
+      <tbody>
+        <tr><td>霞鹜新致宋</td><td>正文 / 标题</td><td>现有字体中最稳定的现代宋体之一，继续保留；需固定版本并复核网页字体来源。</td><td><span class="status">保留</span></td></tr>
+        <tr><td>汇文明朝体</td><td>正文 / 标题</td><td>气质符合项目，但必须重新核实具体授权与当前 CDN 的再分发条件。</td><td><span class="status pending">待核实</span></td></tr>
+        <tr><td>文津宋体</td><td>长文正文</td><td>大字符集、OFL，适合生僻字较多的小说与同人正文；视觉个性较弱但可靠。</td><td><span class="status">候选</span></td></tr>
+        <tr><td>香萃端庄宋体</td><td>标题 / 短正文</td><td>重心高、轮廓修长，现代感明显；GB2312 字集限制意味着不宜单独承担所有正文。</td><td><span class="status">候选</span></td></tr>
+        <tr><td>司源赢宋</td><td>标题 / 题头</td><td>窄体与中英混排是优势，适合替代目前老派的标题选项；需测试小字号可读性。</td><td><span class="status">候选</span></td></tr>
+        <tr><td>宋骨黑体</td><td>正文 / 现代模板</td><td>兼具宋体骨架与黑体密度，可补足目前“宋体或普通黑体”之间的空档。</td><td><span class="status">候选</span></td></tr>
+        <tr><td>文渊黑体</td><td>UI / 正文</td><td>多字重与大陆规范字形适合工具界面及现代长文；需要评估网页包体。</td><td><span class="status">候选</span></td></tr>
+        <tr><td>朱雀仿宋</td><td>书页 / 信笺</td><td>继续作为明确风格选项，不作为默认正文，以免所有模板都趋向传统出版物。</td><td><span class="status">保留</span></td></tr>
+        <tr><td>悠哉字体</td><td>特殊标题</td><td>个性强，长文阅读不稳定；从正文列表移到“标题 / 特殊”分类更合理。</td><td><span class="status pending">重分类</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-head"><h2>字体库以后按用途分组</h2><p>不再把所有字体平铺在一个下拉框里，也不以“越多越好”为目标。</p></div>
+    <section class="decision-grid">
+      <article class="decision-card recommended"><span class="tag">正文</span><h3>稳定阅读</h3><div class="sample">新致宋 · 文津宋 · 宋骨黑</div><p>优先字集、标点、屏幕显示和较长段落的灰度均匀。</p></article>
+      <article class="decision-card"><span class="tag">标题</span><h3>建立性格</h3><div class="sample">端庄宋 · 赢宋 · 汇文明朝</div><p>允许更窄、更高或更强烈，但必须和正文分开选择。</p></article>
+      <article class="decision-card"><span class="tag">特殊</span><h3>明确场景</h3><div class="sample">朱雀仿宋 · 文楷 · 悠哉</div><p>服务信笺、手记、摘录等模板，不进入默认推荐。</p></article>
+    </section>
+    <footer class="study-footer">字体页面为初筛记录，不构成授权结论，也未下载或嵌入任何新字体文件。</footer>
+  </main>
+</body>
+</html>

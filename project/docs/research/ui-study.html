@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>XVI / 工作台视觉样稿</title>
+    <link rel="stylesheet" href="ui-study.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="wordmark" href="#" aria-label="XVI 十六开">
+        <span class="x">X</span><span class="v">V</span><span class="i">I</span>
+      </a>
+      <div class="edition"><b>十六开</b><span>LONGFORM STUDIO</span></div>
+      <nav aria-label="创作步骤">
+        <button class="step active" type="button" data-panel="write"><span>写</span>文字</button>
+        <button class="step" type="button" data-panel="style"><span>形</span>样式</button>
+        <button class="step" type="button" data-panel="export"><span>存</span>导出</button>
+      </nav>
+      <div class="top-actions"><span>已保存</span><button class="export" type="button">导出 <b>↗</b></button></div>
+    </header>
+
+    <main class="workspace">
+      <aside class="composer">
+        <div class="section-mark"><span>01</span><i></i><em>WRITE</em></div>
+
+        <section class="panel active" data-panel-content="write">
+          <div class="panel-heading">
+            <p>CONTENT / 016</p>
+            <h1>文字编辑</h1>
+          </div>
+
+          <label class="line-field"><span>标题</span><input value="我仍然愿意相信文字" /></label>
+          <label class="line-field"><span>署名</span><input value="写作者 / 无名" /></label>
+
+          <div class="body-label"><span>正文</span><em>246 字</em></div>
+          <div class="formatting" aria-label="文字格式">
+            <button type="button"><strong>B</strong></button><button type="button"><i>I</i></button>
+            <button type="button"><u>U</u></button><button type="button"><s>S</s></button>
+            <button class="clear" type="button">清除格式</button>
+          </div>
+          <div class="editor" contenteditable="true" spellcheck="false">
+            <p>有时候，写作并不是为了得到一个答案。</p>
+            <p>它更像是在安静的房间里点亮一盏灯，让那些没有被说出口的感受，终于拥有形状。</p>
+            <p>我们把日子拆成句子，把犹豫放进标点，把想念留在段落之间。然后在某个深夜，重新读到从前的自己。</p>
+          </div>
+
+          <button class="compose" type="button"><span>自动排版</span><i>生成长图</i><b>→</b></button>
+        </section>
+
+        <section class="panel" data-panel-content="style">
+          <div class="panel-heading"><p>FORM / 016</p><h1>版式设计</h1></div>
+          <div class="choice-heading"><b>配色</b><span>月白</span></div>
+          <div class="swatches"><button class="selected"></button><button></button><button></button><button></button><button></button></div>
+          <div class="choice-heading"><b>正文字体</b><span>汇文明朝体</span></div>
+          <div class="type-list"><button class="selected">明朝</button><button>新致宋</button><button>文楷</button></div>
+          <label class="range"><span>字号 <b>24</b></span><input type="range" min="16" max="48" value="24" /></label>
+          <label class="range"><span>行距 <b>1.9</b></span><input type="range" min="12" max="28" value="19" /></label>
+        </section>
+
+        <section class="panel" data-panel-content="export">
+          <div class="panel-heading"><p>OUTPUT / 016</p><h1>保存与导出</h1></div>
+          <div class="export-setting"><span>格式</span><b>PNG</b><em>JPG</em></div>
+          <div class="export-setting"><span>清晰度</span><b>2×</b><em>3×</em></div>
+          <button class="compose" type="button"><span>导出图片</span><i>896 × 自动高度</i><b>↓</b></button>
+        </section>
+      </aside>
+
+      <section class="stage">
+        <div class="stage-meta"><span>PREVIEW / 016</span><div><button type="button">−</button><output>68%</output><button type="button">＋</button></div></div>
+        <article class="poster">
+          <header><a class="poster-mark" href="#">XVI</a><span>016 / LONGFORM</span></header>
+          <div class="signal"><i></i><span>THE WRITTEN FORM</span></div>
+          <h2>我仍然愿意<br />相信文字</h2>
+          <p class="lead">有时候，写作并不是为了得到一个答案。</p>
+          <p>它更像是在安静的房间里点亮一盏灯，让那些没有被说出口的感受，终于拥有形状。</p>
+          <p>我们把日子拆成句子，把犹豫放进标点，把想念留在段落之间。然后在某个深夜，重新读到从前的自己。</p>
+          <footer><i></i><span>写作者 / 无名</span><em>十六开</em></footer>
+        </article>
+        <p class="side-note">XVI · LONGFORM STUDIO · 016</p>
+      </section>
+    </main>
+    <script>
+      const steps = [...document.querySelectorAll('.step')];
+      const panels = [...document.querySelectorAll('.panel')];
+      steps.forEach((step, index) => step.addEventListener('click', () => {
+        steps.forEach(item => item.classList.remove('active'));
+        panels.forEach(item => item.classList.remove('active'));
+        step.classList.add('active');
+        panels[index].classList.add('active');
+        document.querySelector('.section-mark span').textContent = `0${index + 1}`;
+        document.querySelector('.section-mark em').textContent = ['WRITE', 'FORM', 'EXPORT'][index];
+      }));
+    </script>
+  </body>
+</html>

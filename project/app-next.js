@@ -1,15 +1,4 @@
-const SAMPLE_TEXT = `有时候，写作并不是为了得到一个答案。
-
-它更像是在安静的房间里点亮一盏灯，让那些没有被说出口的感受，终于拥有形状。
-
-我们把日子拆成句子，把犹豫放进标点，把想念留在段落之间。然后在某个深夜，重新读到从前的自己。
-
-原来文字真正保存下来的，不只是故事，还有我们曾经认真生活过的证据。
-
-所以，请继续写吧。
-
-不必等到准备万全，也不必急着成为谁。只要在每一次落笔时，诚实地靠近自己一点点。`;
-
+// Visual registries are shared by controls, DOM preview, and Canvas export.
 const PRESETS = {
   mist: { background: "#eef2f3", text: "#26333a", accent: "#9ebbc4" },
   blush: { background: "#f5eceb", text: "#3d2d31", accent: "#d99a91" },
@@ -31,7 +20,7 @@ const PRESETS = {
   deepSea: { background: "#142529", text: "#d9e5e4", accent: "#6f9da0" },
   umber: { background: "#3a2b1b", text: "#f3e7d2", accent: "#d0a969" },
   blueprint: { background: "#f8f8f4", text: "#17469e", accent: "#b52b35" },
-  vermilion: { background: "#d8dbd4", text: "#202421", accent: "#9f431c" },
+  vermilion: { background: "#d5eef0", text: "#153c4a", accent: "#b04727" },
   newsprint: { background: "#f3efe4", text: "#171717", accent: "#b52b35" },
   acidNight: { background: "#171917", text: "#edf1e8", accent: "#bdd34c" },
   farTide: { background: "#f8f6ef", text: "#1948a0", accent: "#ed5b4d" },
@@ -39,13 +28,13 @@ const PRESETS = {
   oriole: { background: "#f2e9dd", text: "#4a1820", accent: "#b43b3f" },
   seaMark: { background: "#cbe5dc", text: "#17424b", accent: "#df594a" },
   blueCurtain: { background: "#1238a3", text: "#fffdf4", accent: "#d8e0ff" },
-  mulberry: { background: "#8b3233", text: "#fff4df", accent: "#e0bd78" },
+  mulberry: { background: "#f3e69a", text: "#164a4b", accent: "#a83e36" },
   pineSmoke: { background: "#f2eee3", text: "#172a22", accent: "#2f6b50" },
-  latePeach: { background: "#d8def7", text: "#20264e", accent: "#a8322c" },
-  gooseShadow: { background: "#cfd4d2", text: "#242829", accent: "#973b1c" },
+  latePeach: { background: "#d8d1f0", text: "#2e2862", accent: "#9d315d" },
+  gooseShadow: { background: "#e4edb8", text: "#3b2146", accent: "#b84322" },
   nightSakura: { background: "#1d1d22", text: "#f2aec5", accent: "#9bd3c2" },
   camelliaPaper: { background: "#f3efe1", text: "#1e5a4d", accent: "#cc6355" },
-  aster: { background: "#191918", text: "#f1e9d9", accent: "#e37232" }
+  aster: { background: "#151c28", text: "#e9e5dc", accent: "#7896bd" }
 };
 
 const PALETTE_FAMILIES = {
@@ -63,37 +52,29 @@ const PALETTE_NAMES = {
 };
 
 const SPECIAL_PRESETS = ["blueprint", "vermilion", "newsprint", "acidNight", "farTide", "roseLetter", "oriole", "seaMark", "blueCurtain", "mulberry", "pineSmoke", "latePeach", "gooseShadow", "nightSakura", "camelliaPaper", "aster"];
-const SPECIAL_PRESET_NAMES = { blueprint: "蓝晒", vermilion: "银幕", newsprint: "铅字", acidNight: "夜萤", farTide: "远潮", roseLetter: "常春藤", oriole: "绯页", seaMark: "潮痕", blueCurtain: "蓝钟", mulberry: "砖红函", pineSmoke: "青案", latePeach: "新月蓝", gooseShadow: "银橙", nightSakura: "夜樱", camelliaPaper: "山茶笺", aster: "黑脊" };
+const SPECIAL_PRESET_NAMES = { blueprint: "蓝晒", vermilion: "玻璃海", newsprint: "铅字", acidNight: "夜萤", farTide: "远潮水", roseLetter: "常春藤", oriole: "绯页", seaMark: "潮痕", blueCurtain: "蓝钟", mulberry: "日晷", pineSmoke: "青案", latePeach: "星盘", gooseShadow: "春雷", nightSakura: "夜樱", camelliaPaper: "山茶笺", aster: "夜汐" };
 
 const LAYOUT_RECIPES = {
-  folio: { fontFamily: "serif", titleFontFamily: "serif", titleSize: 56, titleWeight: 700, lineHeight: 1.88, paragraphSpacing: 1, pagePadding: 88, compositionStyle: "editorial", indent: true },
-  quiet: { fontFamily: "serif", titleFontFamily: "serif", titleSize: 48, titleWeight: 600, lineHeight: 1.92, paragraphSpacing: 1, pagePadding: 78, compositionStyle: "editorial", indent: true },
-  margin: { fontFamily: "serif", titleFontFamily: "serif", titleSize: 52, titleWeight: 700, lineHeight: 1.86, paragraphSpacing: 1.25, pagePadding: 70, compositionStyle: "open", indent: true },
-  signal: { fontFamily: "serif", titleFontFamily: "serif", titleSize: 72, titleWeight: 700, lineHeight: 1.82, paragraphSpacing: 1.5, pagePadding: 84, compositionStyle: "open", indent: false }
+  folio: { titleSize: 56, titleWeight: 700, lineHeight: 1.88, paragraphSpacing: 1, pagePadding: 88, compositionStyle: "editorial", indent: true },
+  book: { titleSize: 58, titleWeight: 600, lineHeight: 1.92, paragraphSpacing: 1, pagePadding: 88, compositionStyle: "editorial", indent: true },
+  letter: { titleSize: 54, titleWeight: 600, lineHeight: 2, paragraphSpacing: 1.25, pagePadding: 86, compositionStyle: "open", indent: false },
+  section: { titleSize: 68, titleWeight: 600, lineHeight: 1.86, paragraphSpacing: 1.25, pagePadding: 84, compositionStyle: "open", indent: false }
 };
-
-const SLOGANS = [
-  { text: "让文字自己呼吸。", source: "XVI" },
-  { text: "把句子放回风里。", source: "XVI" },
-  { text: "留白不是空着。", source: "XVI" },
-  { text: "写完，再慢慢排好。", source: "XVI" },
-  { text: "纸面有它自己的潮汐。", source: "XVI" },
-  { text: "给长文一张安静的脸。", source: "XVI" },
-  { text: "先自由，再成形。", source: "XVI" },
-  { text: "每一段都可以有余地。", source: "XVI" }
-];
 
 const FORBIDDEN_LINE_START = new Set([..."，。！？；：、）》】」』〕〉”’…—～·,.!?;:%)]}›»"]);
 const FORBIDDEN_LINE_END = new Set([..."（《【「『〔〈“‘([{‹«"]);
 
 const FONT_STACKS = {
   serif: '"Songti SC", STSong, SimSun, serif',
+  pingfang: '"PingFang SC", "PingFang TC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
   "sans-serif": '"PingFang SC", "Microsoft YaHei", sans-serif',
   lxgw: '"LXGW WenKai", "Kaiti SC", KaiTi, serif',
   neoZhiSong: '"LXGW Neo ZhiSong", "Songti SC", SimSun, serif',
   huiwen: '"Huiwen-mincho", "Songti SC", SimSun, serif',
   zhuque: '"Zhuque Fangsong (technical preview)", "Zhuque Fangsong", STFangsong, FangSong, serif',
   yozai: '"Yozai", "Kaiti SC", KaiTi, serif',
+  wenjin: '"WenJin Mincho Plane 0", "Songti SC", STSong, serif',
+  winsong: '"CorpSrcWinSong", "Songti SC", STSong, serif',
   kai: '"Kaiti SC", STKaiti, KaiTi, serif',
   fangSong: 'STFangsong, FangSong, "FangSong SC", serif',
   rounded: '"Hiragino Maru Gothic ProN", "Yuanti SC", "Arial Rounded MT Bold", sans-serif',
@@ -106,6 +87,7 @@ const FONT_STACKS = {
   mono: '"SFMono-Regular", Menlo, Monaco, "Noto Sans Mono CJK SC", monospace'
 };
 
+// DOM bindings and mutable editor state.
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 
@@ -136,6 +118,12 @@ const settings = {
   compositionStyle: $("#compositionStyle"),
   editionText: $("#editionText"),
   kickerText: $("#kickerText"),
+  chapterText: $("#chapterText"),
+  sectionNumber: $("#sectionNumber"),
+  chapterSize: $("#chapterSize"),
+  sectionNumberSize: $("#sectionNumberSize"),
+  leadStyle: $("#leadStyle"),
+  leadScale: $("#leadScale"),
   fontSize: $("#fontSize"),
   titleSize: $("#titleSize"),
   lineHeight: $("#lineHeight"),
@@ -145,9 +133,9 @@ const settings = {
   pagePadding: $("#pagePadding"),
   backgroundColor: $("#backgroundColor"),
   textColor: $("#textColor"),
+  titleColor: $("#titleColor"),
   accentColor: $("#accentColor"),
   indent: $("#indentToggle"),
-  texture: $("#textureToggle"),
   signature: $("#signatureToggle"),
   header: $("#headerToggle"),
   smartParagraph: $("#smartParagraphToggle")
@@ -158,15 +146,37 @@ let layoutTemplate = "folio";
 let paletteMode = "light";
 let paletteFamily = "neutral";
 let activeSpecialPreset = null;
-let zoom = 0.7;
+let zoom = 0.55;
+let mobileZoom = null;
 let saveTimer;
 let toastTimer;
 let generatedDocument = null;
 let contentIsDirty = false;
 let exportFormat = "png";
+let activePreviewTarget = null;
 
+const PREVIEW_EDITORS = {
+  title: { label: "标题", size: "titleSize", color: "titleColor", step: 2, suffix: " px" },
+  chapter: { label: "章节标识", size: "chapterSize", color: "accentColor", step: 1, suffix: " px" },
+  lead: { label: "首段", size: "leadScale", color: "accentColor", step: 0.05, suffix: " 倍", leadModes: true },
+  body: { label: "正文", size: "fontSize", color: "textColor", step: 1, suffix: " px", formatModes: true },
+  section: { label: "节号", size: "sectionNumberSize", color: "accentColor", step: 2, suffix: " px" }
+};
+
+// Rich-text normalization and regional script conversion.
 function bodyText() {
   return elements.body.innerText.replace(/\u00a0/g, " ").replace(/\n{3,}/g, "\n\n").trim();
+}
+
+function visibleZoom() {
+  return window.innerWidth <= 760 && mobileZoom !== null ? mobileZoom : zoom;
+}
+
+function adjustVisibleZoom(delta) {
+  const next = Math.max(0.35, Math.min(1, visibleZoom() + delta));
+  if (window.innerWidth <= 760) mobileZoom = next;
+  else zoom = next;
+  render();
 }
 
 function setBodyText(text) {
@@ -177,8 +187,81 @@ function setBodyText(text) {
   }));
 }
 
-function extractRichParagraphs() {
-  const blocks = [...elements.body.childNodes];
+function convertQuoteMarks(text, nextMode) {
+  if (nextMode === "traditional-tw") {
+    return text
+      .replace(/“/g, "「")
+      .replace(/”/g, "」")
+      .replace(/‘/g, "『")
+      .replace(/’/g, "』");
+  }
+  return text
+    .replace(/「/g, "“")
+    .replace(/」/g, "”")
+    .replace(/『/g, "‘")
+    .replace(/』/g, "’");
+}
+
+function scriptLocale(mode) {
+  if (mode === "traditional-hk") return "hk";
+  if (mode === "traditional-tw") return "tw";
+  return "cn";
+}
+
+function textConvertersForSelection(nextMode) {
+  if (nextMode === "simplified") return [OpenCC.Converter({ from: "tw", to: "cn" })];
+  const sourceLocale = nextMode === "traditional-hk" ? "tw" : "hk";
+  return [
+    OpenCC.Converter({ from: sourceLocale, to: "cn" }),
+    OpenCC.Converter({ from: "cn", to: scriptLocale(nextMode) })
+  ];
+}
+
+function closeScriptPicker() {
+  $("#scriptPickerMenu").hidden = true;
+  $("#scriptPickerButton").setAttribute("aria-expanded", "false");
+}
+
+function convertSelectedScript(nextMode) {
+  if (!window.OpenCC?.Converter) {
+    showToast("字形转换暂时无法使用");
+    return false;
+  }
+  const selection = document.getSelection();
+  if (!selection?.rangeCount || selection.isCollapsed
+    || !elements.body.contains(selection.anchorNode)
+    || !elements.body.contains(selection.focusNode)) {
+    closeScriptPicker();
+    showToast("请先选中要转换的文字");
+    return false;
+  }
+  const range = selection.getRangeAt(0);
+  const converters = textConvertersForSelection(nextMode);
+  const transform = (text) => convertQuoteMarks(converters.reduce((value, converter) => converter(value), text), nextMode);
+  const walker = document.createTreeWalker(elements.body, NodeFilter.SHOW_TEXT);
+  const nodes = [];
+  while (walker.nextNode()) {
+    if (range.intersectsNode(walker.currentNode)) nodes.push(walker.currentNode);
+  }
+  nodes.forEach((node) => {
+    const start = node === range.startContainer ? range.startOffset : 0;
+    const end = node === range.endContainer ? range.endOffset : node.data.length;
+    if (end <= start) return;
+    node.replaceData(start, end - start, transform(node.data.slice(start, end)));
+  });
+  selection.removeAllRanges();
+  selection.addRange(range);
+  closeScriptPicker();
+  updateControlLabels();
+  syncFormattingToGeneratedDocument();
+  scheduleSave();
+  const modeLabels = { simplified: "简中", "traditional-hk": "繁中（港）", "traditional-tw": "繁中（台）" };
+  showToast(`所选文字已转换为${modeLabels[nextMode]}`);
+  return true;
+}
+
+function extractRichParagraphsFrom(root = elements.body) {
+  const blocks = [...root.childNodes];
   const paragraphs = [];
   const walk = (node, inherited, runs) => {
     if (node.nodeType === Node.TEXT_NODE) {
@@ -195,6 +278,10 @@ function extractRichParagraphs() {
     if (["I", "EM"].includes(node.tagName)) style.italic = true;
     if (node.tagName === "U") style.underline = true;
     if (["S", "STRIKE"].includes(node.tagName)) style.strike = true;
+    if (node.classList?.contains("rich-bold")) style.bold = true;
+    if (node.classList?.contains("rich-italic")) style.italic = true;
+    if (node.classList?.contains("rich-underline")) style.underline = true;
+    if (node.classList?.contains("rich-strike")) style.strike = true;
     const inlineStyle = node.style;
     if (inlineStyle) {
       const numericWeight = Number.parseInt(inlineStyle.fontWeight, 10);
@@ -211,8 +298,13 @@ function extractRichParagraphs() {
     walk(block, {}, runs);
     if (runs.some((run) => run.text.trim())) paragraphs.push(runs);
   });
-  if (!paragraphs.length && bodyText()) paragraphs.push([{ text: bodyText() }]);
+  const fallbackText = root.innerText?.replace(/\u00a0/g, " ").trim() || "";
+  if (!paragraphs.length && fallbackText) paragraphs.push([{ text: fallbackText }]);
   return paragraphs;
+}
+
+function extractRichParagraphs() {
+  return extractRichParagraphsFrom(elements.body);
 }
 
 function applyFormattingToComposedText(composedText, sourceParagraphs) {
@@ -254,17 +346,58 @@ function textParagraphs() {
   return generatedDocument.paragraphs;
 }
 
+// Preview rendering and inline inspector synchronization.
 function updateControlLabels() {
   elements.charCount.textContent = `${bodyText().replace(/\s/g, "").length} 字`;
   $$(".number-field").forEach((input) => { input.value = settings[input.dataset.setting].value; });
   $("#backgroundColorValue").value = settings.backgroundColor.value.toUpperCase();
   $("#textColorValue").value = settings.textColor.value.toUpperCase();
+  $("#titleColorValue").value = settings.titleColor.value.toUpperCase();
   $("#accentColorValue").value = settings.accentColor.value.toUpperCase();
-  $("#zoomValue").value = `${Math.round(zoom * 100)}%`;
+  $("#zoomValue").value = `${Math.round(visibleZoom() * 100)}%`;
   elements.canvasInfo.textContent = `${settings.contentWidth.value} × 自动高度`;
   updateExportScaleLabels();
   $("#exportCanvasInfo").textContent = `${exportPixelWidth()} px · ${exportScaleLabel()}`;
+  elements.exportButton.title = `${exportFormat.toUpperCase()} · ${exportPixelWidth()} px · 自动高度`;
   syncParagraphGapControls();
+  syncLeadStyleControls();
+  syncTemplateSettings();
+  syncPreviewInspector();
+}
+
+function syncLeadStyleControls() {
+  $$('[data-lead-style]').forEach((button) => button.classList.toggle("active", button.dataset.leadStyle === settings.leadStyle.value));
+}
+
+function syncTemplateSettings() {
+  $$(".book-settings").forEach((group) => group.hidden = layoutTemplate !== "book");
+  $$(".section-settings").forEach((group) => group.hidden = layoutTemplate !== "section");
+}
+
+function syncPreviewInspector() {
+  const inspector = $("#previewInspector");
+  const editor = PREVIEW_EDITORS[activePreviewTarget];
+  elements.poster.querySelectorAll(".preview-editing").forEach((node) => node.classList.remove("preview-editing"));
+  if (!editor || !generatedDocument) {
+    inspector.hidden = true;
+    $("#previewLeadModes").hidden = true;
+    $("#previewFormatModes").hidden = true;
+    return;
+  }
+  inspector.hidden = false;
+  $("#previewInspectorLabel").textContent = editor.label;
+  $("#previewInspectorValue").value = `${Number(settings[editor.size].value).toFixed(editor.step < 1 ? 2 : 0).replace(/\.00$/, "")}${editor.suffix}`;
+  $("#previewInspectorColor").value = settings[editor.color].value;
+  $("#previewLeadModes").hidden = !editor.leadModes;
+  $("#previewFormatModes").hidden = !editor.formatModes;
+  elements.poster.querySelector(`[data-preview-target="${activePreviewTarget}"]`)?.classList.add("preview-editing");
+}
+
+function closePreviewInspector(clearSelection = true) {
+  activePreviewTarget = null;
+  syncPreviewInspector();
+  if (clearSelection) document.getSelection()?.removeAllRanges();
+  elements.previewBody.blur();
 }
 
 function exportScaleLabel() {
@@ -301,6 +434,7 @@ function render() {
   }
 
   elements.previewTitle.textContent = generatedDocument.title;
+  elements.previewTitle.dataset.previewTarget = "title";
   elements.previewAuthor.textContent = generatedDocument.author;
   elements.previewBody.replaceChildren(...textParagraphs().map((runs) => {
     const paragraph = document.createElement("p");
@@ -315,10 +449,11 @@ function render() {
     });
     return paragraph;
   }));
+  elements.previewBody.firstElementChild?.setAttribute("data-preview-target", "lead");
+  elements.previewBody.dataset.previewTarget = "body";
 
   elements.previewBody.className = `poster-body align-${alignment}${settings.indent.checked ? " indent" : ""}`;
   elements.previewFooter.hidden = !settings.signature.checked;
-  elements.poster.classList.toggle("texture", settings.texture.checked);
   elements.poster.style.fontFamily = FONT_STACKS[settings.fontFamily.value];
   elements.poster.style.setProperty("--poster-title-font", FONT_STACKS[settings.titleFontFamily.value]);
   elements.poster.style.setProperty("--poster-font-size", `${settings.fontSize.value}px`);
@@ -331,15 +466,30 @@ function render() {
   elements.poster.style.setProperty("--poster-padding", `${settings.pagePadding.value}px`);
   elements.poster.style.setProperty("--poster-bg", settings.backgroundColor.value);
   elements.poster.style.setProperty("--poster-text", settings.textColor.value);
+  elements.poster.style.setProperty("--poster-title-color", settings.titleColor.value);
   elements.poster.style.setProperty("--poster-accent", settings.accentColor.value);
-  elements.poster.style.setProperty("--preview-scale", zoom);
+  elements.poster.style.setProperty("--poster-lead-scale", settings.leadScale.value);
+  elements.poster.style.setProperty("--poster-chapter-size", `${settings.chapterSize.value}px`);
+  elements.poster.style.setProperty("--poster-section-size", `${settings.sectionNumberSize.value}px`);
+  elements.poster.style.setProperty("--preview-scale", visibleZoom());
   elements.poster.classList.toggle("hide-header", !settings.header.checked);
   elements.poster.classList.toggle("composition-compact", settings.compositionStyle.value === "compact");
   elements.poster.classList.toggle("composition-open", settings.compositionStyle.value === "open");
-  elements.poster.classList.remove("layout-folio", "layout-quiet", "layout-margin", "layout-signal");
+  elements.poster.classList.remove("layout-folio", "layout-book", "layout-letter", "layout-section");
   elements.poster.classList.add(`layout-${layoutTemplate}`);
-  $("#posterEdition").textContent = settings.editionText.value.trim() || "016 / LONGFORM";
-  $("#posterKicker").textContent = settings.kickerText.value.trim() || "LONGFORM COMPOSITION / 016";
+  elements.poster.classList.remove("lead-none", "lead-line", "lead-color");
+  elements.poster.classList.add(`lead-${settings.leadStyle.value}`);
+  const sectionNumber = settings.sectionNumber.value.trim();
+  const chapterText = settings.chapterText.value.trim();
+  elements.poster.classList.toggle("has-section-number", layoutTemplate === "section" && Boolean(sectionNumber));
+  const posterAccent = elements.poster.querySelector(".poster-accent");
+  posterAccent.textContent = layoutTemplate === "book" ? chapterText : (layoutTemplate === "section" ? sectionNumber : "");
+  if (layoutTemplate === "book" && chapterText) posterAccent.dataset.previewTarget = "chapter";
+  else if (layoutTemplate === "section" && sectionNumber) posterAccent.dataset.previewTarget = "section";
+  else posterAccent.removeAttribute("data-preview-target");
+  $("#posterEdition").textContent = settings.editionText.value.trim() || "XVI / 016";
+  $("#posterKicker").textContent = settings.kickerText.value.trim();
+  syncPreviewInspector();
 
   scheduleSave();
 }
@@ -371,6 +521,7 @@ function splitIntoBalancedParagraphs(text) {
   return paragraphs;
 }
 
+// Generation, persistence, and explicit feedback submission.
 function composeText(rawText) {
   const normalized = rawText.replace(/\r\n?/g, "\n").replace(/\u00a0/g, " ").trim();
   if (!settings.smartParagraph.checked) return normalized;
@@ -381,8 +532,8 @@ function composeText(rawText) {
 
 function applyAutomaticTypography(characterCount) {
   let values;
-  if (characterCount <= 360) values = { fontSize: 38, titleSize: 64, lineHeight: 2, letterSpacing: 2, paragraphSpacing: 1.5, pagePadding: 96 };
-  else if (characterCount <= 900) values = { fontSize: 33, titleSize: 60, lineHeight: 1.88, letterSpacing: 1, paragraphSpacing: 1.25, pagePadding: 88 };
+  if (characterCount <= 360) values = { fontSize: 32, titleSize: 64, lineHeight: 2, letterSpacing: 2, paragraphSpacing: 1.5, pagePadding: 96 };
+  else if (characterCount <= 900) values = { fontSize: 32, titleSize: 60, lineHeight: 1.88, letterSpacing: 1, paragraphSpacing: 1.25, pagePadding: 88 };
   else if (characterCount <= 1800) values = { fontSize: 29, titleSize: 56, lineHeight: 1.78, letterSpacing: 1, paragraphSpacing: 1, pagePadding: 80 };
   else values = { fontSize: 26, titleSize: 52, lineHeight: 1.7, letterSpacing: 0, paragraphSpacing: 0.5, pagePadding: 72 };
   Object.entries(values).forEach(([key, value]) => { settings[key].value = value; });
@@ -402,8 +553,8 @@ function generateDocument() {
   const sourceParagraphs = extractRichParagraphs();
   if (!generatedDocument) applyAutomaticTypography(characterCount);
   generatedDocument = {
-    title: elements.title.value.trim() || "未命名文字",
-    author: elements.author.value.trim() || "佚名",
+    title: elements.title.value.trim(),
+    author: elements.author.value.trim(),
     body,
     paragraphs: settings.smartParagraph.checked
       ? applyFormattingToComposedText(body, sourceParagraphs)
@@ -415,10 +566,10 @@ function generateDocument() {
   elements.exportButton.disabled = false;
   $("#exportPanelButton").disabled = false;
   elements.generateButton.querySelector("strong").textContent = "重新排版并生成";
+  fitMobilePreview();
   render();
   showToast(`已按 ${characterCount} 字自动完成排版`);
   activatePanel("design");
-  if (window.innerWidth <= 880) $("#previewScroll").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function markContentDirty() {
@@ -445,8 +596,30 @@ function syncFormattingToGeneratedDocument() {
   render();
 }
 
+function syncPreviewBodyEdits() {
+  if (!generatedDocument) return;
+  generatedDocument.body = elements.previewBody.innerText.replace(/\u00a0/g, " ").trim();
+  generatedDocument.paragraphs = extractRichParagraphsFrom(elements.previewBody);
+  elements.body.innerHTML = elements.previewBody.innerHTML;
+  elements.body.querySelectorAll("[data-preview-target]").forEach((node) => node.removeAttribute("data-preview-target"));
+  elements.body.querySelectorAll(".preview-editing").forEach((node) => node.classList.remove("preview-editing"));
+  contentIsDirty = false;
+  elements.exportButton.disabled = false;
+  $("#exportPanelButton").disabled = false;
+  updateControlLabels();
+  scheduleSave();
+}
+
+function applyPreviewFormatting(command) {
+  const selection = document.getSelection();
+  if (!selection?.rangeCount || !elements.previewBody.contains(selection.anchorNode)) return;
+  document.execCommand(command, false);
+  syncPreviewBodyEdits();
+}
+
 function getState() {
   return {
+    defaultsVersion: 3,
     title: elements.title.value,
     author: elements.author.value,
     body: bodyText(),
@@ -474,12 +647,24 @@ function loadState() {
   try {
     const state = JSON.parse(localStorage.getItem("xvi-next-v1"));
     if (!state) return;
+    if ((state.defaultsVersion || 0) < 2 && Number(state.zoom) === 0.7) state.zoom = 0.55;
+    if ((state.defaultsVersion || 0) < 3 && Number(state.zoom) < 0.5) state.zoom = 0.55;
+    const legacySample = typeof state.body === "string"
+      && state.body.startsWith("有时候，写作并不是为了得到一个答案。")
+      && state.body.includes("所以，请继续写吧。");
+    if (legacySample) {
+      state.title = state.title === "我仍然愿意相信文字" ? "" : state.title;
+      state.author = state.author === "写作者 / 无名" ? "" : state.author;
+      state.body = "";
+      state.bodyHtml = "";
+      state.values = { ...state.values, fontSize: "32", leadStyle: "color" };
+    }
     elements.title.value = state.title ?? elements.title.value;
     elements.author.value = state.author ?? elements.author.value;
     if (state.bodyHtml) elements.body.innerHTML = state.bodyHtml;
     else if (state.body) setBodyText(state.body);
     alignment = state.alignment ?? alignment;
-    layoutTemplate = "folio";
+    layoutTemplate = LAYOUT_RECIPES[state.layoutTemplate] ? state.layoutTemplate : "folio";
     paletteMode = state.paletteMode === "dark" ? "dark" : "light";
     paletteFamily = PALETTE_FAMILIES[state.paletteFamily] ? state.paletteFamily : "neutral";
     activeSpecialPreset = SPECIAL_PRESETS.includes(state.activeSpecialPreset) ? state.activeSpecialPreset : null;
@@ -490,6 +675,8 @@ function loadState() {
       else if (settings[key].tagName === "SELECT" && ![...settings[key].options].some((option) => option.value === value)) return;
       else settings[key].value = value;
     });
+    if (settings.editionText.value === "016 / LONGFORM") settings.editionText.value = "XVI / 016";
+    if (settings.kickerText.value === "LONGFORM COMPOSITION / 016") settings.kickerText.value = "";
   } catch (_) {
     localStorage.removeItem("xvi-next-v1");
   }
@@ -502,9 +689,15 @@ function showToast(message) {
   toastTimer = setTimeout(() => elements.toast.classList.remove("show"), 2200);
 }
 
+function syncFeedbackSubmitState() {
+  const submitButton = elements.feedbackForm.querySelector('button[type="submit"]');
+  submitButton.disabled = !$("#feedbackMessage").value.trim();
+}
+
 function openFeedback() {
   elements.feedbackModal.hidden = false;
   requestAnimationFrame(() => elements.feedbackModal.classList.add("show"));
+  syncFeedbackSubmitState();
   $("#feedbackMessage").focus();
 }
 
@@ -520,7 +713,7 @@ async function submitFeedback(event) {
   if (!message) return showToast("先写一点内容");
   const submitButton = form.querySelector('button[type="submit"]');
   submitButton.disabled = true;
-  submitButton.textContent = "送出中";
+  submitButton.textContent = "发送中";
   try {
     const payload = new URLSearchParams(new FormData(form));
     const response = await fetch("/", {
@@ -530,13 +723,14 @@ async function submitFeedback(event) {
     });
     if (!response.ok) throw new Error("Feedback submit failed");
     form.reset();
+    syncFeedbackSubmitState();
     closeFeedback();
     showToast("来信已收到");
   } catch (error) {
-    showToast("暂时没送出去，内容还在");
+    showToast("暂时没发送出去，内容还在");
   } finally {
-    submitButton.disabled = false;
-    submitButton.textContent = "送出";
+    submitButton.textContent = "发送";
+    syncFeedbackSubmitState();
   }
 }
 
@@ -547,7 +741,16 @@ function activatePanel(name) {
     tab.setAttribute("aria-selected", active);
   });
   $$('[data-panel]').forEach((panel) => panel.classList.toggle("active", panel.dataset.panel === name));
+  document.body.dataset.mobileTab = name;
+  document.querySelector(".editor-panel").dataset.step = { content: "01", design: "02", export: "03" }[name];
   document.querySelector(".editor-panel").scrollTo({ top: 0, behavior: "smooth" });
+  if (window.innerWidth <= 760) window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function fitMobilePreview() {
+  if (window.innerWidth > 760) return;
+  const availableWidth = Math.max(292, window.innerWidth - 28);
+  mobileZoom = Math.max(0.35, Math.min(0.55, availableWidth / Number(settings.contentWidth.value)));
 }
 
 async function loadCustomFont(file) {
@@ -579,11 +782,13 @@ async function loadCustomFont(file) {
   }
 }
 
+// Palette and layout actions.
 function setPreset(name, fromFamily = false) {
   const preset = PRESETS[name];
   if (!preset) return;
   settings.backgroundColor.value = preset.background;
   settings.textColor.value = preset.text;
+  settings.titleColor.value = preset.text;
   settings.accentColor.value = preset.accent;
   activeSpecialPreset = fromFamily ? null : (SPECIAL_PRESETS.includes(name) ? name : null);
   syncPaletteControls();
@@ -620,6 +825,7 @@ function setLayoutTemplate(name, applyRecipe = true) {
   const recipe = LAYOUT_RECIPES[name];
   if (!recipe) return;
   layoutTemplate = name;
+  if ((activePreviewTarget === "chapter" && name !== "book") || (activePreviewTarget === "section" && name !== "section")) activePreviewTarget = null;
   if (applyRecipe) {
     Object.entries(recipe).forEach(([key, value]) => {
       const input = settings[key];
@@ -635,6 +841,7 @@ function setLayoutTemplate(name, applyRecipe = true) {
   if (applyRecipe) showToast(`已应用${buttonLabel(name)}版式`);
 }
 
+// Canvas export mirrors the DOM preview without uploading content.
 function buttonLabel(name) {
   return document.querySelector(`[data-layout-template="${name}"] strong`)?.textContent || "所选";
 }
@@ -759,8 +966,10 @@ function getCanvasLayout(scale = 2) {
   const lineHeight = fontSize * Number(settings.lineHeight.value);
   const letterSpacing = Number(settings.letterSpacing.value);
   const paragraphGap = fontSize * Number(settings.paragraphSpacing.value);
+  const leadScale = Number(settings.leadScale.value);
   const fullWidth = width - padding * 2;
   const composition = settings.compositionStyle.value;
+  const sectionNumber = settings.sectionNumber.value.trim();
   const folioGeometry = composition === "compact"
     ? { inset: 0, ratio: 1, indexStep: 38, accentWidth: 20, accentHeight: 20, accentStep: 38, ruleGap: 34 }
     : composition === "open"
@@ -768,32 +977,43 @@ function getCanvasLayout(scale = 2) {
       : { inset: 0, ratio: 1, indexStep: 76, accentWidth: 27, accentHeight: 27, accentStep: 48, ruleGap: 54 };
   const templateGeometry = {
     folio: { ...folioGeometry, titleOffset: 0, bodyOffset: 0, frameInset: 0 },
-    quiet: { inset: 0, ratio: 1, indexStep: 46, accentWidth: 56, accentHeight: 2, accentStep: 34, ruleGap: 42, titleOffset: 0, bodyOffset: 0, frameInset: 0 },
-    margin: { inset: 32, ratio: 1, indexStep: 58, accentWidth: 18, accentHeight: 18, accentStep: 48, ruleGap: 58, titleOffset: 0, bodyOffset: 0, frameInset: 22 },
-    signal: { inset: 0, ratio: 0.94, indexStep: 92, accentWidth: 78, accentHeight: 5, accentStep: 54, ruleGap: 70, titleOffset: 0, bodyOffset: 0, frameInset: 0 }
+    book: { inset: 0, ratio: 1, indexStep: 76, accentWidth: 0, accentHeight: 0, accentStep: 40, ruleGap: 68, titleOffset: 0, bodyOffset: 0, frameInset: 0 },
+    letter: { inset: 0, ratio: 1, indexStep: 72, accentWidth: 46, accentHeight: 2, accentStep: 42, ruleGap: 54, titleOffset: 0, bodyOffset: 0, frameInset: 0 },
+    section: { inset: 0, ratio: 1, indexStep: 84, accentWidth: 0, accentHeight: 0, accentStep: sectionNumber ? Math.max(92, Number(settings.sectionNumberSize.value) * .92) : 38, ruleGap: 68, titleOffset: 0, bodyOffset: 0, frameInset: 0 }
   }[layoutTemplate] || null;
   const contentX = padding + templateGeometry.inset;
   const usableWidth = fullWidth * templateGeometry.ratio - templateGeometry.inset * 2;
-  const titleX = contentX;
-  const titleWidth = layoutTemplate === "signal" ? usableWidth * 0.9 : usableWidth;
+  const sectionTitleInset = layoutTemplate === "section" && sectionNumber ? Math.min(170, Number(settings.sectionNumberSize.value) * 1.35) : 0;
+  const titleX = contentX + sectionTitleInset;
+  const titleWidth = layoutTemplate === "section" ? usableWidth - sectionTitleInset : (["book", "letter"].includes(layoutTemplate) ? usableWidth * 0.84 : usableWidth);
+  const bodyX = contentX;
+  const bodyWidth = usableWidth;
   const measure = document.createElement("canvas").getContext("2d");
   const indentWidth = settings.indent.checked ? fontSize * 2 : 0;
-  const paragraphs = textParagraphs().map((runs) => wrapRichParagraph(measure, runs, usableWidth, fontSize, letterSpacing, indentWidth));
+  const paragraphFontSizes = textParagraphs().map((_, index) => index === 0 ? fontSize * leadScale : fontSize);
+  const paragraphLineHeights = paragraphFontSizes.map((size) => lineHeight * (size / fontSize));
+  const paragraphs = textParagraphs().map((runs, index) => {
+    const firstLineOffset = index === 0 && settings.leadStyle.value === "line" ? 38 : (index === 0 && settings.leadStyle.value === "color" ? 42 : 0);
+    const paragraphIndent = settings.indent.checked && !(index === 0 && settings.leadStyle.value !== "none") ? paragraphFontSizes[index] * 2 : 0;
+    return wrapRichParagraph(measure, runs, bodyWidth - firstLineOffset, paragraphFontSizes[index], letterSpacing, paragraphIndent);
+  });
   measure.font = `${titleWeight} ${titleSize}px ${FONT_STACKS[settings.titleFontFamily.value]}`;
   const titleLines = wrapText(measure, generatedDocument.title, titleWidth, 0);
-  const bodyHeight = paragraphs.reduce((height, lines) => height + lines.length * lineHeight + paragraphGap, 0);
+  const bodyHeight = paragraphs.reduce((height, lines, index) => height + lines.length * paragraphLineHeights[index] + paragraphGap, 0);
   const topPadding = 48;
   const titleLineHeight = titleSize * 1.22;
   const { indexStep, accentWidth, accentHeight, accentStep, ruleGap } = templateGeometry;
   const titleStart = settings.header.checked
-    ? topPadding + indexStep + accentStep + titleSize
+    ? (layoutTemplate === "section"
+      ? topPadding + indexStep + titleSize * .9
+      : topPadding + indexStep + accentStep + titleSize)
     : topPadding + titleSize + 40;
   const bodyStart = titleStart + titleLines.length * titleLineHeight + (layoutTemplate === "folio" ? ruleGap : 16 + ruleGap);
   const footerHeight = settings.signature.checked ? padding + 45 : padding;
-  const accentX = layoutTemplate === "margin" ? contentX : padding;
-  const ruleWidth = layoutTemplate === "signal" ? usableWidth * 0.38 : titleWidth;
-  const ruleX = titleX;
-  return { scale, width, padding, topPadding, fontSize, titleSize, titleWeight, titleLineHeight, lineHeight, letterSpacing, paragraphGap, fullWidth, contentX, usableWidth, titleX, titleWidth, paragraphs, titleLines, indexStep, accentX, accentWidth, accentHeight, accentStep, ruleX, ruleWidth, ruleGap, titleStart, bodyStart, frameInset: templateGeometry.frameInset, height: Math.ceil(bodyStart + bodyHeight + footerHeight) };
+  const accentX = padding;
+  const ruleWidth = layoutTemplate === "section" ? usableWidth : titleWidth;
+  const ruleX = layoutTemplate === "section" ? contentX : titleX;
+  return { scale, width, padding, topPadding, fontSize, titleSize, titleWeight, titleLineHeight, lineHeight, letterSpacing, paragraphGap, fullWidth, contentX, usableWidth, bodyX, bodyWidth, titleX, titleWidth, paragraphs, paragraphFontSizes, paragraphLineHeights, titleLines, indexStep, accentX, accentWidth, accentHeight, accentStep, ruleX, ruleWidth, ruleGap, titleStart, bodyStart, frameInset: templateGeometry.frameInset, height: Math.ceil(bodyStart + bodyHeight + footerHeight) };
 }
 
 async function exportImage() {
@@ -811,103 +1031,98 @@ async function exportImage() {
 
   ctx.fillStyle = settings.backgroundColor.value;
   ctx.fillRect(0, 0, layout.width, layout.height);
-  if (layoutTemplate === "margin") {
-    ctx.save();
-    ctx.globalAlpha = 0.18;
-    ctx.strokeStyle = settings.accentColor.value;
-    ctx.lineWidth = 2;
-    const frame = layout.frameInset;
-    ctx.beginPath();
-    ctx.roundRect(frame, frame, layout.width - frame * 2, layout.height - frame * 2, 28);
-    ctx.stroke();
-    ctx.restore();
-  }
-  if (settings.texture.checked) {
-    ctx.fillStyle = `${settings.textColor.value}10`;
-    for (let y = 4; y < layout.height; y += 9) {
-      for (let x = 4 + (y % 18); x < layout.width; x += 18) ctx.fillRect(x, y, 1, 1);
-    }
-  }
-  if (layoutTemplate === "signal") {
-    ctx.fillStyle = settings.textColor.value;
-    ctx.globalAlpha = 0.07;
-    ctx.font = "900 132px Georgia, serif";
-    ctx.fillText("XVI", layout.padding, 180);
-    ctx.globalAlpha = 1;
-  }
-
   let y = layout.topPadding;
   if (settings.header.checked) {
-    const headerLeft = layoutTemplate === "margin" ? layout.contentX : layout.padding;
-    const headerRight = layoutTemplate === "margin" ? layout.width - layout.contentX : layout.width - layout.padding;
+    const headerLeft = layout.padding;
+    const headerRight = layout.width - layout.padding;
     ctx.fillStyle = settings.textColor.value;
     ctx.font = "900 20px Arial, sans-serif";
     ctx.fillText("XVI", headerLeft, y + 16);
     ctx.globalAlpha = 0.56;
     ctx.font = "700 11px Arial, sans-serif";
-    const edition = settings.editionText.value.trim() || "016 / LONGFORM";
+    const edition = settings.editionText.value.trim() || "XVI / 016";
     ctx.fillText(edition, headerRight - ctx.measureText(edition).width, y + 14);
     ctx.globalAlpha = 1;
+    if (layoutTemplate === "book") {
+      ctx.globalAlpha = 0.55;
+      ctx.fillRect(layout.padding, y + 30, layout.fullWidth, 1);
+      ctx.globalAlpha = 1;
+    }
     y += layout.indexStep;
+
+    const decorationY = y;
 
     ctx.fillStyle = settings.accentColor.value;
     if (layoutTemplate === "folio") {
       ctx.beginPath();
-      ctx.roundRect(layout.accentX, y, layout.accentWidth, layout.accentHeight, [14, 14, 14, 4]);
+      ctx.roundRect(layout.accentX, decorationY, layout.accentWidth, layout.accentHeight, [14, 14, 14, 4]);
       ctx.fill();
-    } else {
-      ctx.fillRect(layout.accentX, y, layout.accentWidth, layout.accentHeight);
+    } else if (layoutTemplate === "letter") {
+      ctx.fillRect(layout.accentX, decorationY, layout.accentWidth, layout.accentHeight);
+    } else if (layoutTemplate === "book" && settings.chapterText.value.trim()) {
+      ctx.font = `italic ${Number(settings.chapterSize.value)}px Georgia, serif`;
+      ctx.fillText(settings.chapterText.value.trim(), layout.contentX, decorationY + Number(settings.chapterSize.value));
     }
-    ctx.font = "700 12px Arial, sans-serif";
-    const kicker = settings.kickerText.value.trim() || "LONGFORM COMPOSITION / 016";
-    if (layoutTemplate !== "margin") {
-      const kickerX = layoutTemplate === "quiet" ? layout.titleX + layout.accentWidth + 18 : layout.titleX + (layoutTemplate === "folio" ? layout.accentWidth + 13 : 0);
-      const kickerY = layoutTemplate === "folio" ? y + Math.min(layout.accentHeight * .67, 22) : y + Math.max(layout.accentHeight, 12);
+    const kicker = settings.kickerText.value.trim();
+    if (layoutTemplate === "section" && settings.sectionNumber.value.trim()) {
+      const sectionSize = Number(settings.sectionNumberSize.value);
+      ctx.font = `italic ${sectionSize}px Georgia, serif`;
+      ctx.fillText(settings.sectionNumber.value.trim(), layout.contentX, decorationY + sectionSize * .8);
+      if (kicker) {
+        ctx.font = "700 16px Arial, sans-serif";
+        drawTextWithSpacing(ctx, kicker, layout.titleX, decorationY + Math.min(56, sectionSize * .65), 1.4);
+      }
+    } else if (layoutTemplate !== "book" && kicker) {
+      ctx.font = "700 16px Arial, sans-serif";
+      const kickerX = layout.titleX + (layoutTemplate === "folio" ? layout.accentWidth + 13 : 0);
+      const kickerY = layoutTemplate === "folio" ? decorationY + Math.min(layout.accentHeight * .67, 22) : decorationY + 20;
       drawTextWithSpacing(ctx, kicker, kickerX, kickerY, 2);
     }
-    if (layoutTemplate !== "margin") {
-      y += layoutTemplate === "folio" ? layout.accentStep + layout.titleSize : layout.accentStep + layout.titleSize + 24;
-    } else {
-      ctx.globalAlpha = 0.74;
-      drawTextWithSpacing(ctx, settings.kickerText.value.trim() || "LONGFORM COMPOSITION / 016", layout.titleX + layout.accentWidth + 14, y + Math.min(layout.accentHeight * .9, 18), 1.4);
-      ctx.globalAlpha = 1;
-      y += layout.accentStep + layout.titleSize;
-    }
+    y = layout.titleStart;
   } else {
     y = layout.titleStart;
   }
 
-  ctx.fillStyle = settings.textColor.value;
+  ctx.fillStyle = settings.titleColor.value;
   ctx.font = `${layout.titleWeight} ${layout.titleSize}px ${FONT_STACKS[settings.titleFontFamily.value]}`;
   layout.titleLines.forEach((line) => {
     ctx.fillText(line, layout.titleX, y);
     y += layout.titleLineHeight;
   });
   ctx.textAlign = "left";
-  if (layoutTemplate !== "margin") {
-    y += layoutTemplate === "folio" ? layout.ruleGap : 16;
-    if (layoutTemplate !== "folio") {
-    ctx.globalAlpha = layoutTemplate === "signal" ? 1 : 0.18;
-    ctx.fillStyle = layoutTemplate === "signal" || layoutTemplate === "quiet" ? settings.accentColor.value : settings.textColor.value;
-    ctx.fillRect(layout.ruleX, y, layout.ruleWidth, layoutTemplate === "signal" ? 3 : 1);
+  if (layoutTemplate !== "folio" && layoutTemplate !== "book") {
+    y += 16;
+    ctx.globalAlpha = layoutTemplate === "section" ? 1 : 0.48;
+    ctx.fillStyle = settings.accentColor.value;
+    ctx.fillRect(layout.ruleX, y, layout.ruleWidth, layoutTemplate === "section" ? 3 : 1);
     ctx.globalAlpha = 1;
     y += layout.ruleGap;
-    }
+  } else {
+    y += layout.ruleGap;
   }
 
   ctx.fillStyle = settings.textColor.value;
   layout.paragraphs.forEach((lines, paragraphIndex) => {
+    const paragraphTop = y;
+    const paragraphFontSize = layout.paragraphFontSizes[paragraphIndex];
+    const paragraphLineHeight = layout.paragraphLineHeights[paragraphIndex];
+    if (paragraphIndex === 0 && settings.leadStyle.value === "line") {
+      ctx.fillStyle = settings.accentColor.value;
+      ctx.fillRect(layout.contentX, paragraphTop - paragraphFontSize * 0.8, 3, Math.max(paragraphLineHeight, lines.length * paragraphLineHeight - paragraphFontSize * 0.15));
+    }
     lines.forEach((line, lineIndex) => {
-      let x = layout.contentX;
-      const indent = settings.indent.checked && lineIndex === 0 ? layout.fontSize * 2 : 0;
-      const lineWidth = richLineWidth(ctx, line, layout.fontSize, layout.letterSpacing);
-      if (alignment === "center") x += (layout.usableWidth - lineWidth) / 2;
-      else if (layoutTemplate === "folio" && paragraphIndex === 0) x += 42;
+      let x = layout.bodyX;
+      const allowIndent = !(paragraphIndex === 0 && settings.leadStyle.value !== "none");
+      const indent = settings.indent.checked && allowIndent && lineIndex === 0 ? paragraphFontSize * 2 : 0;
+      const lineWidth = richLineWidth(ctx, line, paragraphFontSize, layout.letterSpacing);
+      if (alignment === "center") x += (layout.bodyWidth - lineWidth) / 2;
+      else if (paragraphIndex === 0 && settings.leadStyle.value === "color") x += 42;
+      else if (paragraphIndex === 0 && settings.leadStyle.value === "line") x += 38;
       else x += indent;
-      if (layoutTemplate === "folio" && paragraphIndex === 0) ctx.fillStyle = settings.accentColor.value;
+      if (paragraphIndex === 0 && settings.leadStyle.value === "color") ctx.fillStyle = settings.accentColor.value;
       else ctx.fillStyle = settings.textColor.value;
-      drawRichLine(ctx, line, x, y, layout.fontSize, layout.letterSpacing);
-      y += layout.lineHeight;
+      drawRichLine(ctx, line, x, y, paragraphFontSize, layout.letterSpacing);
+      y += paragraphLineHeight;
     });
     y += layout.paragraphGap;
   });
@@ -915,14 +1130,14 @@ async function exportImage() {
   if (settings.signature.checked) {
     y += 32;
     ctx.fillStyle = settings.accentColor.value;
-    ctx.fillRect(layout.contentX, y - 8, 48, 4);
+    ctx.fillRect(layout.bodyX, y - 8, 48, 4);
     ctx.fillStyle = settings.textColor.value;
     ctx.font = `600 14px ${FONT_STACKS["sans-serif"]}`;
-    drawTextWithSpacing(ctx, generatedDocument.author, layout.contentX + 64, y, 1);
+    drawTextWithSpacing(ctx, generatedDocument.author, layout.bodyX + 64, y, 1);
     ctx.globalAlpha = 0.5;
     ctx.font = "700 10px Arial, sans-serif";
     const mark = "XVI / 十六开";
-    ctx.fillText(mark, layout.contentX + layout.usableWidth - ctx.measureText(mark).width, y);
+    ctx.fillText(mark, layout.bodyX + layout.bodyWidth - ctx.measureText(mark).width, y);
     ctx.globalAlpha = 1;
   }
 
@@ -940,15 +1155,19 @@ async function exportImage() {
   }, mimeType, exportFormat === "jpeg" ? 0.94 : undefined);
 }
 
-$$('[data-tab]').forEach((button) => button.addEventListener("click", () => {
-  $$('[data-tab]').forEach((tab) => {
-    const active = tab === button;
-    tab.classList.toggle("active", active);
-    tab.setAttribute("aria-selected", active);
-  });
-  $$('[data-panel]').forEach((panel) => panel.classList.toggle("active", panel.dataset.panel === button.dataset.tab));
-  document.querySelector(".editor-panel").dataset.step = { content: "01", design: "02", export: "03" }[button.dataset.tab];
-}));
+// Event wiring and initial state restoration.
+$$('[data-tab]').forEach((button) => button.addEventListener("click", () => activatePanel(button.dataset.tab)));
+
+$("#scriptPickerButton").addEventListener("mousedown", (event) => event.preventDefault());
+$("#scriptPickerButton").addEventListener("click", () => {
+  const menu = $("#scriptPickerMenu");
+  menu.hidden = !menu.hidden;
+  $("#scriptPickerButton").setAttribute("aria-expanded", String(!menu.hidden));
+});
+$$('[data-script-action]').forEach((button) => {
+  button.addEventListener("mousedown", (event) => event.preventDefault());
+  button.addEventListener("click", () => convertSelectedScript(button.dataset.scriptAction));
+});
 
 Object.entries(settings).forEach(([key, input]) => input.addEventListener("input", () => {
   if (key === "smartParagraph") {
@@ -981,7 +1200,16 @@ elements.body.addEventListener("input", (event) => {
   if (event.inputType?.startsWith("format")) requestAnimationFrame(syncFormattingToGeneratedDocument);
 });
 document.addEventListener("selectionchange", () => {
-  if (!elements.body.contains(document.getSelection()?.anchorNode)) return;
+  const selection = document.getSelection();
+  if (elements.previewBody.contains(selection?.anchorNode)) {
+    if (!selection.isCollapsed) {
+      activePreviewTarget = "body";
+      syncPreviewInspector();
+    }
+    $$('[data-preview-format]').forEach((button) => button.classList.toggle("active", document.queryCommandState(button.dataset.previewFormat)));
+    return;
+  }
+  if (!elements.body.contains(selection?.anchorNode)) return;
   $$('[data-format-command]').forEach((button) => {
     if (button.dataset.formatCommand === "removeFormat") return;
     button.classList.toggle("active", document.queryCommandState(button.dataset.formatCommand));
@@ -991,6 +1219,11 @@ document.addEventListener("selectionchange", () => {
 $$('[data-align]').forEach((button) => button.addEventListener("click", () => {
   alignment = button.dataset.align;
   $$('[data-align]').forEach((item) => item.classList.toggle("active", item === button));
+  render();
+}));
+
+$$('[data-lead-style]').forEach((button) => button.addEventListener("click", () => {
+  settings.leadStyle.value = button.dataset.leadStyle;
   render();
 }));
 
@@ -1004,39 +1237,111 @@ $$("[data-palette-mode]").forEach((button) => button.addEventListener("click", (
 $$("[data-palette-family]").forEach((button) => button.addEventListener("click", () => setPaletteFamily(paletteMode, button.dataset.paletteFamily)));
 $$("[data-layout-template]").forEach((button) => button.addEventListener("click", () => setLayoutTemplate(button.dataset.layoutTemplate)));
 $("#randomPresetButton").addEventListener("click", () => {
-  const familyChoices = Object.keys(PALETTE_FAMILIES).flatMap((family) => ["light", "dark"].map((mode) => ({ family, mode })));
-  const choices = [...familyChoices, ...SPECIAL_PRESETS];
+  const familyChoices = Object.keys(PALETTE_FAMILIES).flatMap((family) => ["light", "dark"].map((mode) => ({ family, mode, key: `family:${mode}:${family}` })));
+  const specialChoices = SPECIAL_PRESETS.map((preset) => ({ preset, key: `special:${preset}` }));
+  const currentKey = activeSpecialPreset ? `special:${activeSpecialPreset}` : `family:${paletteMode}:${paletteFamily}`;
+  const choices = [...familyChoices, ...specialChoices].filter((choice) => choice.key !== currentKey);
   const choice = choices[Math.floor(Math.random() * choices.length)];
-  if (typeof choice === "string") setPreset(choice);
+  if (choice.preset) setPreset(choice.preset);
   else setPaletteFamily(choice.mode, choice.family);
 });
 $("#customFontInput").addEventListener("change", (event) => loadCustomFont(event.target.files[0]));
-let sloganIndex = 0;
-$("#sloganButton").addEventListener("click", () => {
-  sloganIndex = (sloganIndex + 1) % SLOGANS.length;
-  const slogan = SLOGANS[sloganIndex];
-  $("#sloganButton").textContent = slogan.text;
-  $("#sloganButton").title = `${slogan.source} · 换一句`;
-});
 $("#feedbackOpenButton").addEventListener("click", openFeedback);
 $$("[data-feedback-close]").forEach((button) => button.addEventListener("click", closeFeedback));
 elements.feedbackForm.addEventListener("submit", submitFeedback);
+elements.feedbackForm.addEventListener("input", syncFeedbackSubmitState);
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && !elements.feedbackModal.hidden) closeFeedback();
+  if (event.key === "Escape") {
+    if (!$("#scriptPickerMenu").hidden) closeScriptPicker();
+    else if (!elements.feedbackModal.hidden) closeFeedback();
+    else if (activePreviewTarget) closePreviewInspector();
+    return;
+  }
+  const selection = document.getSelection();
+  if (!(event.metaKey || event.ctrlKey) || !elements.previewBody.contains(selection?.anchorNode)) return;
+  const key = event.key.toLowerCase();
+  const command = key === "b" ? "bold"
+    : key === "i" ? "italic"
+      : key === "u" ? "underline"
+        : (key === "x" && event.shiftKey) ? "strikeThrough"
+          : null;
+  if (!command) return;
+  event.preventDefault();
+  applyPreviewFormatting(command);
 });
 
-$("#zoomOut").addEventListener("click", () => { zoom = Math.max(0.35, zoom - 0.05); render(); });
-$("#zoomIn").addEventListener("click", () => { zoom = Math.min(1, zoom + 0.05); render(); });
+$("#zoomOut").addEventListener("click", () => adjustVisibleZoom(-0.05));
+$("#zoomIn").addEventListener("click", () => adjustVisibleZoom(0.05));
 $("#exportScale").addEventListener("change", updateControlLabels);
 $("#clearButton").addEventListener("click", () => { elements.body.replaceChildren(); markContentDirty(); elements.body.focus(); });
-$("#sampleButton").addEventListener("click", () => { setBodyText(SAMPLE_TEXT); markContentDirty(); });
 elements.generateButton.addEventListener("click", generateDocument);
 elements.exportButton.addEventListener("click", exportImage);
 $("#exportPanelButton").addEventListener("click", exportImage);
 $$('[data-format]').forEach((button) => button.addEventListener("click", () => {
   exportFormat = button.dataset.format;
   $$('[data-format]').forEach((item) => item.classList.toggle("active", item === button));
+  updateControlLabels();
 }));
+
+elements.poster.addEventListener("click", (event) => {
+  const target = event.target.closest("[data-preview-target]");
+  if (!target) return;
+  activePreviewTarget = target.dataset.previewTarget;
+  syncPreviewInspector();
+});
+
+elements.previewBody.addEventListener("input", syncPreviewBodyEdits);
+elements.previewTitle.addEventListener("input", () => {
+  if (!generatedDocument) return;
+  generatedDocument.title = elements.previewTitle.innerText.replace(/\n/g, " ").trim();
+  elements.title.value = generatedDocument.title;
+  scheduleSave();
+});
+
+[elements.previewTitle].forEach((editable) => {
+  editable.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter") return;
+    event.preventDefault();
+    editable.blur();
+  });
+  editable.addEventListener("paste", (event) => {
+    event.preventDefault();
+    document.execCommand("insertText", false, event.clipboardData.getData("text/plain").replace(/\s*\n\s*/g, " "));
+  });
+});
+
+$$('[data-preview-format]').forEach((button) => {
+  button.addEventListener("mousedown", (event) => event.preventDefault());
+  button.addEventListener("click", () => applyPreviewFormatting(button.dataset.previewFormat));
+});
+
+$$('[data-preview-step]').forEach((button) => button.addEventListener("click", () => {
+  const editor = PREVIEW_EDITORS[activePreviewTarget];
+  if (!editor) return;
+  const input = settings[editor.size];
+  const direction = Number(button.dataset.previewStep);
+  const min = Number(input.min);
+  const max = Number(input.max);
+  const next = Math.min(max, Math.max(min, Number(input.value) + editor.step * direction));
+  input.value = editor.step < 1 ? next.toFixed(2) : next;
+  render();
+}));
+
+$("#previewInspectorColor").addEventListener("input", (event) => {
+  const editor = PREVIEW_EDITORS[activePreviewTarget];
+  if (!editor) return;
+  settings[editor.color].value = event.target.value;
+  render();
+});
+
+$("#previewInspectorClose").addEventListener("click", () => closePreviewInspector());
+
+document.addEventListener("pointerdown", (event) => {
+  if (!event.target.closest("#scriptPicker")) closeScriptPicker();
+  if (!activePreviewTarget) return;
+  if (event.target.closest("#previewInspector") || event.target.closest("[data-preview-target]")) return;
+  closePreviewInspector();
+});
 
 loadState();
 $$('[data-align]').forEach((item) => item.classList.toggle("active", item.dataset.align === alignment));
