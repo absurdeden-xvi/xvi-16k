@@ -2,7 +2,7 @@
 
 XVI is a privacy-first, browser-based longform typesetting studio for Chinese writers. Finish the text first, generate a stable editorial composition, refine it, and export a publication-ready long image.
 
-- Current release: `v0.7.1`
+- Current release: `v0.7.2`
 - Product stage: public preview, not yet V1
 - Live demo: [xvi-16k.netlify.app](https://xvi-16k.netlify.app/)
 - Repository: [absurdeden-xvi/xvi-16k](https://github.com/absurdeden-xvi/xvi-16k)
@@ -49,6 +49,7 @@ Open [`index.html`](./index.html) directly in a modern browser, or visit the liv
 - Selected-text conversion to Simplified Chinese, Traditional Chinese (Hong Kong), or Traditional Chinese (Taiwan)
 - Character count, pasted-text cleanup, and optional paragraph normalization
 - Browser-local draft persistence
+- Chinese and English interface switching from Settings, persisted in the current browser
 
 ### Composition and visual system
 
@@ -108,6 +109,7 @@ Only an intentional feedback submission sends the entered feedback and optional 
 - [License](../LICENSE)
 - [Third-party notices](./THIRD_PARTY_NOTICES.md)
 - [Research index](./docs/README.md)
+- [Build Week demo script](./docs/DEMO_SCRIPT.md)
 
 ## Next priorities
 
@@ -131,7 +133,7 @@ Third-party components and online fonts retain their own licenses. See [Third-Pa
 
 为中文创作者设计的文本长图排版器。完整输入文字后，生成可继续微调并导出的长图。
 
-- 当前版本：`v0.7.1`
+- 当前版本：`v0.7.2`
 - 产品阶段：公开预览版，尚未进入 V1
 - 在线使用：[xvi-16k.netlify.app](https://xvi-16k.netlify.app/)
 - 代码仓库：[absurdeden-xvi/xvi-16k](https://github.com/absurdeden-xvi/xvi-16k)
