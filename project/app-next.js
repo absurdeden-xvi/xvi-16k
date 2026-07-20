@@ -283,6 +283,10 @@ function applyUiLanguage(nextLanguage, persist = true) {
   staticAttributes.forEach(({ element, name, source }) => {
     element.setAttribute(name, uiLanguage === "en" ? (UI_ATTRIBUTE_EN[source] || source) : source);
   });
+  const savingNow = /正在保存|Saving/.test(elements.saveState.textContent);
+  elements.saveState.textContent = uiLanguage === "en"
+    ? (savingNow ? "Saving..." : "Autosaved")
+    : (savingNow ? "正在保存..." : "已自动保存");
   $$('[data-language]').forEach((button) => button.classList.toggle("active", button.dataset.language === uiLanguage));
   if (persist) localStorage.setItem("xvi-ui-language", uiLanguage);
   syncPaletteControls();
