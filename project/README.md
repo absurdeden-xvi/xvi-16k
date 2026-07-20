@@ -94,6 +94,8 @@ Open [`index.html`](./index.html) directly in a modern browser, or visit the liv
 | `xvi-next.css` | 当前工作台的视觉与移动端样式 |
 | `app-next.js` | 编辑、排版、预览、本地保存和导出逻辑 |
 | `vendor/opencc.full.js` | 简繁转换运行库 |
+| `LICENSE.md` | 项目自有代码的非商业许可证 |
+| `THIRD_PARTY_NOTICES.md` | 第三方组件与在线字体授权边界 |
 | `legacy-v0.6.3.html` | 历史回退快照 |
 | `questionnaire.*` | 早期产品问卷页面 |
 | `docs/` | 研究资料、预览图与维护文档索引 |
@@ -106,6 +108,8 @@ Open [`index.html`](./index.html) directly in a modern browser, or visit the liv
 - [隐私说明](./PRIVACY.md)
 - [部署与回退](./DEPLOYMENT.md)
 - [参与开发](./CONTRIBUTING.md)
+- [项目许可](./LICENSE.md)
+- [第三方授权说明](./THIRD_PARTY_NOTICES.md)
 - [研究资料索引](./docs/README.md)
 
 ## 下一阶段
@@ -120,4 +124,8 @@ Open [`index.html`](./index.html) directly in a modern browser, or visit the liv
 
 `main` 分支由 Netlify 自动部署。正式发布前必须统一页面资源版本、更新 `CHANGELOG.md`，并完成 [DEPLOYMENT.md](./DEPLOYMENT.md) 中的检查项。
 
-当前仓库尚未确定开源许可证。在许可证落定前，代码公开可见不等同于允许复制、修改或再发布。第三方组件的授权信息见 [`vendor/opencc-js.LICENSE`](./vendor/opencc-js.LICENSE)。
+## 许可
+
+XVI / 十六开的自有代码采用 [PolyForm Noncommercial 1.0.0](./LICENSE.md) 许可：可以用于个人、学习、研究及其他非商业用途，但不授权商业使用。这是一个**源码公开的非商业项目**，不属于 OSI 定义下的开源软件。
+
+第三方组件与在线字体不适用上述许可，仍分别遵循原作者的授权条款。详见 [第三方授权说明](./THIRD_PARTY_NOTICES.md) 与 [`vendor/opencc-js.LICENSE`](./vendor/opencc-js.LICENSE)。
