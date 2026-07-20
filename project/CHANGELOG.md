@@ -2,6 +2,11 @@
 
 Versions follow `major.minor.patch`. Before V1, minor versions represent verifiable product stages and patch versions represent functional or experiential refinements within the same stage.
 
+## v0.7.5 - 2026-07-20
+
+- New blank documents use Editorial Serif and Display Serif after switching to English, while existing drafts retain their chosen typefaces.
+- Localized the generated footer mark and the remaining scale suffix without translating user content.
+
 ## v0.7.4 - 2026-07-20
 
 - Replaced the generic gear with a compact Latin/CJK language mark.
@@ -89,6 +94,11 @@ Versions follow `major.minor.patch`. Before V1, minor versions represent verifia
 # 中文版本记录
 
 版本遵循 `主版本.次版本.修订号`。V1 之前的次版本代表可验证的产品阶段，修订号用于同一阶段内的功能与体验更新。
+
+## v0.7.5 - 2026-07-20
+
+- 空白文档切换到英文界面时，默认采用编辑衬线体与展示衬线体；已有草稿继续保留用户选择。
+- 补齐生成页脚品牌标记与字号倍数单位的英文显示，不翻译用户内容。
 
 ## v0.7.4 - 2026-07-20
 
