@@ -7,6 +7,14 @@
     <meta name="description" content="XVI / 十六开，为中文创作者设计的文本长图排版器。" />
     <meta name="apple-mobile-web-app-title" content="XVI / 十六开" />
     <title>XVI / 十六开</title>
+    <script>
+      if (
+        /^https?:$/.test(window.location.protocol) &&
+        /^\/xvi-next(?:\.html)?\/?$/.test(window.location.pathname)
+      ) {
+        window.history.replaceState(null, "", `/${window.location.search}${window.location.hash}`);
+      }
+    </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-regular.css" />
     <link rel="stylesheet" href="https://fontsapi.zeoseven.com/256/main/result.css" />
     <link rel="stylesheet" href="https://fontsapi.zeoseven.com/7/main/result.css" />
