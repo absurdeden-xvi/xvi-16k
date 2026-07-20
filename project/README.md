@@ -8,6 +8,38 @@
 - 代码仓库：[absurdeden-xvi/xvi-16k](https://github.com/absurdeden-xvi/xvi-16k/tree/main/project)
 - 反馈邮箱：[absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com)
 
+## OpenAI Build Week submission
+
+XVI is a privacy-first, browser-based longform typesetting studio for Chinese writers. Writers finish their text first, generate an editorial long image, and then refine typography, spacing, color, layout structure, and inline emphasis before exporting PNG or JPG files.
+
+- Live demo: [xvi-16k.netlify.app](https://xvi-16k.netlify.app/)
+- Submission track: **Apps for Your Life**
+- Runtime: static HTML, CSS, and JavaScript; no build step or account required
+- Local processing: article text, imported fonts, drafts, and image generation stay in the browser
+
+### Build Week scope
+
+XVI existed before the event as an early working prototype. The dated Git history and [`CHANGELOG.md`](./CHANGELOG.md) distinguish the work completed after July 13, 2026. The Build Week phase added or substantially rebuilt:
+
+- the current editorial workspace and root deployment;
+- four layout structures and sixteen curated special color systems;
+- direct on-canvas editing for headings, body text, chapter labels, size, color, and inline styles;
+- Simplified Chinese, Traditional Chinese (Hong Kong), and Traditional Chinese (Taiwan) conversion;
+- local font import and explicit privacy boundaries;
+- mobile input and preview adaptation;
+- clearer export formats, resolutions, and final pixel widths;
+- Netlify feedback, deployment recovery, architecture notes, and release documentation.
+
+### How Codex and GPT-5.6 were used
+
+During OpenAI Build Week, Codex with GPT-5.6 served as an iterative product and engineering partner. It translated detailed visual critique into scoped interface changes, debugged rich-text parity across the editor, DOM preview, and Canvas export, designed regional Chinese conversion behavior, reorganized mobile interaction, audited local-only data handling, and maintained versioned documentation.
+
+The main product decisions remained human-led: composition begins only after the writer finishes entering text; writing is never uploaded; color systems are named and curated rather than randomly generated; and templates must change editorial structure instead of merely recoloring the same page.
+
+### Run and test
+
+Open [`index.html`](./index.html) directly in a modern browser, or visit the live demo. No installation, API key, sample account, or server is required. A useful judging path is: enter Chinese text, apply rich-text or regional conversion to a selection, generate the layout, edit the preview directly, switch templates and colors, then export at a chosen resolution.
+
 ## 当前能力
 
 ### 写作与文字
@@ -88,4 +120,4 @@
 
 `main` 分支由 Netlify 自动部署。正式发布前必须统一页面资源版本、更新 `CHANGELOG.md`，并完成 [DEPLOYMENT.md](./DEPLOYMENT.md) 中的检查项。
 
-当前仓库尚未确定开源许可证。在许可证落定前，代码公开可见不等同于允许复制、修改或再发布。
+当前仓库尚未确定开源许可证。在许可证落定前，代码公开可见不等同于允许复制、修改或再发布。第三方组件的授权信息见 [`vendor/opencc-js.LICENSE`](./vendor/opencc-js.LICENSE)。
