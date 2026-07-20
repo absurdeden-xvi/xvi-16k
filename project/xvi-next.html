@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="https://fontsapi.zeoseven.com/192/main/result.css" />
     <link rel="stylesheet" href="https://fontsapi.zeoseven.com/376/main/result.css" />
     <link rel="stylesheet" href="https://fontsapi.zeoseven.com/634/main/result.css" />
-    <link rel="stylesheet" href="styles.css?v=0.7.3" />
-    <link rel="stylesheet" href="xvi-next.css?v=0.7.3" />
+    <link rel="stylesheet" href="styles.css?v=0.7.4" />
+    <link rel="stylesheet" href="xvi-next.css?v=0.7.4" />
   </head>
   <body data-mobile-tab="content">
     <header class="app-header">
@@ -25,7 +25,7 @@
       </div>
       <div class="header-actions">
         <span class="save-state" id="saveState">已保存</span>
-        <button class="button settings-button" id="settingsOpenButton" type="button" title="设置" aria-label="设置"><span aria-hidden="true">⚙</span></button>
+        <button class="button settings-button" id="settingsOpenButton" type="button" title="设置" aria-label="设置"><span class="settings-glyph" aria-hidden="true"><b>A</b><i>文</i></span></button>
         <button class="button feedback-button" id="feedbackOpenButton" type="button">来信</button>
         <button class="button button-primary" id="exportButton" type="button" title="PNG · 1792 px · 自动高度" disabled><span aria-hidden="true">↓</span>快速导出</button>
       </div>
@@ -123,8 +123,8 @@
             </div>
           </div>
           <div class="field-group compact-grid font-selectors">
-            <label>正文字体<select id="fontFamily"><option value="serif">宋体</option><option value="pingfang">苹方</option><option value="neoZhiSong">霞鹜新致宋</option><option value="wenjin">文津宋体</option><option value="huiwen">汇文明朝体</option><option value="zhuque">朱雀仿宋</option><option value="winsong">司源赢宋</option><option value="lxgw">霞鹜文楷</option><option value="yozai">悠哉字体</option><option value="mono">等宽</option></select></label>
-            <label>标题字体<select id="titleFontFamily"><option value="serif">宋体</option><option value="pingfang">苹方</option><option value="neoZhiSong">霞鹜新致宋</option><option value="wenjin">文津宋体</option><option value="huiwen">汇文明朝体</option><option value="zhuque">朱雀仿宋</option><option value="winsong">司源赢宋</option><option value="lxgw">霞鹜文楷</option><option value="yozai">悠哉字体</option><option value="mono">等宽</option></select></label>
+            <label>正文字体<select id="fontFamily"><optgroup label="拉丁 / Latin"><option value="latinSerif">编辑衬线</option><option value="latinHumanist">人文无衬线</option><option value="latinGrotesk">新无衬线</option><option value="latinMono">拉丁等宽</option></optgroup><optgroup label="中文 / CJK"><option value="serif">宋体</option><option value="pingfang">苹方</option><option value="neoZhiSong">霞鹜新致宋</option><option value="wenjin">文津宋体</option><option value="huiwen">汇文明朝体</option><option value="zhuque">朱雀仿宋</option><option value="winsong">司源赢宋</option><option value="lxgw">霞鹜文楷</option><option value="yozai">悠哉字体</option><option value="mono">等宽</option></optgroup></select></label>
+            <label>标题字体<select id="titleFontFamily"><optgroup label="拉丁 / Latin"><option value="latinDisplay">展示衬线</option><option value="latinSerif">编辑衬线</option><option value="latinHumanist">人文无衬线</option><option value="latinGrotesk">新无衬线</option><option value="latinMono">拉丁等宽</option></optgroup><optgroup label="中文 / CJK"><option value="serif">宋体</option><option value="pingfang">苹方</option><option value="neoZhiSong">霞鹜新致宋</option><option value="wenjin">文津宋体</option><option value="huiwen">汇文明朝体</option><option value="zhuque">朱雀仿宋</option><option value="winsong">司源赢宋</option><option value="lxgw">霞鹜文楷</option><option value="yozai">悠哉字体</option><option value="mono">等宽</option></optgroup></select></label>
           </div>
           <label class="font-upload" for="customFontInput"><input id="customFontInput" type="file" accept=".ttf,.otf,.woff,.woff2,font/ttf,font/otf,font/woff,font/woff2" /><span>＋ 导入本地字体</span><small id="customFontName">TTF · OTF · WOFF</small></label>
           <div class="control-row"><label>正文字号<span><input class="number-field" data-setting="fontSize" type="number" min="16" max="72" value="32" /> px</span></label><input id="fontSize" type="range" min="16" max="72" value="32" /></div>
@@ -259,6 +259,6 @@
     </div>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <script src="vendor/opencc.full.js"></script>
-    <script src="app-next.js?v=0.7.3"></script>
+    <script src="app-next.js?v=0.7.4"></script>
   </body>
 </html>
