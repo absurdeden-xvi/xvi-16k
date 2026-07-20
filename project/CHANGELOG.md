@@ -2,6 +2,12 @@
 
 Versions follow `major.minor.patch`. Before V1, minor versions represent verifiable product stages and patch versions represent functional or experiential refinements within the same stage.
 
+## v0.7.4 - 2026-07-20
+
+- Replaced the generic gear with a compact Latin/CJK language mark.
+- Added system-based Latin display, editorial serif, humanist sans, neo-grotesk, and monospace choices without new network dependencies.
+- Gave the English interface its own Latin typography while keeping document typefaces independent of interface language.
+
 ## v0.7.3 - 2026-07-20
 
 - Completed English localization for the autosave status and empty body prompt found during production testing.
@@ -83,6 +89,12 @@ Versions follow `major.minor.patch`. Before V1, minor versions represent verifia
 # 中文版本记录
 
 版本遵循 `主版本.次版本.修订号`。V1 之前的次版本代表可验证的产品阶段，修订号用于同一阶段内的功能与体验更新。
+
+## v0.7.4 - 2026-07-20
+
+- 将普通齿轮改为拉丁字母与汉字组成的语言入口。
+- 新增基于系统字体的拉丁展示衬线体、正文衬线体、人文无衬线体、新无衬线体与等宽体，不增加网络依赖。
+- 英文界面改用独立的拉丁字体体系，同时保持文档字体与界面语言互不干扰。
 
 ## v0.7.3 - 2026-07-20
 
