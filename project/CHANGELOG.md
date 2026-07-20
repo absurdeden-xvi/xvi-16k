@@ -2,6 +2,14 @@
 
 Versions follow `major.minor.patch`. Before V1, minor versions represent verifiable product stages and patch versions represent functional or experiential refinements within the same stage.
 
+## v0.7.2 - 2026-07-20
+
+- Added a Settings panel with persistent Chinese and English interface switching.
+- Localized the complete judging-critical workflow, including writing, composition, visual controls, preview status, export, privacy, feedback, and runtime messages.
+- Kept titles, article text, bylines, and generated document content untouched when the interface language changes.
+- Added an English-first Build Week narration and shot list for a sub-three-minute public demo video.
+- Completed the Devpost project description, repository, live demo, category, residence, and Codex session fields; thumbnail and video remain intentionally pending.
+
 ## v0.7.1 - 2026-07-17
 
 ### Writing
@@ -70,6 +78,14 @@ Versions follow `major.minor.patch`. Before V1, minor versions represent verifia
 # 中文版本记录
 
 版本遵循 `主版本.次版本.修订号`。V1 之前的次版本代表可验证的产品阶段，修订号用于同一阶段内的功能与体验更新。
+
+## v0.7.2 - 2026-07-20
+
+- 新增“设置”面板，可在中文与英文界面之间切换，并在当前浏览器保存选择。
+- 完成评审核心流程的英文适配，包括输入、排版、视觉设置、预览状态、导出、隐私、反馈与运行提示。
+- 切换界面语言时，不改动标题、正文、署名及已生成的文档内容。
+- 新增英文优先的 Build Week 三分钟内演示视频旁白与镜头表。
+- 补全 Devpost 项目说明、仓库、在线演示、赛道、居住地与 Codex Session ID；缩略图和视频仍待补充。
 
 ## v0.7.1 - 2026-07-17
 
