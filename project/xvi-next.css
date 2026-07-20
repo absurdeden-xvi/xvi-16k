@@ -57,6 +57,7 @@ body { background: var(--canvas); }
 .button-primary span { color: #fed269; }
 
 .workspace { height: calc(100vh - 76px); grid-template-columns: 410px minmax(0, 1fr); }
+html[lang="en"] .rich-editor:empty::before { content: "Paste or enter body text"; }
 .editor-panel { position: relative; padding-left: 27px; background: var(--panel); }
 .editor-panel::before { content: attr(data-step); position: fixed; z-index: 4; left: 16px; top: 116px; color: var(--accent); font: italic 700 9px/1 Georgia, serif; }
 .editor-panel::after { content: ""; width: 1px; height: 45px; position: fixed; z-index: 4; left: 25px; top: 141px; background: linear-gradient(var(--accent), transparent); }
