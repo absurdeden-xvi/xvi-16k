@@ -2,6 +2,11 @@
 
 Versions follow `major.minor.patch`. Before V1, minor versions represent verifiable product stages and patch versions represent functional or experiential refinements within the same stage.
 
+## v0.7.3 - 2026-07-20
+
+- Completed English localization for the autosave status and empty body prompt found during production testing.
+- Bumped asset cache versions and verified the bilingual interface against the deployed Netlify site.
+
 ## v0.7.2 - 2026-07-20
 
 - Added a Settings panel with persistent Chinese and English interface switching.
@@ -78,6 +83,11 @@ Versions follow `major.minor.patch`. Before V1, minor versions represent verifia
 # 中文版本记录
 
 版本遵循 `主版本.次版本.修订号`。V1 之前的次版本代表可验证的产品阶段，修订号用于同一阶段内的功能与体验更新。
+
+## v0.7.3 - 2026-07-20
+
+- 补齐生产环境测试中发现的自动保存状态与正文空白提示英文文案。
+- 更新资源缓存版本，并在 Netlify 正式页面验证中英文界面。
 
 ## v0.7.2 - 2026-07-20
 
