@@ -2,6 +2,12 @@
 
 Versions follow `major.minor.patch`. Before V1, minor versions represent verifiable product stages and patch versions represent functional or experiential refinements within the same stage.
 
+## v0.7.8 - 2026-07-20
+
+- Replaced the abstract language mark with a compact `中 / EN` switch label.
+- Simplified the English workflow tabs to `Text`, `Style`, and `Export`.
+- Kept feedback collection isolated from article content and prepared direct email notifications for the form receiver.
+
 ## v0.7.7 - 2026-07-20
 
 - Migrated the production site to Cloudflare Pages at `xvi-16k.pages.dev` with automatic deployment from `main`.
@@ -105,6 +111,12 @@ Versions follow `major.minor.patch`. Before V1, minor versions represent verifia
 # 中文版本记录
 
 版本遵循 `主版本.次版本.修订号`。V1 之前的次版本代表可验证的产品阶段，修订号用于同一阶段内的功能与体验更新。
+
+## v0.7.8 - 2026-07-20
+
+- 将抽象的语言图形替换为简洁的 `中 / EN` 切换标识。
+- 英文工作流导航精简为 `Text`、`Style` 与 `Export`。
+- 继续将反馈与正文数据严格分离，并为反馈收件端准备直接邮件通知。
 
 ## v0.7.7 - 2026-07-20
 
