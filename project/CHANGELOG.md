@@ -2,6 +2,10 @@
 
 Versions follow `major.minor.patch`. Before V1, minor versions represent verifiable product stages and patch versions represent functional or experiential refinements within the same stage.
 
+## v0.7.6 - 2026-07-20
+
+- Published the completed Latin typography and language-default logic under one fresh asset cache version after production verification.
+
 ## v0.7.5 - 2026-07-20
 
 - New blank documents use Editorial Serif and Display Serif after switching to English, while existing drafts retain their chosen typefaces.
@@ -94,6 +98,10 @@ Versions follow `major.minor.patch`. Before V1, minor versions represent verifia
 # 中文版本记录
 
 版本遵循 `主版本.次版本.修订号`。V1 之前的次版本代表可验证的产品阶段，修订号用于同一阶段内的功能与体验更新。
+
+## v0.7.6 - 2026-07-20
+
+- 在生产环境复核后，将完整拉丁字体与语言默认逻辑统一到新的资源缓存版本。
 
 ## v0.7.5 - 2026-07-20
 
