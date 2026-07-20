@@ -1,2 +1,8 @@
 /https-tandemspace-com-giftcard-corgi-cafe/
 .DS_Store
+/project/outputs/
+/project/work/
+/project/questionnaire-data.js
+/project/questionnaire.css
+/project/questionnaire.html
+/project/questionnaire.js

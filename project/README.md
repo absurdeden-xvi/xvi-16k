@@ -94,12 +94,9 @@ Open [`index.html`](./index.html) directly in a modern browser, or visit the liv
 | `xvi-next.css` | 当前工作台的视觉与移动端样式 |
 | `app-next.js` | 编辑、排版、预览、本地保存和导出逻辑 |
 | `vendor/opencc.full.js` | 简繁转换运行库 |
-| `LICENSE.md` | 项目自有代码的非商业许可证 |
 | `THIRD_PARTY_NOTICES.md` | 第三方组件与在线字体授权边界 |
 | `legacy-v0.6.3.html` | 历史回退快照 |
-| `questionnaire.*` | 早期产品问卷页面 |
 | `docs/` | 研究资料、预览图与维护文档索引 |
-| `work/` | 问卷文档生成脚本，不参与网页运行 |
 
 ## 文档
 
@@ -108,7 +105,7 @@ Open [`index.html`](./index.html) directly in a modern browser, or visit the liv
 - [隐私说明](./PRIVACY.md)
 - [部署与回退](./DEPLOYMENT.md)
 - [参与开发](./CONTRIBUTING.md)
-- [项目许可](./LICENSE.md)
+- [项目许可](../LICENSE)
 - [第三方授权说明](./THIRD_PARTY_NOTICES.md)
 - [研究资料索引](./docs/README.md)
 
@@ -126,6 +123,6 @@ Open [`index.html`](./index.html) directly in a modern browser, or visit the liv
 
 ## 许可
 
-XVI / 十六开的自有代码采用 [PolyForm Noncommercial 1.0.0](./LICENSE.md) 许可：可以用于个人、学习、研究及其他非商业用途，但不授权商业使用。这是一个**源码公开的非商业项目**，不属于 OSI 定义下的开源软件。
+XVI / 十六开的自有代码采用 [PolyForm Noncommercial 1.0.0](../LICENSE) 许可：可以用于个人、学习、研究及其他非商业用途，但不授权商业使用。这是一个**源码公开的非商业项目**，不属于 OSI 定义下的开源软件。
 
 第三方组件与在线字体不适用上述许可，仍分别遵循原作者的授权条款。详见 [第三方授权说明](./THIRD_PARTY_NOTICES.md) 与 [`vendor/opencc-js.LICENSE`](./vendor/opencc-js.LICENSE)。
