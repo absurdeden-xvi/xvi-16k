@@ -154,6 +154,7 @@ let generatedDocument = null;
 let contentIsDirty = false;
 let exportFormat = "png";
 let activePreviewTarget = null;
+let uiLanguage = "zh";
 
 const PREVIEW_EDITORS = {
   title: { label: "标题", size: "titleSize", color: "titleColor", step: 2, suffix: " px" },
@@ -162,6 +163,132 @@ const PREVIEW_EDITORS = {
   body: { label: "正文", size: "fontSize", color: "textColor", step: 1, suffix: " px", formatModes: true },
   section: { label: "节号", size: "sectionNumberSize", color: "accentColor", step: 2, suffix: " px" }
 };
+
+const PALETTE_NAMES_EN = {
+  light: { neutral: "Morning Mist", rose: "Dusk", green: "Moss Court", purple: "Dream Lilac", amber: "Wheat Light", blue: "Indigo" },
+  dark: { neutral: "Night Voyage", rose: "Wine Stain", green: "Deep Pine", purple: "Night Plum", amber: "Amber", blue: "Blue Night" }
+};
+
+const SPECIAL_PRESET_NAMES_EN = {
+  blueprint: "Cyanotype", vermilion: "Glass Sea", newsprint: "Letterpress", acidNight: "Firefly Night",
+  farTide: "Far Tide", roseLetter: "Ivy", oriole: "Scarlet Page", seaMark: "Tide Mark",
+  blueCurtain: "Blue Chime", mulberry: "Sundial", pineSmoke: "Verdant Desk", latePeach: "Star Chart",
+  gooseShadow: "Spring Thunder", nightSakura: "Night Sakura", camelliaPaper: "Camellia Paper", aster: "Night Tide"
+};
+
+const UI_TEXT_EN = {
+  "十六开": "XVI Studio", "已保存": "Saved", "设置": "Settings", "语言": "Language", "中文": "Chinese",
+  "来信": "Feedback", "快速导出": "Quick export", "写": "Write", "文字": "Text", "形": "Shape", "样式": "Style",
+  "存": "Save", "导出": "Export", "标题": "Title", "署名": "Byline", "正文": "Body", "0 字": "0 characters",
+  "简繁": "Script", "简中": "Simplified", "繁中（港）": "Traditional (HK)", "繁中（台）": "Traditional (TW)",
+  "正文与生成图片只在本地浏览器处理，不会上传云端。": "Your text and generated images stay in this browser and are never uploaded.",
+  "文本处理": "Text processing", "清理并智能分段": "Clean and detect paragraphs", "仅在粘贴后的换行混乱时开启": "Use when pasted line breaks are inconsistent",
+  "生成排版": "Compose", "清空": "Clear", "配色灵感": "Color inspiration", "随机": "Random", "浅色": "Light", "深色": "Dark",
+  "特别配色": "Curated palettes", "背景": "Background", "强调": "Accent", "刊页模板": "Editorial templates",
+  "标准刊页": "Folio", "书页": "Book page", "信笺": "Letter", "分节长页": "Section page",
+  "正文字体": "Body typeface", "标题字体": "Title typeface", "宋体": "Songti", "苹方": "PingFang", "霞鹜新致宋": "LXGW Neo ZhiSong",
+  "文津宋体": "WenJin Mincho", "汇文明朝体": "Huiwen Mincho", "朱雀仿宋": "Zhuque Fangsong", "司源赢宋": "CorpSrc WinSong",
+  "霞鹜文楷": "LXGW WenKai", "悠哉字体": "Yozai", "等宽": "Monospace", "＋ 导入本地字体": "+ Import local font",
+  "正文字号": "Body size", "标题字号": "Title size", "行距": "Line height", "段落": "Paragraphs", "首行缩进": "First-line indent",
+  "每段开头退两个字": "Indent each paragraph by two characters", "首段强调": "Opening paragraph", "无": "None", "引线": "Rule", "变色": "Accent color",
+  "首段字号": "Opening scale", "段间": "Paragraph gap", "高级排版": "Advanced layout", "展开": "Expand", "标题字重": "Title weight",
+  "版式结构": "Composition", "标准": "Standard", "紧凑": "Compact", "舒展": "Open", "右上角文字": "Top-right text",
+  "标题上方文字": "Text above title", "章节标识": "Chapter label", "章节字号": "Chapter size", "节号（仅分节长页）": "Section number (section template)",
+  "节号字号": "Section number size", "字距": "Letter spacing", "段距": "Paragraph spacing", "画布宽度": "Canvas width", "页边距": "Page margins",
+  "对齐": "Alignment", "左对齐": "Left", "两端": "Justify", "居中": "Center", "版头信息": "Masthead", "显示 XVI、版次与信号条": "Show XVI, edition, and signal mark",
+  "底部署名": "Footer byline", "在正文后显示作者": "Show the author after the article", "导出尺寸": "Export size", "格式": "Format",
+  "清晰度": "Resolution", "保存名称": "File name", "放心使用": "Private by default",
+  "正文、字体与生成图片只在本地浏览器处理，不会上传云端。只有主动提交“来信”时，反馈内容才会发送给我们。": "Text, fonts, and generated images stay in your browser. Only feedback you explicitly submit is sent to us.",
+  "保存图片": "Save image", "长图预览": "Longform preview", "尚未生成": "Not composed yet", "不要填写": "Leave blank",
+  "反馈": "Feedback", "发送": "Send", "由 Netlify 代收。": "Collected by Netlify.", "或直接通过邮件联系：": "Or email us directly:",
+  "线": "Rule", "色": "Color", "节号": "Section number", "首段": "Opening paragraph"
+};
+
+const UI_ATTRIBUTE_EN = {
+  "标题": "Title", "作者": "Author", "文字格式": "Text formatting", "粗体": "Bold", "斜体": "Italic", "下划线": "Underline",
+  "删除线": "Strikethrough", "清除格式": "Clear formatting", "可留空，或填写章节 / 日期 / 栏目": "Optional chapter, date, or section",
+  "例如 01 / 第一章；留空不显示": "For example 01 or Chapter One; leave blank to hide", "留空则使用标题": "Leave blank to use the title",
+  "长图编辑器": "Longform editor", "创作流程": "Creation workflow", "明暗主题": "Light or dark theme", "色系": "Color family",
+  "长图预览": "Longform preview", "缩小预览": "Zoom out", "放大预览": "Zoom in", "颜色": "Color", "关闭": "Close",
+  "减小字号": "Decrease size", "增大字号": "Increase size", "加粗": "Bold", "可直接编辑的正文": "Editable body text",
+  "设置": "Settings", "界面语言": "Interface language", "想对开发者说的话……": "Share feedback with the developer...",
+  "从全部配色中随机选择": "Choose randomly from all palettes", "中性色系": "Neutral family", "红色系": "Red family", "绿色系": "Green family",
+  "紫色系": "Purple family", "黄色系": "Yellow family", "蓝色系": "Blue family"
+};
+
+const RUNTIME_TEXT_EN = {
+  "字形转换暂时无法使用": "Script conversion is temporarily unavailable",
+  "请先选中要转换的文字": "Select the text you want to convert",
+  "请先完成正文输入": "Add body text before composing",
+  "请先完成自动排版": "Compose the document before exporting",
+  "正在保存...": "Saving...", "已自动保存": "Autosaved", "先写一点内容": "Add a message first",
+  "发送中": "Sending", "来信已收到": "Feedback received", "暂时没发送出去，内容还在": "Could not send yet; your message is still here",
+  "字体文件不能超过 20 MB": "Font files must be under 20 MB", "字体已载入并应用到正文": "Font loaded and applied to the body",
+  "无法读取这个字体文件": "This font file could not be read", "导出失败，请稍后重试": "Export failed. Please try again"
+};
+
+const staticTextNodes = [];
+const staticAttributes = [];
+
+function collectUiTranslations() {
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  let node;
+  while ((node = walker.nextNode())) {
+    const parent = node.parentElement;
+    const value = node.nodeValue;
+    if (!parent || !value.trim() || parent.closest("#poster, #bodyInput, #toast, script, style")) continue;
+    staticTextNodes.push({ node, source: value });
+  }
+  document.querySelectorAll("[placeholder], [title], [aria-label]").forEach((element) => {
+    ["placeholder", "title", "aria-label"].forEach((name) => {
+      const value = element.getAttribute(name);
+      if (value) staticAttributes.push({ element, name, source: value });
+    });
+  });
+}
+
+function translateUiText(source) {
+  return uiLanguage === "en" ? (UI_TEXT_EN[source] || source) : source;
+}
+
+function translateRuntimeText(message) {
+  if (uiLanguage !== "en") return message;
+  if (RUNTIME_TEXT_EN[message]) return RUNTIME_TEXT_EN[message];
+  let match = message.match(/^已按 (\d+) 字自动完成排版$/);
+  if (match) return `Composed ${match[1]} characters automatically`;
+  match = message.match(/^已应用(.+)版式$/);
+  if (match) return `${match[1]} layout applied`;
+  match = message.match(/^(普通|高清|超清)图片已保存$/);
+  if (match) return `${exportScaleLabel()} image saved`;
+  return message;
+}
+
+function localizedPaletteName() {
+  if (activeSpecialPreset) return uiLanguage === "en" ? SPECIAL_PRESET_NAMES_EN[activeSpecialPreset] : SPECIAL_PRESET_NAMES[activeSpecialPreset];
+  return uiLanguage === "en" ? PALETTE_NAMES_EN[paletteMode][paletteFamily] : PALETTE_NAMES[paletteMode][paletteFamily];
+}
+
+function applyUiLanguage(nextLanguage, persist = true) {
+  uiLanguage = nextLanguage === "en" ? "en" : "zh";
+  document.documentElement.lang = uiLanguage === "en" ? "en" : "zh-CN";
+  document.title = uiLanguage === "en" ? "XVI / Longform Typesetting Studio" : "XVI / 十六开";
+  document.querySelector('meta[name="description"]')?.setAttribute("content", uiLanguage === "en"
+    ? "XVI is a privacy-first longform typesetting studio for Chinese writing."
+    : "XVI / 十六开，为中文创作者设计的文本长图排版器。");
+  staticTextNodes.forEach(({ node, source }) => {
+    const core = source.trim();
+    const translated = uiLanguage === "en" ? (UI_TEXT_EN[core] || core) : core;
+    node.nodeValue = source.replace(core, translated);
+  });
+  staticAttributes.forEach(({ element, name, source }) => {
+    element.setAttribute(name, uiLanguage === "en" ? (UI_ATTRIBUTE_EN[source] || source) : source);
+  });
+  $$('[data-language]').forEach((button) => button.classList.toggle("active", button.dataset.language === uiLanguage));
+  if (persist) localStorage.setItem("xvi-ui-language", uiLanguage);
+  syncPaletteControls();
+  updateControlLabels();
+  syncGenerateButtonLabel();
+}
 
 // Rich-text normalization and regional script conversion.
 function bodyText() {
@@ -255,8 +382,10 @@ function convertSelectedScript(nextMode) {
   updateControlLabels();
   syncFormattingToGeneratedDocument();
   scheduleSave();
-  const modeLabels = { simplified: "简中", "traditional-hk": "繁中（港）", "traditional-tw": "繁中（台）" };
-  showToast(`所选文字已转换为${modeLabels[nextMode]}`);
+  const modeLabels = uiLanguage === "en"
+    ? { simplified: "Simplified Chinese", "traditional-hk": "Traditional Chinese (Hong Kong)", "traditional-tw": "Traditional Chinese (Taiwan)" }
+    : { simplified: "简中", "traditional-hk": "繁中（港）", "traditional-tw": "繁中（台）" };
+  showToast(uiLanguage === "en" ? `Selection converted to ${modeLabels[nextMode]}` : `所选文字已转换为${modeLabels[nextMode]}`);
   return true;
 }
 
@@ -348,17 +477,18 @@ function textParagraphs() {
 
 // Preview rendering and inline inspector synchronization.
 function updateControlLabels() {
-  elements.charCount.textContent = `${bodyText().replace(/\s/g, "").length} 字`;
+  const characterCount = bodyText().replace(/\s/g, "").length;
+  elements.charCount.textContent = uiLanguage === "en" ? `${characterCount} characters` : `${characterCount} 字`;
   $$(".number-field").forEach((input) => { input.value = settings[input.dataset.setting].value; });
   $("#backgroundColorValue").value = settings.backgroundColor.value.toUpperCase();
   $("#textColorValue").value = settings.textColor.value.toUpperCase();
   $("#titleColorValue").value = settings.titleColor.value.toUpperCase();
   $("#accentColorValue").value = settings.accentColor.value.toUpperCase();
   $("#zoomValue").value = `${Math.round(visibleZoom() * 100)}%`;
-  elements.canvasInfo.textContent = `${settings.contentWidth.value} × 自动高度`;
+  elements.canvasInfo.textContent = `${settings.contentWidth.value} × ${uiLanguage === "en" ? "auto height" : "自动高度"}`;
   updateExportScaleLabels();
   $("#exportCanvasInfo").textContent = `${exportPixelWidth()} px · ${exportScaleLabel()}`;
-  elements.exportButton.title = `${exportFormat.toUpperCase()} · ${exportPixelWidth()} px · 自动高度`;
+  elements.exportButton.title = `${exportFormat.toUpperCase()} · ${exportPixelWidth()} px · ${uiLanguage === "en" ? "auto height" : "自动高度"}`;
   syncParagraphGapControls();
   syncLeadStyleControls();
   syncTemplateSettings();
@@ -385,8 +515,9 @@ function syncPreviewInspector() {
     return;
   }
   inspector.hidden = false;
-  $("#previewInspectorLabel").textContent = editor.label;
-  $("#previewInspectorValue").value = `${Number(settings[editor.size].value).toFixed(editor.step < 1 ? 2 : 0).replace(/\.00$/, "")}${editor.suffix}`;
+  $("#previewInspectorLabel").textContent = translateUiText(editor.label);
+  const suffix = uiLanguage === "en" && editor.suffix === " 倍" ? "×" : editor.suffix;
+  $("#previewInspectorValue").value = `${Number(settings[editor.size].value).toFixed(editor.step < 1 ? 2 : 0).replace(/\.00$/, "")}${suffix}`;
   $("#previewInspectorColor").value = settings[editor.color].value;
   $("#previewLeadModes").hidden = !editor.leadModes;
   $("#previewFormatModes").hidden = !editor.formatModes;
@@ -401,7 +532,10 @@ function closePreviewInspector(clearSelection = true) {
 }
 
 function exportScaleLabel() {
-  return { 1: "普通", 2: "高清", 3: "超清" }[$("#exportScale").value] || "高清";
+  const labels = uiLanguage === "en"
+    ? { 1: "Standard", 2: "High", 3: "Ultra" }
+    : { 1: "普通", 2: "高清", 3: "超清" };
+  return labels[$("#exportScale").value] || labels[2];
 }
 
 function exportPixelWidth(scale = Number($("#exportScale").value)) {
@@ -410,9 +544,19 @@ function exportPixelWidth(scale = Number($("#exportScale").value)) {
 
 function updateExportScaleLabels() {
   [...$("#exportScale").options].forEach((option) => {
-    const label = { 1: "普通", 2: "高清", 3: "超清" }[option.value] || "高清";
+    const labels = uiLanguage === "en"
+      ? { 1: "Standard", 2: "High", 3: "Ultra" }
+      : { 1: "普通", 2: "高清", 3: "超清" };
+    const label = labels[option.value] || labels[2];
     option.textContent = `${label} ${exportPixelWidth(Number(option.value))} px`;
   });
+}
+
+function syncGenerateButtonLabel() {
+  const label = elements.generateButton.querySelector("strong");
+  if (!generatedDocument) label.textContent = uiLanguage === "en" ? "Compose" : "生成排版";
+  else if (contentIsDirty) label.textContent = uiLanguage === "en" ? "Content changed — compose again" : "内容已更改，重新生成";
+  else label.textContent = uiLanguage === "en" ? "Compose again" : "重新排版并生成";
 }
 
 function syncParagraphGapControls() {
@@ -565,7 +709,7 @@ function generateDocument() {
   elements.previewEmpty.hidden = true;
   elements.exportButton.disabled = false;
   $("#exportPanelButton").disabled = false;
-  elements.generateButton.querySelector("strong").textContent = "重新排版并生成";
+  syncGenerateButtonLabel();
   fitMobilePreview();
   render();
   showToast(`已按 ${characterCount} 字自动完成排版`);
@@ -579,7 +723,7 @@ function markContentDirty() {
   contentIsDirty = true;
   elements.exportButton.disabled = true;
   $("#exportPanelButton").disabled = true;
-  elements.generateButton.querySelector("strong").textContent = "内容已更改，重新生成";
+  syncGenerateButtonLabel();
 }
 
 function syncFormattingToGeneratedDocument() {
@@ -592,7 +736,7 @@ function syncFormattingToGeneratedDocument() {
   contentIsDirty = false;
   elements.exportButton.disabled = false;
   $("#exportPanelButton").disabled = false;
-  elements.generateButton.querySelector("strong").textContent = "重新排版并生成";
+  syncGenerateButtonLabel();
   render();
 }
 
@@ -635,11 +779,11 @@ function getState() {
 }
 
 function scheduleSave() {
-  elements.saveState.textContent = "正在保存...";
+  elements.saveState.textContent = uiLanguage === "en" ? "Saving..." : "正在保存...";
   clearTimeout(saveTimer);
   saveTimer = setTimeout(() => {
     localStorage.setItem("xvi-next-v1", JSON.stringify(getState()));
-    elements.saveState.textContent = "已自动保存";
+    elements.saveState.textContent = uiLanguage === "en" ? "Autosaved" : "已自动保存";
   }, 350);
 }
 
@@ -683,7 +827,7 @@ function loadState() {
 }
 
 function showToast(message) {
-  elements.toast.textContent = message;
+  elements.toast.textContent = translateRuntimeText(message);
   elements.toast.classList.add("show");
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => elements.toast.classList.remove("show"), 2200);
@@ -713,7 +857,7 @@ async function submitFeedback(event) {
   if (!message) return showToast("先写一点内容");
   const submitButton = form.querySelector('button[type="submit"]');
   submitButton.disabled = true;
-  submitButton.textContent = "发送中";
+  submitButton.textContent = uiLanguage === "en" ? "Sending" : "发送中";
   try {
     const payload = new URLSearchParams(new FormData(form));
     const response = await fetch("/", {
@@ -729,9 +873,19 @@ async function submitFeedback(event) {
   } catch (error) {
     showToast("暂时没发送出去，内容还在");
   } finally {
-    submitButton.textContent = "发送";
+    submitButton.textContent = uiLanguage === "en" ? "Send" : "发送";
     syncFeedbackSubmitState();
   }
+}
+
+function openSettings() {
+  $("#settingsModal").hidden = false;
+  requestAnimationFrame(() => $("#settingsModal").classList.add("show"));
+}
+
+function closeSettings() {
+  $("#settingsModal").classList.remove("show");
+  setTimeout(() => { $("#settingsModal").hidden = true; }, 160);
 }
 
 function activatePanel(name) {
@@ -770,7 +924,7 @@ async function loadCustomFont(file) {
     [settings.fontFamily, settings.titleFontFamily].forEach((select) => {
       const option = document.createElement("option");
       option.value = key;
-      option.textContent = `${displayName}（本地）`;
+      option.textContent = uiLanguage === "en" ? `${displayName} (local)` : `${displayName}（本地）`;
       select.append(option);
     });
     settings.fontFamily.value = key;
@@ -800,16 +954,18 @@ function syncPaletteControls() {
   $$("[data-palette-family]").forEach((button) => {
     const family = button.dataset.paletteFamily;
     const preset = PRESETS[PALETTE_FAMILIES[family][paletteMode]];
-    const name = PALETTE_NAMES[paletteMode][family];
+    const name = uiLanguage === "en" ? PALETTE_NAMES_EN[paletteMode][family] : PALETTE_NAMES[paletteMode][family];
     button.classList.toggle("active", !activeSpecialPreset && family === paletteFamily);
     button.style.backgroundColor = preset.accent;
     button.title = name;
     button.setAttribute("aria-label", name);
   });
-  $$("[data-preset]").forEach((button) => button.classList.toggle("active", button.dataset.preset === activeSpecialPreset));
-  $("#paletteSelectionName").textContent = activeSpecialPreset
-    ? SPECIAL_PRESET_NAMES[activeSpecialPreset]
-    : PALETTE_NAMES[paletteMode][paletteFamily];
+  $$("[data-preset]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.preset === activeSpecialPreset);
+    const label = button.querySelector("span");
+    if (label) label.textContent = uiLanguage === "en" ? SPECIAL_PRESET_NAMES_EN[button.dataset.preset] : SPECIAL_PRESET_NAMES[button.dataset.preset];
+  });
+  $("#paletteSelectionName").textContent = localizedPaletteName();
 }
 
 function setPaletteFamily(mode = paletteMode, family = paletteFamily) {
@@ -1246,6 +1402,9 @@ $("#randomPresetButton").addEventListener("click", () => {
   else setPaletteFamily(choice.mode, choice.family);
 });
 $("#customFontInput").addEventListener("change", (event) => loadCustomFont(event.target.files[0]));
+$("#settingsOpenButton").addEventListener("click", openSettings);
+$$('[data-settings-close]').forEach((button) => button.addEventListener("click", closeSettings));
+$$('[data-language]').forEach((button) => button.addEventListener("click", () => applyUiLanguage(button.dataset.language)));
 $("#feedbackOpenButton").addEventListener("click", openFeedback);
 $$("[data-feedback-close]").forEach((button) => button.addEventListener("click", closeFeedback));
 elements.feedbackForm.addEventListener("submit", submitFeedback);
@@ -1253,6 +1412,7 @@ elements.feedbackForm.addEventListener("input", syncFeedbackSubmitState);
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     if (!$("#scriptPickerMenu").hidden) closeScriptPicker();
+    else if (!$("#settingsModal").hidden) closeSettings();
     else if (!elements.feedbackModal.hidden) closeFeedback();
     else if (activePreviewTarget) closePreviewInspector();
     return;
@@ -1343,7 +1503,9 @@ document.addEventListener("pointerdown", (event) => {
   closePreviewInspector();
 });
 
+collectUiTranslations();
 loadState();
+applyUiLanguage(localStorage.getItem("xvi-ui-language") || "zh", false);
 $$('[data-align]').forEach((item) => item.classList.toggle("active", item.dataset.align === alignment));
 $$("[data-layout-template]").forEach((button) => button.classList.toggle("active", button.dataset.layoutTemplate === layoutTemplate));
 syncPaletteControls();
