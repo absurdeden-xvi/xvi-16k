@@ -47,9 +47,13 @@ body { background: var(--canvas); }
 .build-label { color: #8b948f; font: 400 10px/1 "Songti SC", serif; letter-spacing: 0; }
 .slogan-button:hover { color: var(--accent); }
 .save-state { min-width: auto; font-size: 9px; }
-.settings-button { width: 34px; min-width: 34px; min-height: 34px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: transparent; color: #66746e; }
+.settings-button { width: 38px; min-width: 38px; min-height: 38px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: transparent; color: #52635c; }
 .settings-button:hover { border-color: var(--accent); color: var(--accent); }
-.settings-button span { font: 14px/1 Arial, sans-serif; }
+.settings-glyph { width: 24px; height: 24px; display: block; position: relative; }
+.settings-glyph b, .settings-glyph i { position: absolute; font-style: normal; line-height: 1; }
+.settings-glyph b { left: 2px; top: 1px; font: 600 13px/1 Baskerville, Georgia, serif; }
+.settings-glyph i { right: 1px; bottom: 1px; font: 500 10px/1 "Songti SC", STSong, serif; }
+.settings-glyph::after { content: ""; width: 1px; height: 19px; position: absolute; left: 12px; top: 2px; background: currentColor; opacity: .22; transform: rotate(28deg); }
 .feedback-button { min-height: 34px; padding: 0 12px; border: 1px solid var(--line); border-radius: 17px; background: transparent; color: #66746e; font-size: 10px; }
 .feedback-button:hover { border-color: var(--accent); color: var(--accent); }
 .button-primary { min-height: 39px; gap: 12px; padding: 0 17px; border-radius: 20px; background: #263b33; font-size: 11px; }
@@ -58,6 +62,18 @@ body { background: var(--canvas); }
 
 .workspace { height: calc(100vh - 76px); grid-template-columns: 410px minmax(0, 1fr); }
 html[lang="en"] .rich-editor:empty::before { content: "Paste or enter body text"; }
+html[lang="en"] body,
+html[lang="en"] button,
+html[lang="en"] input,
+html[lang="en"] select,
+html[lang="en"] textarea { font-family: "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif; }
+html[lang="en"] .brand-block h1,
+html[lang="en"] .settings-head strong,
+html[lang="en"] .feedback-head strong,
+html[lang="en"] .preview-empty strong { font-family: Baskerville, "Iowan Old Style", Georgia, serif; }
+html[lang="en"] .editor-panel > .panel-tabs .tab b,
+html[lang="en"] input[type="text"],
+html[lang="en"] select { font-family: "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif; }
 .editor-panel { position: relative; padding-left: 27px; background: var(--panel); }
 .editor-panel::before { content: attr(data-step); position: fixed; z-index: 4; left: 16px; top: 116px; color: var(--accent); font: italic 700 9px/1 Georgia, serif; }
 .editor-panel::after { content: ""; width: 1px; height: 45px; position: fixed; z-index: 4; left: 25px; top: 141px; background: linear-gradient(var(--accent), transparent); }
