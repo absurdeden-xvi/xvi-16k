@@ -42,32 +42,43 @@ Open [`index.html`](./index.html) directly in a modern browser, or visit the liv
 
 ## Current capabilities
 
-### Writing and localization
-
-- Separate title, author, and rich-text body fields
-- Bold, italic, underline, strikethrough, and clear formatting
-- Selected-text conversion to Simplified Chinese, Traditional Chinese (Hong Kong), or Traditional Chinese (Taiwan)
-- Character count, pasted-text cleanup, and optional paragraph normalization
-- Browser-local draft persistence
-- Chinese and English interface switching from Settings, persisted in the current browser
-
-### Composition and visual system
-
-- Four editorial structures: Folio, Book Page, Letter, and Sectioned Long Page
-- First-line indentation and `0 / 0.5 / 1 / 1.25 / 1.5 / 2` paragraph-spacing presets
-- Independent body and title fonts, sizes, title weight, line height, letter spacing, margins, and canvas width
-- Light and dark inspiration modes plus sixteen named special palettes
-- Independent background, body, title, and accent colors
-- System and web fonts, plus local TTF, OTF, WOFF, and WOFF2 import
-
-### Preview and export
-
-- Deliberate generation after writing instead of continuous long-image reflow
-- Direct preview editing for title, kicker, body, chapter label, and section marker
-- Local font size, color, bold, italic, underline, and strikethrough editing on the composed page
-- PNG and JPG output
-- Standard, High, and Ultra resolution with the final pixel width shown before export
-- Full desktop workspace and foundational mobile input and preview support
+| Area | Capability | Status | Notes |
+| --- | --- | --- | --- |
+| Writing | Title, body, and byline | Implemented | Blank-first writing flow without continuous long-image rendering |
+| Writing | Inline rich text | Implemented | Bold, italic, underline, strikethrough, and clear formatting |
+| Writing | Character count | Implemented | Ignores whitespace and line breaks |
+| Writing | Browser-local autosave | Implemented | Drafts remain in the current browser |
+| Localization | Simplified and regional Traditional Chinese | Implemented | Converts selected text to Simplified Chinese, Traditional Chinese (Hong Kong), or Traditional Chinese (Taiwan) |
+| Localization | Chinese and English interface | Implemented | Interface language persists without translating user content |
+| Composition | Deliberate automatic composition | Implemented | Generates only after the writer finishes entering text |
+| Composition | Text cleanup and paragraph detection | Implemented | Repairs pasted soft line breaks and optionally detects paragraphs |
+| Typography | Separate body and title typefaces | Implemented | CJK and Latin font groups can be selected independently |
+| Typography | Local font import | Implemented | Supports TTF, OTF, WOFF, and WOFF2 without uploading files |
+| Typography | Body and title size, title weight | Implemented | Range controls plus precise numeric input |
+| Typography | Line, letter, and paragraph spacing | Implemented | Includes classic paragraph-gap presets and continuous fine tuning |
+| Layout | Canvas width and page margins | Implemented | Adjustable long-image dimensions and reading measure |
+| Layout | Alignment and first-line indentation | Implemented | Left, justified, and centered text with optional two-character indent |
+| Layout | Opening-paragraph treatment | Implemented | None, rule, or accent color with adjustable opening scale |
+| Templates | Folio | Implemented | Primary editorial structure and current default |
+| Templates | Book Page | Implemented | Optional editable chapter label |
+| Templates | Letter | Implemented | More open correspondence-oriented composition |
+| Templates | Sectioned Long Page | Implemented | User-defined section marker and expanded hierarchy |
+| Color | Light and dark color families | Implemented | Six curated families across light and dark modes |
+| Color | Sixteen named special palettes | Implemented | Curated combinations designed for long-form readability |
+| Color | Independent color controls | Implemented | Background, body, title, and accent colors can be changed separately |
+| Color | Random inspiration | Implemented | Samples from the complete curated palette collection |
+| Preview | Post-composition preview | Implemented | Avoids disruptive reflow while the user is still writing |
+| Preview | Direct canvas editing | Implemented | Title, kicker, body, chapter label, and section marker are editable |
+| Preview | Local text styling | Implemented | Size, color, bold, italic, underline, and strikethrough remain exportable |
+| Export | PNG and JPG long images | Implemented | Custom file name and automatic image height |
+| Export | Standard, High, and Ultra resolution | Implemented | Shows final pixel width before saving |
+| Privacy | Local-only article processing | Implemented | Article text, imported fonts, drafts, and image generation stay on-device |
+| Feedback | Explicit feedback form and email notification | Implemented | Netlify receives feedback only; article content is never attached |
+| Mobile | Phone input, preview, and export workflow | In progress | Foundational layout exists; stability and ergonomics still need refinement |
+| Export | Automatic pagination and `3:4` batch export | Planned | Intended for Xiaohongshu and other multi-image publishing workflows |
+| Templates | Save reusable custom templates | Planned | Named personal presets after the core structures stabilize |
+| Content | Images, epigraphs, and section dividers | Future | Richer long-form document structure |
+| Cloud | Accounts and cloud drafts | Deferred | Local-first use remains the product default |
 
 ## Usage
 
@@ -141,31 +152,43 @@ Third-party components and online fonts retain their own licenses. See [Third-Pa
 
 ## 当前能力
 
-### 写作与文字
-
-- 标题、署名和富文本正文输入
-- 粗体、斜体、下划线、删除线与清除格式
-- 选中文字后转换为简中、繁中（港）或繁中（台）
-- 字数统计、文本清理与智能分段
-- 草稿自动保存在当前浏览器
-
-### 排版与风格
-
-- 标准刊页、书页、信笺、分节长页四种结构
-- 首行缩进，以及 `0 / 0.5 / 1 / 1.25 / 1.5 / 2` 段间距
-- 正文与标题字体、字号、字重、行距、字距、页边距和画布宽度
-- 浅色、深色与 16 套具名特别配色，也可单独修改背景、正文、标题和强调色
-- 宋体、苹方、霞鹜新致宋、文津宋体、汇文明朝体、朱雀仿宋、司源赢宋、霞鹜文楷、悠哉字体与等宽字体
-- 本地导入 TTF、OTF、WOFF、WOFF2 字体
-
-### 预览与导出
-
-- 生成后预览，避免输入长文时持续重排
-- 在画布上直接编辑标题、题头、正文、章节标识与节号
-- 在画布上调整局部字号、颜色和正文格式
-- PNG / JPG 导出
-- 普通、高清、超清三档，直接显示最终像素宽度
-- 桌面端完整工作台与移动端基础适配
+| 模块 | 功能 | 状态 | 设计说明 |
+| --- | --- | --- | --- |
+| 写作 | 标题、正文、署名 | 已实现 | 空白开始，输入阶段不持续渲染长图 |
+| 写作 | 行内富文本 | 已实现 | 粗体、斜体、下划线、删除线与清除格式 |
+| 写作 | 字数统计 | 已实现 | 忽略空格和换行统计 |
+| 写作 | 浏览器本地自动保存 | 已实现 | 草稿只保存在当前浏览器 |
+| 文字 | 简中与地区繁体转换 | 已实现 | 选中文字后转换为简中、繁中（港）或繁中（台） |
+| 文字 | 中英文界面 | 已实现 | 记住界面语言，不翻译用户正文 |
+| 排版 | 主动生成与自动排版 | 已实现 | 写完后再生成，不在输入中反复重排 |
+| 排版 | 文本清理与智能分段 | 已实现 | 修复粘贴软换行，并按需识别自然段 |
+| 字体 | 标题与正文字体 | 已实现 | 中文与拉丁字体组可分别选择 |
+| 字体 | 导入本地字体 | 已实现 | 支持 TTF、OTF、WOFF、WOFF2，不上传字体文件 |
+| 字体 | 正文与标题字号、标题字重 | 已实现 | 滑杆调节与精确数值输入并存 |
+| 排版 | 行距、字距、段距 | 已实现 | 经典段间距档位与连续微调并存 |
+| 排版 | 画布宽度、页边距 | 已实现 | 调整长图尺寸与正文阅读宽度 |
+| 排版 | 对齐与首行缩进 | 已实现 | 左对齐、两端对齐、居中及两字缩进 |
+| 排版 | 首段强调 | 已实现 | 无、引线、变色三种形式，并可调整首段字号 |
+| 模板 | 标准刊页 | 已实现 | 主要刊页结构与当前默认模板 |
+| 模板 | 书页 | 已实现 | 支持可编辑章节标识 |
+| 模板 | 信笺 | 已实现 | 更舒展、接近书信的空间结构 |
+| 模板 | 分节长页 | 已实现 | 支持用户指定节号与更明显的层级关系 |
+| 配色 | 深浅模式与六个色系 | 已实现 | 分别整理浅色与深色阅读方案 |
+| 配色 | 十六套具名特别配色 | 已实现 | 以长文可读性为前提进行人工筛选 |
+| 配色 | 自定义颜色 | 已实现 | 背景、正文、标题与强调色可独立调整 |
+| 配色 | 随机灵感 | 已实现 | 从全部已整理配色中随机选择 |
+| 预览 | 生成后预览 | 已实现 | 避免输入长文时持续重排和跳动 |
+| 预览 | 画布内直接编辑 | 已实现 | 标题、题头、正文、章节标识与节号均可编辑 |
+| 预览 | 局部文字样式 | 已实现 | 字号、颜色、粗体、斜体、下划线与删除线可同步导出 |
+| 导出 | PNG / JPG 长图 | 已实现 | 支持自定义文件名与自动高度 |
+| 导出 | 普通、高清、超清 | 已实现 | 保存前直接显示最终像素宽度 |
+| 隐私 | 正文全程本地处理 | 已实现 | 正文、导入字体、草稿和图片生成不离开设备 |
+| 反馈 | 主动反馈与邮件通知 | 已实现 | Netlify 仅接收反馈文字，绝不附带文章正文 |
+| 移动端 | 手机输入、预览与导出 | 优化中 | 已有基础流程，仍需继续提高稳定性与操作效率 |
+| 导出 | 自动分页与 `3:4` 多图导出 | 计划中 | 面向小红书等多图发布场景 |
+| 模板 | 保存自定义模板 | 计划中 | 核心刊页稳定后支持命名与复用个人样式 |
+| 内容 | 图片、题记、章节分隔 | 后续探索 | 丰富长文的内容结构 |
+| 云服务 | 登录和云端草稿 | 暂缓 | 本地优先仍是产品默认方向 |
 
 ## 使用
 
