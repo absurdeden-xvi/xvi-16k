@@ -1,4 +1,45 @@
-# 隐私说明
+# Privacy / 隐私说明
+
+XVI / 十六开 uses local browser processing as its default privacy model.
+
+## Data that stays in the browser
+
+- Title, author, article body, and composition settings
+- Automatically saved drafts
+- Imported local fonts
+- Generated and exported images
+
+Article text and settings are stored in the current browser's `localStorage` under the key `xvi-next-v1`. Clearing site data removes the draft and makes it unrecoverable.
+
+Imported fonts are loaded only for the current page session and are not uploaded by XVI. They usually need to be imported again after a refresh.
+
+## Network requests
+
+### Online fonts
+
+The page requests selected font files from third-party font CDNs. Those services may record ordinary network metadata such as IP address, browser, and request time under their own policies, but they do not receive the user's article text.
+
+### Feedback
+
+When a user intentionally selects Send, only the feedback text, the Netlify form name, the optional contact email, and anti-spam fields are submitted to Netlify Forms. Article title, author, body, composition settings, drafts, and generated images are never attached.
+
+Netlify receives the feedback and notifies the project email. Users can avoid the form and email [absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com) directly.
+
+### Hosting logs
+
+The site is hosted by Netlify. As with an ordinary static website, the hosting provider may record basic request logs such as IP address, time, path, and browser. XVI currently includes no independent analytics, advertising, or user-tracking scripts.
+
+## Image export
+
+PNG and JPG files are generated and downloaded locally through the browser Canvas API. They are not uploaded to the cloud first.
+
+## Contact
+
+Privacy questions can be sent to [absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com).
+
+---
+
+# 中文隐私说明
 
 XVI / 十六开以本地处理为默认原则。
 
@@ -21,7 +62,7 @@ XVI / 十六开以本地处理为默认原则。
 
 ### 来信
 
-用户主动点击“发送”时，只有反馈输入框中的文字、Netlify 表单名和防垃圾字段会提交给 Netlify Forms。文章标题、署名、正文、排版设置和生成图片不会随反馈发送。
+用户主动点击“发送”时，只有反馈输入框中的文字、可选联系邮箱、Netlify 表单名和防垃圾字段会提交给 Netlify Forms。文章标题、署名、正文、排版设置和生成图片不会随反馈发送。
 
 反馈会由 Netlify 代收并通知项目邮箱。用户也可以不使用表单，直接发送邮件至 [absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com)。
 

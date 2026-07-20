@@ -1,4 +1,73 @@
-# 版本记录
+# Changelog / 版本记录
+
+Versions follow `major.minor.patch`. Before V1, minor versions represent verifiable product stages and patch versions represent functional or experiential refinements within the same stage.
+
+## v0.7.1 - 2026-07-17
+
+### Writing
+
+- Cleared the default title, author, and body, and removed sample-copy restoration.
+- Changed the default body size to `32 px`.
+- Moved regional Chinese conversion into the rich-text toolbar and limited it to selected text.
+- Added Simplified Chinese, Traditional Chinese (Hong Kong), and Traditional Chinese (Taiwan), including common Taiwanese corner-quote handling.
+
+### Composition and preview
+
+- Changed the default first-paragraph emphasis to color while retaining none and rule options.
+- Added chapter labels to Book Page and user-defined section markers to Sectioned Long Page.
+- Made every layout structure respect the user's current font settings.
+- Added direct preview editing for title, body, first paragraph, chapter label, and section marker.
+- Preserved bold, italic, underline, and strikethrough in preview and export.
+- Removed selection outlines completely when closing the floating preview editor.
+- Increased kicker text size and removed the simulated paper-texture toggle.
+
+### Color and typography
+
+- Renamed, recolored, and reordered sixteen special palettes.
+- Added PingFang, Wenjin Mincho, Siyuan YingSong, and other font choices.
+- Retained local font import without uploading font files.
+
+### Export and mobile
+
+- Renamed export levels to Standard, High, and Ultra and displayed final pixel widths.
+- Set the default preview zoom to `55%`.
+- Added mobile bottom navigation plus dedicated input and preview states.
+
+### Privacy and feedback
+
+- Clarified that article text, imported fonts, and image generation remain in the browser.
+- Added Netlify Forms feedback that never attaches the article body.
+- Enabled form detection and email notifications.
+- Added direct email feedback through `absurdedenxvi@gmail.com`.
+
+### Maintenance
+
+- Unified the production entry at the root URL.
+- Renamed the Netlify project and free domain to `xvi-16k` and `xvi-16k.netlify.app`.
+- Updated the repository address to `absurdeden-xvi/xvi-16k`.
+- Adopted PolyForm Noncommercial 1.0.0 for project-owned code and documented third-party boundaries.
+- Moved the license and judging README to the repository root.
+- Removed the early Chinese questionnaire and generation scripts from the public repository.
+- Removed low-resolution browser and iOS icons pending a proper replacement.
+- Unified asset cache versions at `v0.7.1`.
+- Added privacy, deployment, contributing, architecture, licensing, and research documentation.
+
+## v0.7.0 - 2026-07-15
+
+- Released the current XVI editorial workspace.
+- Promoted the new workspace to the root production URL.
+- Established four layout structures, named color systems, and direct preview editing.
+- Preserved `legacy-v0.6.3.html` as a stable historical reference.
+
+## v0.6.3 - 2026-06-18
+
+- Established the core flow for writing, generated composition, color, typography, spacing, and PNG export.
+- Restored and fixed the early twelve named palettes.
+- Established Git version history and automatic Netlify deployment.
+
+---
+
+# 中文版本记录
 
 版本遵循 `主版本.次版本.修订号`。V1 之前的次版本代表可验证的产品阶段，修订号用于同一阶段内的功能与体验更新。
 

@@ -1,12 +1,12 @@
 # XVI / 十六开
 
-为中文创作者设计的文本长图排版器。完整输入文字后，生成可继续微调并导出的长图。
+XVI is a privacy-first, browser-based longform typesetting studio for Chinese writers. Finish the text first, generate a stable editorial composition, refine it, and export a publication-ready long image.
 
-- 当前版本：`v0.7.1`
-- 产品阶段：公开预览版，尚未进入 V1
-- 在线使用：[xvi-16k.netlify.app](https://xvi-16k.netlify.app/)
-- 代码仓库：[absurdeden-xvi/xvi-16k](https://github.com/absurdeden-xvi/xvi-16k/tree/main/project)
-- 反馈邮箱：[absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com)
+- Current release: `v0.7.1`
+- Product stage: public preview, not yet V1
+- Live demo: [xvi-16k.netlify.app](https://xvi-16k.netlify.app/)
+- Repository: [absurdeden-xvi/xvi-16k](https://github.com/absurdeden-xvi/xvi-16k)
+- Feedback: [absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com)
 
 ## OpenAI Build Week submission
 
@@ -39,6 +39,103 @@ The main product decisions remained human-led: composition begins only after the
 ### Run and test
 
 Open [`index.html`](./index.html) directly in a modern browser, or visit the live demo. No installation, API key, sample account, or server is required. A useful judging path is: enter Chinese text, apply rich-text or regional conversion to a selection, generate the layout, edit the preview directly, switch templates and colors, then export at a chosen resolution.
+
+## Current capabilities
+
+### Writing and localization
+
+- Separate title, author, and rich-text body fields
+- Bold, italic, underline, strikethrough, and clear formatting
+- Selected-text conversion to Simplified Chinese, Traditional Chinese (Hong Kong), or Traditional Chinese (Taiwan)
+- Character count, pasted-text cleanup, and optional paragraph normalization
+- Browser-local draft persistence
+
+### Composition and visual system
+
+- Four editorial structures: Folio, Book Page, Letter, and Sectioned Long Page
+- First-line indentation and `0 / 0.5 / 1 / 1.25 / 1.5 / 2` paragraph-spacing presets
+- Independent body and title fonts, sizes, title weight, line height, letter spacing, margins, and canvas width
+- Light and dark inspiration modes plus sixteen named special palettes
+- Independent background, body, title, and accent colors
+- System and web fonts, plus local TTF, OTF, WOFF, and WOFF2 import
+
+### Preview and export
+
+- Deliberate generation after writing instead of continuous long-image reflow
+- Direct preview editing for title, kicker, body, chapter label, and section marker
+- Local font size, color, bold, italic, underline, and strikethrough editing on the composed page
+- PNG and JPG output
+- Standard, High, and Ultra resolution with the final pixel width shown before export
+- Full desktop workspace and foundational mobile input and preview support
+
+## Usage
+
+1. Enter the complete body text and optionally add a title and author.
+2. Apply rich text or regional Chinese conversion to a selection when needed.
+3. Select Generate Composition.
+4. Choose a layout, palette, font, and spacing, or edit the preview directly.
+5. Select an export format and resolution, then save the image.
+
+The project is a static site with no build step. Open [`index.html`](./index.html) locally or use the deployed root URL.
+
+## Privacy
+
+Article text, imported fonts, draft state, composition, and image export are processed in the browser. Drafts are stored in `localStorage`. XVI does not upload article content to an application server.
+
+Only an intentional feedback submission sends the entered feedback and optional email to Netlify Forms; the article is never attached. See [Privacy](./PRIVACY.md).
+
+## Project structure
+
+| Path | Purpose |
+| --- | --- |
+| `index.html` | Current deployed entry point |
+| `xvi-next.html` | Workspace structure and Netlify feedback form |
+| `styles.css` | Shared controls and long-page composition styles |
+| `xvi-next.css` | Current desktop and mobile interface |
+| `app-next.js` | Editing, localization, composition, persistence, and export |
+| `vendor/opencc.full.js` | Regional Chinese conversion runtime |
+| `THIRD_PARTY_NOTICES.md` | Third-party software and font boundaries |
+| `legacy-v0.6.3.html` | Historical rollback reference |
+| `docs/` | Architecture, research references, and historical previews |
+
+## Documentation
+
+- [Product direction](./PRODUCT_DIRECTION.md)
+- [Changelog](./CHANGELOG.md)
+- [Privacy](./PRIVACY.md)
+- [Deployment and rollback](./DEPLOYMENT.md)
+- [Contributing](./CONTRIBUTING.md)
+- [License](../LICENSE)
+- [Third-party notices](./THIRD_PARTY_NOTICES.md)
+- [Research index](./docs/README.md)
+
+## Next priorities
+
+1. Improve mobile input, preview, and export stability.
+2. Complete automatic pagination and Xiaohongshu-style `3:4` batch export.
+3. Continue refining editorial structures rather than adding recolored duplicates.
+4. Audit online font provenance, licensing, and loading reliability in mainland China.
+5. Expand accessibility, error handling, and cross-browser export testing.
+
+## Publishing and license
+
+Netlify deploys the `main` branch automatically. Before a release, align asset versions, update [`CHANGELOG.md`](./CHANGELOG.md), and complete the checks in [`DEPLOYMENT.md`](./DEPLOYMENT.md).
+
+Project-owned code is available under [PolyForm Noncommercial 1.0.0](../LICENSE). Personal, educational, research, and other noncommercial uses are permitted; commercial use is not licensed. XVI is source-available for noncommercial use, not open source under the OSI definition.
+
+Third-party components and online fonts retain their own licenses. See [Third-Party Notices](./THIRD_PARTY_NOTICES.md) and [`vendor/opencc-js.LICENSE`](./vendor/opencc-js.LICENSE).
+
+---
+
+# 中文说明
+
+为中文创作者设计的文本长图排版器。完整输入文字后，生成可继续微调并导出的长图。
+
+- 当前版本：`v0.7.1`
+- 产品阶段：公开预览版，尚未进入 V1
+- 在线使用：[xvi-16k.netlify.app](https://xvi-16k.netlify.app/)
+- 代码仓库：[absurdeden-xvi/xvi-16k](https://github.com/absurdeden-xvi/xvi-16k)
+- 反馈邮箱：[absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com)
 
 ## 当前能力
 

@@ -1,4 +1,53 @@
-# 参与开发
+# Contributing / 参与开发
+
+XVI / 十六开 is a static HTML, CSS, and JavaScript project with no build step.
+
+## Local preview
+
+Open `index.html` or `xvi-next.html` directly. Netlify Forms requires the deployed Netlify environment; a local `file://` page cannot submit feedback to Netlify.
+
+## Change principles
+
+- Preserve the existing HTML, CSS, and vanilla JavaScript architecture unless a confirmed problem justifies a framework or dependency.
+- Do not interrupt longform writing with continuous image reflow; generation remains a deliberate user action.
+- Do not manufacture template differences by narrowing the body, stacking decorative cards, or generating random palettes.
+- Do not add vague promotional slogans or explanatory interface copy.
+- Never upload, record, or analyze article content.
+- Before adding an online font, verify the original project, version, character coverage, and web-embedding license.
+
+## Code map
+
+- Shared canvas and controls: `styles.css`
+- Current workspace visual system: `xvi-next.css`
+- Editing, composition, and export logic: `app-next.js`
+- Current workspace structure: `xvi-next.html`
+
+Large logic sections should keep concise comments that explain boundaries, data flow, or compatibility constraints rather than restating the code.
+
+## Contribution license
+
+By submitting code, documentation, or other original work, you confirm that you have the right to contribute it and agree that it will be provided as part of the project under [PolyForm Noncommercial 1.0.0](../LICENSE).
+
+Do not submit material with unclear provenance, redistribution restrictions, or licenses incompatible with the project. Preserve original notices for third-party software and fonts in [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md) or a dedicated license file.
+
+## Pre-commit checks
+
+- JavaScript parses successfully.
+- Every HTML `id` is unique and every local resource reference exists.
+- Default title, author, and body remain empty.
+- Rich text matches across input, preview, and export.
+- Regional Chinese conversion changes only the selected range.
+- Punctuation does not remain at inappropriate line starts or ends.
+- Mobile has no page-level horizontal overflow and button labels are not clipped.
+- `CHANGELOG.md` and asset versions are current.
+
+## Feedback
+
+Use the product's feedback form or email [absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com).
+
+---
+
+# 中文参与开发
 
 XVI / 十六开目前是无构建步骤的静态网页项目。
 

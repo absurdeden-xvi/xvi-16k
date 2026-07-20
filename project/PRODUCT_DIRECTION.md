@@ -1,4 +1,120 @@
-# XVI / 十六开：产品方向
+# XVI / 十六开: Product Direction / 产品方向
+
+## One-sentence positioning
+
+A Chinese longform image typesetting tool that accepts finished writing, generates a dependable composition, and lets the writer freely refine it for publication.
+
+## Current stage
+
+`v0.7.1` is a public preview. The core workflow is usable, but mobile reliability, template maturity, font-license verification, and multi-image export have not reached the V1 standard.
+
+V1 does not simply mean “more features.” XVI reaches V1 only when the core flow is stable, default output is trustworthy, and neither desktop nor mobile blocks the user.
+
+## Core users
+
+- Fiction, fanfiction, essay, poetry, and longform writers
+- Text-focused creators publishing on Weibo, Xiaohongshu, and similar platforms
+- People preserving diaries, personal records, and private expression
+
+## Product principles
+
+### Writing comes before typesetting
+
+The page should open directly into writing. The body is empty by default; users do not need to select a template first, and sample text never speaks on their behalf.
+
+### Automatic composition is a starting point
+
+One generation pass solves basic proportion and line breaking. Users can still change type, spacing, structure, and color. Regeneration should preserve deliberate choices whenever possible.
+
+### Templates must change reading structure
+
+Template differences should come from relationships among folio, heading, chapter, body, and signature—not from narrowing the body or replacing only the background color.
+
+### Freedom is not parameter accumulation
+
+Basic actions stay direct while advanced settings unfold on demand. Sliders, precise values, and direct preview editing can coexist, but they must not duplicate effort.
+
+### Privacy is the default
+
+Article text, imported fonts, and image export should remain local whenever possible. Any network behavior must be explicit, and feedback forms must never attach the article body.
+
+## Brand and language
+
+- The primary brand is `XVI / 十六开`; English contexts may use `XVI`, while `16k` is mainly used for domains and account names.
+- The product does not impose a permanent slogan or fill the interface with vague literary copy.
+- Kicker text is blank by default and can hold a chapter, date, or column label.
+- `XVI / 016` is edition metadata, not a substitute for the article title.
+- Interface copy should name the action itself and avoid personification or empty “literary” explanation.
+
+## Visual principles
+
+- Air, freedom, and movement should come from proportion, type, whitespace, and rhythm rather than decorative shapes.
+- The workspace should feel quiet and soft without collapsing into a single low-saturation palette.
+- Every color system must be evaluated across title, body, accent, and sustained reading.
+- Fonts should prioritize complete Chinese character coverage, punctuation quality, screen readability, and verifiable licensing.
+- Avoid industrial-control-panel stiffness, rigid grids, nested rounded cards, and the cliché that simulated aged paper automatically feels literary.
+
+## V1 requirements
+
+1. Generated composition remains stable for short text, long text, empty titles, and complex punctuation.
+2. Desktop writing, styling, preview, and export are complete.
+3. Mobile can reliably complete input, generation, preview, and saving.
+4. PNG and JPG match the preview without losing rich text, fonts, or color.
+5. Punctuation rules, paragraph cleanup, regional conversion, and local saving have explicit boundaries.
+6. Every bundled font has verified provenance and licensing.
+7. Privacy, feedback, versioning, deployment, and rollback documentation are complete.
+
+## Priorities
+
+### P0: release stability
+
+- Critical mobile workflow
+- Export parity and cross-browser testing
+- Draft recovery and error reporting
+- Reliable font fallback when online loading fails
+
+### P1: publishing efficiency
+
+- Automatic longform pagination
+- Xiaohongshu-style `3:4` batch export
+- Platform-size presets
+- Saving and reusing custom templates
+
+### P2: expressive range
+
+- More mature editorial structures
+- Images, epigraphs, and chapter dividers
+- Undo, redo, and broader keyboard shortcuts
+- Carefully reviewed palette and font expansion
+
+## Outside the V1 scope
+
+- Accounts and cloud drafts
+- A writing community or content platform
+- AI rewriting the user's article
+- A payment system
+- PDF, Markdown, or complex publishing-format import
+
+## Confirmed product decisions
+
+- Do not separate “single work” and “serial” modes; chapter information remains an optional layout field.
+- Default body size is `32 px`; default first-paragraph emphasis is color.
+- Title, author, and body are empty by default.
+- Default preview zoom is `55%`; mobile fits the available width.
+- Regional Chinese conversion affects only selected text.
+- Taiwanese Traditional Chinese converts common quotation marks to corner quotes; Hong Kong mode retains its separate quotation behavior.
+- Netlify Forms receives feedback, with direct email available as an alternative.
+
+## Future exploration
+
+- Natural-language layout suggestions without storing or transmitting article text
+- AI-assisted color and template recommendations
+- Independent pixel, print, and material-texture modules
+- Keep basic long-image conversion free; evaluate advanced design capabilities separately
+
+---
+
+# 中文产品方向
 
 ## 一句话定位
 

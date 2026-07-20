@@ -1,4 +1,51 @@
-# 前端结构
+# Frontend Architecture / 前端结构
+
+## Data flow
+
+1. The user edits rich text inside `#bodyInput`.
+2. Selecting Generate Composition normalizes the body into paragraphs and inline style runs.
+3. `generatedDocument` stores a snapshot of title, author, and paragraphs at generation time.
+4. `render()` maps the snapshot and current style settings into the DOM preview.
+5. Direct preview editing synchronizes changes back to `generatedDocument` and the input area.
+6. `exportImage()` uses the same state to compose the page again on Canvas and download PNG or JPG.
+
+The input phase does not continuously rebuild the long image. Body changes mark the preview as needing regeneration; bounded rich-text and direct-preview changes synchronize within their explicit editing flows.
+
+## State
+
+- `settings`: every composition field controlled by the interface
+- `generatedDocument`: the most recently generated document snapshot
+- `alignment` and `layoutTemplate`: interface state not represented by a single input element
+- `activeSpecialPreset`: the currently selected named palette
+- `activePreviewTarget`: the current target of the direct preview editor
+
+`getState()` serializes drafts into `localStorage`. Custom font files are never serialized.
+
+## Rich text
+
+The input editor uses `contenteditable`. `extractRichParagraphsFrom()` converts its DOM into simplified inline runs:
+
+```text
+{ text, bold, italic, underline, strike }
+```
+
+The exporter does not screenshot the DOM. It redraws every run on Canvas, so any new inline style must be implemented in both DOM rendering and Canvas drawing.
+
+## Line breaking
+
+Canvas export uses `wrapCharacters()` and `wrapRichParagraph()` to measure text character by character. `FORBIDDEN_LINE_START` and `FORBIDDEN_LINE_END` keep common Chinese punctuation away from inappropriate line starts or ends.
+
+## Regional Chinese conversion
+
+OpenCC loads from a local vendor file. Conversion reads only the current selection. Hong Kong and Taiwan use separate regional conversion chains, and Taiwan mode additionally converts common quotation marks to corner quotes.
+
+## Feedback boundary
+
+Netlify scans the feedback form during deployment. The frontend submits only the `xvi-feedback` fields and never reads or attaches the title, author, article body, draft, or generated image.
+
+---
+
+# 中文架构说明
 
 ## 数据流
 

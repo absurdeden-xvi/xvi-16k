@@ -1,4 +1,28 @@
-# 资料索引
+# Research and Documentation Index / 资料索引
+
+This directory preserves visual studies and historical previews from the development of XVI / 十六开. They document design decisions and do not necessarily represent the current production interface.
+
+## Research pages
+
+- [`research/brand-reference.html`](./research/brand-reference.html): brand and visual reference board
+- [`research/research-naming.html`](./research/research-naming.html): naming, kicker, and edition metadata study
+- [`research/research-color.html`](./research/research-color.html): palette-system study
+- [`research/research-layout.html`](./research/research-layout.html): editorial layout study
+- [`research/research-fonts.html`](./research/research-fonts.html): font candidates and licensing reminders
+- [`research/ui-study.html`](./research/ui-study.html): workspace visual studies
+
+Some conclusions were superseded by later versions. Treat the repository-root `README.md`, `project/PRODUCT_DIRECTION.md`, and the live product as the current source of truth.
+
+## Mobile previews
+
+- [`previews/mobile-ios-input.jpg`](./previews/mobile-ios-input.jpg)
+- [`previews/mobile-android-preview.jpg`](./previews/mobile-android-preview.jpg)
+
+These images record specific versions and viewport sizes. They are historical references, not continuously updated product screenshots.
+
+---
+
+# 中文资料索引
 
 这里保存 XVI / 十六开开发过程中的视觉研究和预览资料。它们用于追溯设计判断，不代表当前正式页面。
 
