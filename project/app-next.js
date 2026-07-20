@@ -54,6 +54,9 @@ const PALETTE_NAMES = {
 const SPECIAL_PRESETS = ["blueprint", "vermilion", "newsprint", "acidNight", "farTide", "roseLetter", "oriole", "seaMark", "blueCurtain", "mulberry", "pineSmoke", "latePeach", "gooseShadow", "nightSakura", "camelliaPaper", "aster"];
 const SPECIAL_PRESET_NAMES = { blueprint: "蓝晒", vermilion: "玻璃海", newsprint: "铅字", acidNight: "夜萤", farTide: "远潮水", roseLetter: "常春藤", oriole: "绯页", seaMark: "潮痕", blueCurtain: "蓝钟", mulberry: "日晷", pineSmoke: "青案", latePeach: "星盘", gooseShadow: "春雷", nightSakura: "夜樱", camelliaPaper: "山茶笺", aster: "夜汐" };
 
+// The public site is hosted on Cloudflare Pages; Netlify remains the form receiver.
+const FEEDBACK_ENDPOINT = "https://xvi-16k.netlify.app/";
+
 const LAYOUT_RECIPES = {
   folio: { titleSize: 56, titleWeight: 700, lineHeight: 1.88, paragraphSpacing: 1, pagePadding: 88, compositionStyle: "editorial", indent: true },
   book: { titleSize: 58, titleWeight: 600, lineHeight: 1.92, paragraphSpacing: 1, pagePadding: 88, compositionStyle: "editorial", indent: true },
@@ -880,12 +883,12 @@ async function submitFeedback(event) {
   submitButton.textContent = uiLanguage === "en" ? "Sending" : "发送中";
   try {
     const payload = new URLSearchParams(new FormData(form));
-    const response = await fetch("/", {
+    await fetch(FEEDBACK_ENDPOINT, {
       method: "POST",
+      mode: "no-cors",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: payload.toString()
     });
-    if (!response.ok) throw new Error("Feedback submit failed");
     form.reset();
     syncFeedbackSubmitState();
     closeFeedback();

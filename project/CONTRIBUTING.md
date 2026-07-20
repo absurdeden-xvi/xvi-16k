@@ -4,7 +4,7 @@ XVI / 十六开 is a static HTML, CSS, and JavaScript project with no build step
 
 ## Local preview
 
-Open `index.html` or `xvi-next.html` directly. Netlify Forms requires the deployed Netlify environment; a local `file://` page cannot submit feedback to Netlify.
+Open `index.html` or `xvi-next.html` directly. Use the deployed Cloudflare site when testing the cross-origin Netlify Forms receiver; local `file://` behavior is not a release signal.
 
 ## Change principles
 
@@ -53,7 +53,7 @@ XVI / 十六开目前是无构建步骤的静态网页项目。
 
 ## 本地查看
 
-直接打开 `index.html` 或 `xvi-next.html` 即可。需要测试 Netlify Forms 时，必须使用 Netlify 部署环境；本地 `file://` 页面不会把反馈交给 Netlify。
+直接打开 `index.html` 或 `xvi-next.html` 即可。测试跨站投递到 Netlify Forms 时，请使用 Cloudflare 正式页面；本地 `file://` 的表现不作为发布依据。
 
 ## 修改原则
 

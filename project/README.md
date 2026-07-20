@@ -2,9 +2,9 @@
 
 XVI is a privacy-first, browser-based longform typesetting studio for Chinese writers. Finish the text first, generate a stable editorial composition, refine it, and export a publication-ready long image.
 
-- Current release: `v0.7.6`
+- Current release: `v0.7.7`
 - Product stage: public preview, not yet V1
-- Live demo: [xvi-16k.netlify.app](https://xvi-16k.netlify.app/)
+- Live demo: [xvi-16k.pages.dev](https://xvi-16k.pages.dev/)
 - Repository: [absurdeden-xvi/xvi-16k](https://github.com/absurdeden-xvi/xvi-16k)
 - Feedback: [absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com)
 
@@ -12,7 +12,7 @@ XVI is a privacy-first, browser-based longform typesetting studio for Chinese wr
 
 XVI is a privacy-first, browser-based longform typesetting studio for Chinese writers. Writers finish their text first, generate an editorial long image, and then refine typography, spacing, color, layout structure, and inline emphasis before exporting PNG or JPG files.
 
-- Live demo: [xvi-16k.netlify.app](https://xvi-16k.netlify.app/)
+- Live demo: [xvi-16k.pages.dev](https://xvi-16k.pages.dev/)
 - Submission track: **Apps for Your Life**
 - Runtime: static HTML, CSS, and JavaScript; no build step or account required
 - Local processing: article text, imported fonts, drafts, and image generation stay in the browser
@@ -28,7 +28,7 @@ XVI existed before the event as an early working prototype. The dated Git histor
 - local font import and explicit privacy boundaries;
 - mobile input and preview adaptation;
 - clearer export formats, resolutions, and final pixel widths;
-- Netlify feedback, deployment recovery, architecture notes, and release documentation.
+- bilingual localization, hybrid feedback delivery, deployment recovery, architecture notes, and release documentation.
 
 ### How Codex and GPT-5.6 were used
 
@@ -83,14 +83,14 @@ The project is a static site with no build step. Open [`index.html`](./index.htm
 
 Article text, imported fonts, draft state, composition, and image export are processed in the browser. Drafts are stored in `localStorage`. XVI does not upload article content to an application server.
 
-Only an intentional feedback submission sends the entered feedback and optional email to Netlify Forms; the article is never attached. See [Privacy](./PRIVACY.md).
+Only an intentional feedback submission sends the entered feedback to the legacy Netlify Forms receiver; the article is never attached. See [Privacy](./PRIVACY.md).
 
 ## Project structure
 
 | Path | Purpose |
 | --- | --- |
 | `index.html` | Current deployed entry point |
-| `xvi-next.html` | Workspace structure and Netlify feedback form |
+| `xvi-next.html` | Workspace structure and feedback form |
 | `styles.css` | Shared controls and long-page composition styles |
 | `xvi-next.css` | Current desktop and mobile interface |
 | `app-next.js` | Editing, localization, composition, persistence, and export |
@@ -121,7 +121,7 @@ Only an intentional feedback submission sends the entered feedback and optional 
 
 ## Publishing and license
 
-Netlify deploys the `main` branch automatically. Before a release, align asset versions, update [`CHANGELOG.md`](./CHANGELOG.md), and complete the checks in [`DEPLOYMENT.md`](./DEPLOYMENT.md).
+Cloudflare Pages deploys the `main` branch automatically. The legacy Netlify site remains only as the form receiver and fallback deployment. Before a release, align asset versions, update [`CHANGELOG.md`](./CHANGELOG.md), and complete the checks in [`DEPLOYMENT.md`](./DEPLOYMENT.md).
 
 Project-owned code is available under [PolyForm Noncommercial 1.0.0](../LICENSE). Personal, educational, research, and other noncommercial uses are permitted; commercial use is not licensed. XVI is source-available for noncommercial use, not open source under the OSI definition.
 
@@ -133,9 +133,9 @@ Third-party components and online fonts retain their own licenses. See [Third-Pa
 
 为中文创作者设计的文本长图排版器。完整输入文字后，生成可继续微调并导出的长图。
 
-- 当前版本：`v0.7.6`
+- 当前版本：`v0.7.7`
 - 产品阶段：公开预览版，尚未进入 V1
-- 在线使用：[xvi-16k.netlify.app](https://xvi-16k.netlify.app/)
+- 在线使用：[xvi-16k.pages.dev](https://xvi-16k.pages.dev/)
 - 代码仓库：[absurdeden-xvi/xvi-16k](https://github.com/absurdeden-xvi/xvi-16k)
 - 反馈邮箱：[absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com)
 
@@ -188,7 +188,7 @@ Third-party components and online fonts retain their own licenses. See [Third-Pa
 | 路径 | 用途 |
 | --- | --- |
 | `index.html` | 根网址入口，转到当前正式工作台 |
-| `xvi-next.html` | 当前工作台结构与 Netlify 反馈表单 |
+| `xvi-next.html` | 当前工作台结构与反馈表单 |
 | `styles.css` | 共享基础样式与长图画布样式 |
 | `xvi-next.css` | 当前工作台的视觉与移动端样式 |
 | `app-next.js` | 编辑、排版、预览、本地保存和导出逻辑 |
@@ -218,7 +218,7 @@ Third-party components and online fonts retain their own licenses. See [Third-Pa
 
 ## 发布
 
-`main` 分支由 Netlify 自动部署。正式发布前必须统一页面资源版本、更新 `CHANGELOG.md`，并完成 [DEPLOYMENT.md](./DEPLOYMENT.md) 中的检查项。
+`main` 分支由 Cloudflare Pages 自动部署；原 Netlify 页面仅保留为表单收件端与备用部署。正式发布前必须统一页面资源版本、更新 `CHANGELOG.md`，并完成 [DEPLOYMENT.md](./DEPLOYMENT.md) 中的检查项。
 
 ## 许可
 

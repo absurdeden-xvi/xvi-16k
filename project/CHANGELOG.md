@@ -2,6 +2,13 @@
 
 Versions follow `major.minor.patch`. Before V1, minor versions represent verifiable product stages and patch versions represent functional or experiential refinements within the same stage.
 
+## v0.7.7 - 2026-07-20
+
+- Migrated the production site to Cloudflare Pages at `xvi-16k.pages.dev` with automatic deployment from `main`.
+- Preserved the clean root URL through a Cloudflare-compatible `_redirects` proxy rule.
+- Kept the existing Netlify Forms project as a feedback-only receiver while the editor, assets, and export workflow run on Cloudflare.
+- Updated deployment, privacy, architecture, and contribution documentation for the hybrid transition.
+
 ## v0.7.6 - 2026-07-20
 
 - Published the completed Latin typography and language-default logic under one fresh asset cache version after production verification.
@@ -98,6 +105,13 @@ Versions follow `major.minor.patch`. Before V1, minor versions represent verifia
 # 中文版本记录
 
 版本遵循 `主版本.次版本.修订号`。V1 之前的次版本代表可验证的产品阶段，修订号用于同一阶段内的功能与体验更新。
+
+## v0.7.7 - 2026-07-20
+
+- 正式页面迁移至 `xvi-16k.pages.dev`，并由 Cloudflare Pages 根据 `main` 分支自动部署。
+- 将 `_redirects` 改为 Cloudflare 可识别的代理规则，根网址不显示 `.html` 或页面文件名。
+- 原 Netlify Forms 项目仅作为反馈收件端保留；编辑器、静态资源与导出流程均由 Cloudflare 页面运行。
+- 同步更新部署、隐私、架构与参与开发文档。
 
 ## v0.7.6 - 2026-07-20
 

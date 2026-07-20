@@ -21,13 +21,13 @@ The page requests selected font files from third-party font CDNs. Those services
 
 ### Feedback
 
-When a user intentionally selects Send, only the feedback text, the Netlify form name, the optional contact email, and anti-spam fields are submitted to Netlify Forms. Article title, author, body, composition settings, drafts, and generated images are never attached.
+When a user intentionally selects Send, only the feedback text, the Netlify form name, and anti-spam fields are submitted to the legacy Netlify Forms receiver. Article title, author, body, composition settings, drafts, and generated images are never attached.
 
 Netlify receives the feedback and notifies the project email. Users can avoid the form and email [absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com) directly.
 
 ### Hosting logs
 
-The site is hosted by Netlify. As with an ordinary static website, the hosting provider may record basic request logs such as IP address, time, path, and browser. XVI currently includes no independent analytics, advertising, or user-tracking scripts.
+The public site is hosted by Cloudflare Pages, while Netlify receives intentional feedback submissions. These providers may record ordinary request metadata such as IP address, time, path, and browser under their own policies. XVI includes no independent analytics, advertising, or user-tracking scripts.
 
 ## Image export
 
@@ -62,13 +62,13 @@ XVI / 十六开以本地处理为默认原则。
 
 ### 来信
 
-用户主动点击“发送”时，只有反馈输入框中的文字、可选联系邮箱、Netlify 表单名和防垃圾字段会提交给 Netlify Forms。文章标题、署名、正文、排版设置和生成图片不会随反馈发送。
+用户主动点击“发送”时，只有反馈输入框中的文字、Netlify 表单名和防垃圾字段会提交给原 Netlify Forms 收件端。文章标题、署名、正文、排版设置和生成图片不会随反馈发送。
 
 反馈会由 Netlify 代收并通知项目邮箱。用户也可以不使用表单，直接发送邮件至 [absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com)。
 
 ### 托管日志
 
-网站由 Netlify 托管。与普通静态网站相同，托管平台可能记录访问 IP、时间、路径、浏览器等基础请求日志。项目当前未接入独立统计脚本、广告或用户追踪系统。
+正式页面由 Cloudflare Pages 托管，Netlify 仅接收用户主动提交的反馈。两家服务可能按照各自政策记录访问 IP、时间、路径和浏览器等常规请求信息。项目未接入独立统计脚本、广告或用户追踪系统。
 
 ## 图片导出
 
