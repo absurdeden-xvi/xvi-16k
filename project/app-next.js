@@ -207,7 +207,7 @@ const UI_TEXT_EN = {
   "正文、字体与生成图片只在本地浏览器处理，不会上传云端。只有主动提交“来信”时，反馈内容才会发送给我们。": "Text, fonts, and generated images stay in your browser. Only feedback you explicitly submit is sent to us.",
   "保存图片": "Save image", "长图预览": "Longform preview", "尚未生成": "Not composed yet", "不要填写": "Leave blank",
   "反馈": "Feedback", "发送": "Send", "由 Netlify 代收。": "Collected by Netlify.", "或直接通过邮件联系：": "Or email us directly:",
-  "线": "Rule", "色": "Color", "节号": "Section number", "首段": "Opening paragraph"
+  "线": "Rule", "色": "Color", "节号": "Section number", "首段": "Opening paragraph", "倍": "×"
 };
 
 const UI_ATTRIBUTE_EN = {
@@ -289,6 +289,16 @@ function applyUiLanguage(nextLanguage, persist = true) {
   staticAttributes.forEach(({ element, name, source }) => {
     element.setAttribute(name, uiLanguage === "en" ? (UI_ATTRIBUTE_EN[source] || source) : source);
   });
+  const blankDocument = !generatedDocument && !elements.title.value.trim() && !elements.author.value.trim() && !bodyText();
+  if (blankDocument && uiLanguage === "en" && settings.fontFamily.value === "serif" && settings.titleFontFamily.value === "serif") {
+    settings.fontFamily.value = "latinSerif";
+    settings.titleFontFamily.value = "latinDisplay";
+  } else if (blankDocument && uiLanguage === "zh" && settings.fontFamily.value === "latinSerif" && settings.titleFontFamily.value === "latinDisplay") {
+    settings.fontFamily.value = "serif";
+    settings.titleFontFamily.value = "serif";
+  }
+  const footerEdition = $("#previewFooter .footer-edition");
+  if (footerEdition) footerEdition.textContent = uiLanguage === "en" ? "XVI / LONGFORM" : "XVI / 十六开";
   const savingNow = /正在保存|Saving/.test(elements.saveState.textContent);
   elements.saveState.textContent = uiLanguage === "en"
     ? (savingNow ? "Saving..." : "Autosaved")
@@ -1302,7 +1312,7 @@ async function exportImage() {
     drawTextWithSpacing(ctx, generatedDocument.author, layout.bodyX + 64, y, 1);
     ctx.globalAlpha = 0.5;
     ctx.font = "700 10px Arial, sans-serif";
-    const mark = "XVI / 十六开";
+    const mark = uiLanguage === "en" ? "XVI / LONGFORM" : "XVI / 十六开";
     ctx.fillText(mark, layout.bodyX + layout.bodyWidth - ctx.measureText(mark).width, y);
     ctx.globalAlpha = 1;
   }
