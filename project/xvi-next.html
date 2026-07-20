@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="https://fontsapi.zeoseven.com/192/main/result.css" />
     <link rel="stylesheet" href="https://fontsapi.zeoseven.com/376/main/result.css" />
     <link rel="stylesheet" href="https://fontsapi.zeoseven.com/634/main/result.css" />
-    <link rel="stylesheet" href="styles.css?v=0.7.1" />
-    <link rel="stylesheet" href="xvi-next.css?v=0.7.1" />
+    <link rel="stylesheet" href="styles.css?v=0.7.2" />
+    <link rel="stylesheet" href="xvi-next.css?v=0.7.2" />
   </head>
   <body data-mobile-tab="content">
     <header class="app-header">
@@ -25,6 +25,7 @@
       </div>
       <div class="header-actions">
         <span class="save-state" id="saveState">已保存</span>
+        <button class="button settings-button" id="settingsOpenButton" type="button" title="设置" aria-label="设置"><span aria-hidden="true">⚙</span></button>
         <button class="button feedback-button" id="feedbackOpenButton" type="button">来信</button>
         <button class="button button-primary" id="exportButton" type="button" title="PNG · 1792 px · 自动高度" disabled><span aria-hidden="true">↓</span>快速导出</button>
       </div>
@@ -223,6 +224,22 @@
         </div>
       </section>
     </main>
+    <div class="settings-modal" id="settingsModal" hidden>
+      <div class="settings-backdrop" data-settings-close></div>
+      <section class="settings-card" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+        <div class="settings-head">
+          <strong id="settingsTitle">设置</strong>
+          <button type="button" data-settings-close aria-label="关闭">×</button>
+        </div>
+        <div class="settings-row">
+          <span>语言</span>
+          <div class="settings-language" role="group" aria-label="界面语言">
+            <button class="active" type="button" data-language="zh">中文</button>
+            <button type="button" data-language="en">English</button>
+          </div>
+        </div>
+      </section>
+    </div>
     <!-- Netlify only receives this explicit feedback field; article content is never included. -->
     <div class="feedback-modal" id="feedbackModal" hidden>
       <div class="feedback-backdrop" data-feedback-close></div>
@@ -242,6 +259,6 @@
     </div>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <script src="vendor/opencc.full.js"></script>
-    <script src="app-next.js?v=0.7.1"></script>
+    <script src="app-next.js?v=0.7.2"></script>
   </body>
 </html>
