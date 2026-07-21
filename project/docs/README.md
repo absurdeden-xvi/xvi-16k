@@ -2,6 +2,12 @@
 
 This directory preserves visual studies and historical previews from the development of XVI / 十六开. They document design decisions and do not necessarily represent the current production interface.
 
+## Product evidence and judging notes
+
+- [`EARLY_PRODUCT_QUESTIONNAIRE.md`](./EARLY_PRODUCT_QUESTIONNAIRE.md): selected creator-written answers from the early product questionnaire, with English translations
+- [`DEMO_SCRIPT.md`](./DEMO_SCRIPT.md): Build Week narration and screen direction
+- [`ARCHITECTURE.md`](./ARCHITECTURE.md): runtime, local-data boundary, export path, and deployment architecture
+
 ## Research pages
 
 - [`research/brand-reference.html`](./research/brand-reference.html): brand and visual reference board
@@ -25,6 +31,12 @@ These images record specific versions and viewport sizes. They are historical re
 # 中文资料索引
 
 这里保存 XVI / 十六开开发过程中的视觉研究和预览资料。它们用于追溯设计判断，不代表当前正式页面。
+
+## 产品过程材料
+
+- [`EARLY_PRODUCT_QUESTIONNAIRE.md`](./EARLY_PRODUCT_QUESTIONNAIRE.md)：早期产品问卷中由创作者本人逐字写下的精选回答及英译
+- [`DEMO_SCRIPT.md`](./DEMO_SCRIPT.md)：Build Week 演示旁白与页面操作安排
+- [`ARCHITECTURE.md`](./ARCHITECTURE.md)：运行方式、本地数据边界、导出路径与部署架构
 
 ## 研究页
 
