@@ -7,6 +7,8 @@ Versions follow `major.minor.patch`. Before V1, minor versions represent verifia
 - Replaced the abstract language mark with a compact `中 / EN` switch label.
 - Simplified the English workflow tabs to `Text`, `Style`, and `Export`.
 - Kept feedback collection isolated from article content and prepared direct email notifications for the form receiver.
+- Reworked the judging README to state the human authorship boundary and highlight the concrete implementation, debugging, deployment, and documentation work accelerated by GPT-5.6 in Codex.
+- Added curated bilingual excerpts from the creator-written early product questionnaire as traceable product evidence.
 
 ## v0.7.7 - 2026-07-20
 
@@ -117,6 +119,8 @@ Versions follow `major.minor.patch`. Before V1, minor versions represent verifia
 - 将抽象的语言图形替换为简洁的 `中 / EN` 切换标识。
 - 英文工作流导航精简为 `Text`、`Style` 与 `Export`。
 - 继续将反馈与正文数据严格分离，并为反馈收件端准备直接邮件通知。
+- 重写评审 README，明确产品构想与最终判断由创作者主导，并具体列出 GPT-5.6 在 Codex 中加速的实现、调试、部署与文档工作。
+- 增加早期产品问卷的双语精选摘录，保留可追溯的产品思考证据。
 
 ## v0.7.7 - 2026-07-20
 
