@@ -30,11 +30,35 @@ XVI existed before the event as an early working prototype. The dated Git histor
 - clearer export formats, resolutions, and final pixel widths;
 - bilingual localization, hybrid feedback delivery, deployment recovery, architecture notes, and release documentation.
 
+### Human direction and authorship
+
+XVI is the creator's first complete coding project, but it is not an AI-generated product concept. The original need came from her own writing practice: after finishing a piece, she wanted a faster and more flexible way to turn it into a carefully typeset image for social platforms. She completed the initial product questionnaire by typing every answer herself, defined the workflow and privacy boundaries, named or rejected visual directions, and made the final call on every feature and design iteration.
+
+> **GPT-5.6 was used inside Codex for implementation, debugging, testing, deployment, and documentation. It did not invent the product brief, answer the questionnaire, choose the aesthetic, write users' articles, or make final product decisions.**
+
+A curated bilingual selection of the creator's early, pre-implementation answers is preserved in [Early Product Questionnaire: Selected Answers](./docs/EARLY_PRODUCT_QUESTIONNAIRE.md).
+
 ### How Codex and GPT-5.6 were used
 
-During OpenAI Build Week, Codex with GPT-5.6 served as an iterative product and engineering partner. It translated detailed visual critique into scoped interface changes, debugged rich-text parity across the editor, DOM preview, and Canvas export, designed regional Chinese conversion behavior, reorganized mobile interaction, audited local-only data handling, and maintained versioned documentation.
+During OpenAI Build Week, GPT-5.6 and Codex served as the engineering partner for this human-directed product. The working loop was conversational and concrete:
 
-The main product decisions remained human-led: composition begins only after the writer finishes entering text; writing is never uploaded; color systems are named and curated rather than randomly generated; and templates must change editorial structure instead of merely recoloring the same page.
+1. The creator described a real usability or visual problem in natural language, often with a screenshot and precise criticism.
+2. Codex inspected the existing code and translated that direction into a scoped HTML, CSS, or JavaScript change.
+3. GPT-5.6 helped reason through implementation details, trace regressions, and keep shared behavior consistent.
+4. The result was tested in the browser, then accepted, rejected, or revised by the creator before being committed.
+
+GPT-5.6 and Codex materially accelerated:
+
+- implementing the editorial workspace from the creator's written requirements and successive visual decisions;
+- debugging rich-text parity across the input editor, DOM preview, and Canvas export so bold, italic, underline, strikethrough, color, and size survive image generation;
+- building Chinese-aware line breaking and punctuation handling for exported images;
+- integrating local Simplified Chinese, Traditional Chinese (Hong Kong), and Traditional Chinese (Taiwan) conversion;
+- restructuring mobile input, preview, and export behavior without replacing the desktop workflow;
+- auditing the local-only privacy boundary and separating Cloudflare hosting from the feedback receiver;
+- migrating deployment from Netlify to Cloudflare Pages while preserving a clean root URL;
+- organizing bilingual README, privacy, architecture, deployment, changelog, and judging documentation.
+
+The product principles remained the creator's own: composition begins only after the writer finishes entering text; writing is never uploaded; automation must still leave room for precise control; color systems are deliberately curated; and templates must change editorial structure instead of merely recoloring the same page. The dated Git history, [`CHANGELOG.md`](./CHANGELOG.md), and questionnaire excerpts make that division of authorship and implementation visible.
 
 ### Run and test
 
@@ -120,6 +144,7 @@ Only an intentional feedback submission sends the entered feedback to the legacy
 - [License](../LICENSE)
 - [Third-party notices](./THIRD_PARTY_NOTICES.md)
 - [Research index](./docs/README.md)
+- [Early product questionnaire: selected answers](./docs/EARLY_PRODUCT_QUESTIONNAIRE.md)
 - [Build Week demo script](./docs/DEMO_SCRIPT.md)
 
 ## Next priorities
@@ -149,6 +174,18 @@ Third-party components and online fonts retain their own licenses. See [Third-Pa
 - 在线使用：[xvi-16k.pages.dev](https://xvi-16k.pages.dev/)
 - 代码仓库：[absurdeden-xvi/xvi-16k](https://github.com/absurdeden-xvi/xvi-16k)
 - 反馈邮箱：[absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com)
+
+## 创作主导与 GPT-5.6 的使用边界
+
+XVI 是创作者第一个真正完整的编程项目，但它并不是由 AI 生成的产品概念。需求来自她近十年的写作爱好与真实发布场景：写完一篇文章以后，怎样更快速、更自由地把它排成适合社交平台发布的长图。最初产品问卷中的每一条回答均由创作者本人逐字写下；工作流程、隐私原则、功能优先级、配色取舍、视觉批评与最终决定也始终由她完成。
+
+> **GPT-5.6 在 Codex 中承担实现、调试、测试、部署和文档整理。它没有提出最初的产品需求，没有代答问卷，没有决定审美方向，不参与用户正文创作，也不替创作者作最终决定。**
+
+早期原话的精选与英译见 [《早期产品问卷：精选回答》](./docs/EARLY_PRODUCT_QUESTIONNAIRE.md)。
+
+Build Week 期间的主要协作方式是：创作者用自然语言和截图指出问题，Codex 阅读现有代码并实施修改，GPT-5.6 协助分析复杂行为和回归问题，浏览器测试后再由创作者决定接受、推翻或继续调整。它具体加速了富文本在输入框、预览和 Canvas 导出之间的一致性、中文标点避头尾、地区简繁转换、移动端工作流、本地隐私边界、Cloudflare 迁移，以及双语 README、架构、部署和版本文档的整理。
+
+“写完后再生成”“正文不上传”“自动化与精细控制并存”“配色必须经过人工筛选”“模板不能只是换色”等核心原则均来自创作者本人。Git 历史、[`CHANGELOG.md`](./CHANGELOG.md) 和问卷摘录共同保留了这一过程。
 
 ## 当前能力
 
@@ -230,6 +267,7 @@ Third-party components and online fonts retain their own licenses. See [Third-Pa
 - [项目许可](../LICENSE)
 - [第三方授权说明](./THIRD_PARTY_NOTICES.md)
 - [研究资料索引](./docs/README.md)
+- [早期产品问卷：精选回答](./docs/EARLY_PRODUCT_QUESTIONNAIRE.md)
 
 ## 下一阶段
 
