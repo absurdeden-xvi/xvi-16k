@@ -19,7 +19,7 @@ XVI is a privacy-first, browser-based longform typesetting studio for Chinese wr
 
 ### Build Week scope
 
-XVI existed before the event as an early working prototype. The dated Git history and [`CHANGELOG.md`](./CHANGELOG.md) distinguish the work completed after July 13, 2026. The Build Week phase added or substantially rebuilt:
+XVI existed before the event as an early working prototype. The dated Git history and [`CHANGELOG.md`](./project/CHANGELOG.md) distinguish the work completed after July 13, 2026. The Build Week phase added or substantially rebuilt:
 
 - the current editorial workspace and root deployment;
 - four layout structures and sixteen curated special color systems;
@@ -30,15 +30,39 @@ XVI existed before the event as an early working prototype. The dated Git histor
 - clearer export formats, resolutions, and final pixel widths;
 - bilingual localization, hybrid feedback delivery, deployment recovery, architecture notes, and release documentation.
 
+### Human direction and authorship
+
+XVI is the creator's first complete coding project, but it is not an AI-generated product concept. The original need came from her own writing practice: after finishing a piece, she wanted a faster and more flexible way to turn it into a carefully typeset image for social platforms. She completed the initial product questionnaire by typing every answer herself, defined the workflow and privacy boundaries, named or rejected visual directions, and made the final call on every feature and design iteration.
+
+> **GPT-5.6 was used inside Codex for implementation, debugging, testing, deployment, and documentation. It did not invent the product brief, answer the questionnaire, choose the aesthetic, write users' articles, or make final product decisions.**
+
+A curated bilingual selection of the creator's early, pre-implementation answers is preserved in [Early Product Questionnaire: Selected Answers](./project/docs/EARLY_PRODUCT_QUESTIONNAIRE.md).
+
 ### How Codex and GPT-5.6 were used
 
-During OpenAI Build Week, Codex with GPT-5.6 served as an iterative product and engineering partner. It translated detailed visual critique into scoped interface changes, debugged rich-text parity across the editor, DOM preview, and Canvas export, designed regional Chinese conversion behavior, reorganized mobile interaction, audited local-only data handling, and maintained versioned documentation.
+During OpenAI Build Week, GPT-5.6 and Codex served as the engineering partner for this human-directed product. The working loop was conversational and concrete:
 
-The main product decisions remained human-led: composition begins only after the writer finishes entering text; writing is never uploaded; color systems are named and curated rather than randomly generated; and templates must change editorial structure instead of merely recoloring the same page.
+1. The creator described a real usability or visual problem in natural language, often with a screenshot and precise criticism.
+2. Codex inspected the existing code and translated that direction into a scoped HTML, CSS, or JavaScript change.
+3. GPT-5.6 helped reason through implementation details, trace regressions, and keep shared behavior consistent.
+4. The result was tested in the browser, then accepted, rejected, or revised by the creator before being committed.
+
+GPT-5.6 and Codex materially accelerated:
+
+- implementing the editorial workspace from the creator's written requirements and successive visual decisions;
+- debugging rich-text parity across the input editor, DOM preview, and Canvas export so bold, italic, underline, strikethrough, color, and size survive image generation;
+- building Chinese-aware line breaking and punctuation handling for exported images;
+- integrating local Simplified Chinese, Traditional Chinese (Hong Kong), and Traditional Chinese (Taiwan) conversion;
+- restructuring mobile input, preview, and export behavior without replacing the desktop workflow;
+- auditing the local-only privacy boundary and separating Cloudflare hosting from the feedback receiver;
+- migrating deployment from Netlify to Cloudflare Pages while preserving a clean root URL;
+- organizing bilingual README, privacy, architecture, deployment, changelog, and judging documentation.
+
+The product principles remained the creator's own: composition begins only after the writer finishes entering text; writing is never uploaded; automation must still leave room for precise control; color systems are deliberately curated; and templates must change editorial structure instead of merely recoloring the same page. The dated Git history, [`CHANGELOG.md`](./project/CHANGELOG.md), and questionnaire excerpts make that division of authorship and implementation visible.
 
 ### Run and test
 
-Open [`index.html`](./index.html) directly in a modern browser, or visit the live demo. No installation, API key, sample account, or server is required. A useful judging path is: enter Chinese text, apply rich-text or regional conversion to a selection, generate the layout, edit the preview directly, switch templates and colors, then export at a chosen resolution.
+Open [`index.html`](./project/index.html) directly in a modern browser, or visit the live demo. No installation, API key, sample account, or server is required. A useful judging path is: enter Chinese text, apply rich-text or regional conversion to a selection, generate the layout, edit the preview directly, switch templates and colors, then export at a chosen resolution.
 
 ## Current capabilities
 
@@ -88,39 +112,40 @@ Open [`index.html`](./index.html) directly in a modern browser, or visit the liv
 4. Choose a layout, palette, font, and spacing, or edit the preview directly.
 5. Select an export format and resolution, then save the image.
 
-The project is a static site with no build step. Open [`index.html`](./index.html) locally or use the deployed root URL.
+The project is a static site with no build step. Open [`index.html`](./project/index.html) locally or use the deployed root URL.
 
 ## Privacy
 
 Article text, imported fonts, draft state, composition, and image export are processed in the browser. Drafts are stored in `localStorage`. XVI does not upload article content to an application server.
 
-Only an intentional feedback submission sends the entered feedback to the legacy Netlify Forms receiver; the article is never attached. See [Privacy](./PRIVACY.md).
+Only an intentional feedback submission sends the entered feedback to the legacy Netlify Forms receiver; the article is never attached. See [Privacy](./project/PRIVACY.md).
 
 ## Project structure
 
 | Path | Purpose |
 | --- | --- |
-| `index.html` | Current deployed entry point |
-| `xvi-next.html` | Workspace structure and feedback form |
-| `styles.css` | Shared controls and long-page composition styles |
-| `xvi-next.css` | Current desktop and mobile interface |
-| `app-next.js` | Editing, localization, composition, persistence, and export |
-| `vendor/opencc.full.js` | Regional Chinese conversion runtime |
-| `THIRD_PARTY_NOTICES.md` | Third-party software and font boundaries |
-| `legacy-v0.6.3.html` | Historical rollback reference |
-| `docs/` | Architecture, research references, and historical previews |
+| `project/index.html` | Current deployed entry point |
+| `project/xvi-next.html` | Workspace structure and feedback form |
+| `project/styles.css` | Shared controls and long-page composition styles |
+| `project/xvi-next.css` | Current desktop and mobile interface |
+| `project/app-next.js` | Editing, localization, composition, persistence, and export |
+| `project/vendor/opencc.full.js` | Regional Chinese conversion runtime |
+| `project/THIRD_PARTY_NOTICES.md` | Third-party software and font boundaries |
+| `project/legacy-v0.6.3.html` | Historical rollback reference |
+| `project/docs/` | Architecture, research references, and historical previews |
 
 ## Documentation
 
-- [Product direction](./PRODUCT_DIRECTION.md)
-- [Changelog](./CHANGELOG.md)
-- [Privacy](./PRIVACY.md)
-- [Deployment and rollback](./DEPLOYMENT.md)
-- [Contributing](./CONTRIBUTING.md)
-- [License](../LICENSE)
-- [Third-party notices](./THIRD_PARTY_NOTICES.md)
-- [Research index](./docs/README.md)
-- [Build Week demo script](./docs/DEMO_SCRIPT.md)
+- [Product direction](./project/PRODUCT_DIRECTION.md)
+- [Changelog](./project/CHANGELOG.md)
+- [Privacy](./project/PRIVACY.md)
+- [Deployment and rollback](./project/DEPLOYMENT.md)
+- [Contributing](./project/CONTRIBUTING.md)
+- [License](./LICENSE)
+- [Third-party notices](./project/THIRD_PARTY_NOTICES.md)
+- [Research index](./project/docs/README.md)
+- [Early product questionnaire: selected answers](./project/docs/EARLY_PRODUCT_QUESTIONNAIRE.md)
+- [Build Week demo script](./project/docs/DEMO_SCRIPT.md)
 
 ## Next priorities
 
@@ -132,11 +157,11 @@ Only an intentional feedback submission sends the entered feedback to the legacy
 
 ## Publishing and license
 
-Cloudflare Pages deploys the `main` branch automatically. The legacy Netlify site remains only as the form receiver and fallback deployment. Before a release, align asset versions, update [`CHANGELOG.md`](./CHANGELOG.md), and complete the checks in [`DEPLOYMENT.md`](./DEPLOYMENT.md).
+Cloudflare Pages deploys the `main` branch automatically. The legacy Netlify site remains only as the form receiver and fallback deployment. Before a release, align asset versions, update [`CHANGELOG.md`](./project/CHANGELOG.md), and complete the checks in [`DEPLOYMENT.md`](./project/DEPLOYMENT.md).
 
-Project-owned code is available under [PolyForm Noncommercial 1.0.0](../LICENSE). Personal, educational, research, and other noncommercial uses are permitted; commercial use is not licensed. XVI is source-available for noncommercial use, not open source under the OSI definition.
+Project-owned code is available under [PolyForm Noncommercial 1.0.0](./LICENSE). Personal, educational, research, and other noncommercial uses are permitted; commercial use is not licensed. XVI is source-available for noncommercial use, not open source under the OSI definition.
 
-Third-party components and online fonts retain their own licenses. See [Third-Party Notices](./THIRD_PARTY_NOTICES.md) and [`vendor/opencc-js.LICENSE`](./vendor/opencc-js.LICENSE).
+Third-party components and online fonts retain their own licenses. See [Third-Party Notices](./project/THIRD_PARTY_NOTICES.md) and [`vendor/opencc-js.LICENSE`](./project/vendor/opencc-js.LICENSE).
 
 ---
 
@@ -149,6 +174,18 @@ Third-party components and online fonts retain their own licenses. See [Third-Pa
 - 在线使用：[xvi-16k.pages.dev](https://xvi-16k.pages.dev/)
 - 代码仓库：[absurdeden-xvi/xvi-16k](https://github.com/absurdeden-xvi/xvi-16k)
 - 反馈邮箱：[absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com)
+
+## 创作主导与 GPT-5.6 的使用边界
+
+XVI 是创作者第一个真正完整的编程项目，但它并不是由 AI 生成的产品概念。需求来自她近十年的写作爱好与真实发布场景：写完一篇文章以后，怎样更快速、更自由地把它排成适合社交平台发布的长图。最初产品问卷中的每一条回答均由创作者本人逐字写下；工作流程、隐私原则、功能优先级、配色取舍、视觉批评与最终决定也始终由她完成。
+
+> **GPT-5.6 在 Codex 中承担实现、调试、测试、部署和文档整理。它没有提出最初的产品需求，没有代答问卷，没有决定审美方向，不参与用户正文创作，也不替创作者作最终决定。**
+
+早期原话的精选与英译见 [《早期产品问卷：精选回答》](./project/docs/EARLY_PRODUCT_QUESTIONNAIRE.md)。
+
+Build Week 期间的主要协作方式是：创作者用自然语言和截图指出问题，Codex 阅读现有代码并实施修改，GPT-5.6 协助分析复杂行为和回归问题，浏览器测试后再由创作者决定接受、推翻或继续调整。它具体加速了富文本在输入框、预览和 Canvas 导出之间的一致性、中文标点避头尾、地区简繁转换、移动端工作流、本地隐私边界、Cloudflare 迁移，以及双语 README、架构、部署和版本文档的整理。
+
+“写完后再生成”“正文不上传”“自动化与精细控制并存”“配色必须经过人工筛选”“模板不能只是换色”等核心原则均来自创作者本人。Git 历史、[`CHANGELOG.md`](./project/CHANGELOG.md) 和问卷摘录共同保留了这一过程。
 
 ## 当前能力
 
@@ -198,38 +235,39 @@ Third-party components and online fonts retain their own licenses. See [Third-Pa
 4. 在“样式”中选择刊页、配色、字体和间距，也可以直接编辑预览。
 5. 在“导出”中选择格式与清晰度并保存图片。
 
-项目是静态网页，没有安装和构建步骤。本地可直接打开 [`index.html`](./index.html)，正式页面由根网址加载。
+项目是静态网页，没有安装和构建步骤。本地可直接打开 [`index.html`](./project/index.html)，正式页面由根网址加载。
 
 ## 隐私
 
 正文、导入字体和图片导出均在浏览器本地处理，不上传到项目服务器。草稿存放在浏览器的 `localStorage` 中。
 
-只有用户主动提交“来信”时，反馈文字才会交给 Netlify Forms；文章正文不会随反馈发送。也可以不经过表单，直接发送邮件至 [absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com)。详见 [PRIVACY.md](./PRIVACY.md)。
+只有用户主动提交“来信”时，反馈文字才会交给 Netlify Forms；文章正文不会随反馈发送。也可以不经过表单，直接发送邮件至 [absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com)。详见 [PRIVACY.md](./project/PRIVACY.md)。
 
 ## 项目结构
 
 | 路径 | 用途 |
 | --- | --- |
-| `index.html` | 根网址入口，转到当前正式工作台 |
-| `xvi-next.html` | 当前工作台结构与反馈表单 |
-| `styles.css` | 共享基础样式与长图画布样式 |
-| `xvi-next.css` | 当前工作台的视觉与移动端样式 |
-| `app-next.js` | 编辑、排版、预览、本地保存和导出逻辑 |
-| `vendor/opencc.full.js` | 简繁转换运行库 |
-| `THIRD_PARTY_NOTICES.md` | 第三方组件与在线字体授权边界 |
-| `legacy-v0.6.3.html` | 历史回退快照 |
-| `docs/` | 研究资料、预览图与维护文档索引 |
+| `project/index.html` | 根网址入口，转到当前正式工作台 |
+| `project/xvi-next.html` | 当前工作台结构与反馈表单 |
+| `project/styles.css` | 共享基础样式与长图画布样式 |
+| `project/xvi-next.css` | 当前工作台的视觉与移动端样式 |
+| `project/app-next.js` | 编辑、排版、预览、本地保存和导出逻辑 |
+| `project/vendor/opencc.full.js` | 简繁转换运行库 |
+| `project/THIRD_PARTY_NOTICES.md` | 第三方组件与在线字体授权边界 |
+| `project/legacy-v0.6.3.html` | 历史回退快照 |
+| `project/docs/` | 研究资料、预览图与维护文档索引 |
 
 ## 文档
 
-- [产品方向](./PRODUCT_DIRECTION.md)
-- [版本记录](./CHANGELOG.md)
-- [隐私说明](./PRIVACY.md)
-- [部署与回退](./DEPLOYMENT.md)
-- [参与开发](./CONTRIBUTING.md)
-- [项目许可](../LICENSE)
-- [第三方授权说明](./THIRD_PARTY_NOTICES.md)
-- [研究资料索引](./docs/README.md)
+- [产品方向](./project/PRODUCT_DIRECTION.md)
+- [版本记录](./project/CHANGELOG.md)
+- [隐私说明](./project/PRIVACY.md)
+- [部署与回退](./project/DEPLOYMENT.md)
+- [参与开发](./project/CONTRIBUTING.md)
+- [项目许可](./LICENSE)
+- [第三方授权说明](./project/THIRD_PARTY_NOTICES.md)
+- [研究资料索引](./project/docs/README.md)
+- [早期产品问卷：精选回答](./project/docs/EARLY_PRODUCT_QUESTIONNAIRE.md)
 
 ## 下一阶段
 
@@ -241,10 +279,10 @@ Third-party components and online fonts retain their own licenses. See [Third-Pa
 
 ## 发布
 
-`main` 分支由 Cloudflare Pages 自动部署；原 Netlify 页面仅保留为表单收件端与备用部署。正式发布前必须统一页面资源版本、更新 `CHANGELOG.md`，并完成 [DEPLOYMENT.md](./DEPLOYMENT.md) 中的检查项。
+`main` 分支由 Cloudflare Pages 自动部署；原 Netlify 页面仅保留为表单收件端与备用部署。正式发布前必须统一页面资源版本、更新 `CHANGELOG.md`，并完成 [DEPLOYMENT.md](./project/DEPLOYMENT.md) 中的检查项。
 
 ## 许可
 
-XVI / 十六开的自有代码采用 [PolyForm Noncommercial 1.0.0](../LICENSE) 许可：可以用于个人、学习、研究及其他非商业用途，但不授权商业使用。这是一个**源码公开的非商业项目**，不属于 OSI 定义下的开源软件。
+XVI / 十六开的自有代码采用 [PolyForm Noncommercial 1.0.0](./LICENSE) 许可：可以用于个人、学习、研究及其他非商业用途，但不授权商业使用。这是一个**源码公开的非商业项目**，不属于 OSI 定义下的开源软件。
 
-第三方组件与在线字体不适用上述许可，仍分别遵循原作者的授权条款。详见 [第三方授权说明](./THIRD_PARTY_NOTICES.md) 与 [`vendor/opencc-js.LICENSE`](./vendor/opencc-js.LICENSE)。
+第三方组件与在线字体不适用上述许可，仍分别遵循原作者的授权条款。详见 [第三方授权说明](./project/THIRD_PARTY_NOTICES.md) 与 [`vendor/opencc-js.LICENSE`](./project/vendor/opencc-js.LICENSE)。
