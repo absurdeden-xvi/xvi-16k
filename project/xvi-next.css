@@ -49,7 +49,7 @@ body { background: var(--canvas); }
 .save-state { min-width: auto; font-size: 9px; }
 .header-switch { min-height: 34px; display: inline-flex; align-items: center; gap: 4px; padding: 0 2px; border: 0; background: transparent; color: #9aa39f; cursor: pointer; white-space: nowrap; }
 .header-switch b, .header-switch i, .header-switch em { font-style: normal; letter-spacing: 0; transition: color 150ms ease, opacity 150ms ease; }
-.header-switch b, .header-switch em { font: 400 10px/1 Cambria, "Songti SC", "PingFang SC", serif; }
+.header-switch b, .header-switch em { font-family: inherit !important; font-size: 10px; font-weight: 400; line-height: 1; }
 .header-switch i { color: #bbc2be; font: 400 9px/1 Arial, sans-serif; }
 .header-switch b { color: #344740; font-weight: 400; }
 .header-switch.show-english b { color: #9aa39f; font-weight: 400; }
@@ -187,7 +187,6 @@ input[type="range"]::-moz-range-thumb { width: 9px; height: 9px; border: 2px sol
 .export-note { border-radius: 5px 18px 5px 5px; }
 
 .preview-stage { position: relative; background: var(--canvas); }
-.preview-stage::after { content: ""; width: 8px; height: 52%; position: fixed; right: 0; bottom: 7%; background: var(--accent); }
 .preview-toolbar { height: 56px; padding: 0 25px; border: 0; background: rgba(223, 232, 227, .88); backdrop-filter: blur(12px); }
 .preview-toolbar strong { font-size: 9px; letter-spacing: .5px; }
 .preview-toolbar span { font-size: 8px; }
@@ -317,6 +316,25 @@ input[type="range"]::-moz-range-thumb { width: 9px; height: 9px; border: 2px sol
 .tab-panel[data-panel="export"] .export-action strong { font-size: 12px; }
 .tab-panel[data-panel="export"] .export-action b { font-size: 17px; }
 .toast { border-radius: 20px; }
+
+@media (min-width: 761px) {
+  .language-switch {
+    min-width: 58px;
+    min-height: 34px;
+    justify-content: center;
+    gap: 3px;
+    padding: 0 11px;
+    border: 1px solid var(--line);
+    border-radius: 17px;
+    background: transparent;
+  }
+  .language-switch:hover { border-color: var(--accent); }
+  html[lang="zh-CN"] #titleInput,
+  html[lang="zh-CN"] #authorInput,
+  html[lang="zh-CN"] .rich-editor {
+    font-family: "Songti SC", STSong, SimSun, serif;
+  }
+}
 
 .feedback-modal { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 160ms ease; }
 .feedback-modal.show { opacity: 1; pointer-events: auto; }
