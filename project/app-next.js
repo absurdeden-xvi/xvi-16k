@@ -1,99 +1,19 @@
-// Visual registries are shared by controls, DOM preview, and Canvas export.
-const PRESETS = {
-  mist: { background: "#eef2f3", text: "#26333a", accent: "#9ebbc4" },
-  blush: { background: "#f5eceb", text: "#3d2d31", accent: "#d99a91" },
-  moss: { background: "#edf0ea", text: "#2e3832", accent: "#93aa95" },
-  lilac: { background: "#f0edf4", text: "#383140", accent: "#aa9bbb" },
-  butter: { background: "#f6f1e4", text: "#3a342a", accent: "#d7bd76" },
-  night: { background: "#252a2f", text: "#edf0ed", accent: "#8eb8ad" },
-  mica: { background: "#f2eee7", text: "#333944", accent: "#8ea3b4" },
-  almond: { background: "#f3eadf", text: "#403731", accent: "#c08f73" },
-  salt: { background: "#e7f0ed", text: "#29433d", accent: "#74a69a" },
-  berry: { background: "#f1e7ec", text: "#452f3c", accent: "#b57c98" },
-  indigo: { background: "#e8ecf2", text: "#27344d", accent: "#7d93b5" },
-  cinnabar: { background: "#f1e6df", text: "#492e2a", accent: "#c45f4e" },
-  midnight: { background: "#192b4a", text: "#e7ecf5", accent: "#91a9d0" },
-  inkstone: { background: "#20201e", text: "#e8e3d8", accent: "#a18f78" },
-  deepPine: { background: "#18352d", text: "#e4eee7", accent: "#8fbd9f" },
-  wine: { background: "#4a2029", text: "#f5e5e8", accent: "#d58b9c" },
-  nightPlum: { background: "#322544", text: "#eee6f5", accent: "#b39bc9" },
-  deepSea: { background: "#142529", text: "#d9e5e4", accent: "#6f9da0" },
-  umber: { background: "#3a2b1b", text: "#f3e7d2", accent: "#d0a969" },
-  blueprint: { background: "#f8f8f4", text: "#17469e", accent: "#b52b35" },
-  vermilion: { background: "#d5eef0", text: "#153c4a", accent: "#b04727" },
-  newsprint: { background: "#f3efe4", text: "#171717", accent: "#b52b35" },
-  acidNight: { background: "#171917", text: "#edf1e8", accent: "#bdd34c" },
-  farTide: { background: "#f8f6ef", text: "#1948a0", accent: "#ed5b4d" },
-  roseLetter: { background: "#e7ebdd", text: "#234638", accent: "#39702f" },
-  oriole: { background: "#f2e9dd", text: "#4a1820", accent: "#b43b3f" },
-  seaMark: { background: "#cbe5dc", text: "#17424b", accent: "#df594a" },
-  blueCurtain: { background: "#1238a3", text: "#fffdf4", accent: "#d8e0ff" },
-  mulberry: { background: "#f3e69a", text: "#164a4b", accent: "#a83e36" },
-  pineSmoke: { background: "#f2eee3", text: "#172a22", accent: "#2f6b50" },
-  latePeach: { background: "#d8d1f0", text: "#2e2862", accent: "#9d315d" },
-  gooseShadow: { background: "#e4edb8", text: "#3b2146", accent: "#b84322" },
-  nightSakura: { background: "#1d1d22", text: "#f2aec5", accent: "#9bd3c2" },
-  camelliaPaper: { background: "#f3efe1", text: "#1e5a4d", accent: "#cc6355" },
-  aster: { background: "#151c28", text: "#e9e5dc", accent: "#7896bd" }
-};
-
-const PALETTE_FAMILIES = {
-  neutral: { light: "mist", dark: "night" },
-  rose: { light: "blush", dark: "wine" },
-  green: { light: "moss", dark: "deepPine" },
-  purple: { light: "lilac", dark: "nightPlum" },
-  amber: { light: "butter", dark: "umber" },
-  blue: { light: "indigo", dark: "midnight" }
-};
-
-const PALETTE_NAMES = {
-  light: { neutral: "晨雾", rose: "薄暮", green: "苔庭", purple: "梦紫", amber: "麦光", blue: "靛青" },
-  dark: { neutral: "夜航", rose: "酒渍", green: "深松", purple: "夜梅", amber: "琥珀", blue: "蓝夜" }
-};
-
-const SPECIAL_PRESETS = ["blueprint", "vermilion", "newsprint", "acidNight", "farTide", "roseLetter", "oriole", "seaMark", "blueCurtain", "mulberry", "pineSmoke", "latePeach", "gooseShadow", "nightSakura", "camelliaPaper", "aster"];
-const SPECIAL_PRESET_NAMES = { blueprint: "蓝晒", vermilion: "玻璃海", newsprint: "铅字", acidNight: "夜萤", farTide: "远潮水", roseLetter: "常春藤", oriole: "绯页", seaMark: "潮痕", blueCurtain: "蓝钟", mulberry: "日晷", pineSmoke: "青案", latePeach: "星盘", gooseShadow: "春雷", nightSakura: "夜樱", camelliaPaper: "山茶笺", aster: "夜汐" };
-
-// The public site is hosted on Cloudflare Pages; Netlify remains the form receiver.
-const FEEDBACK_ENDPOINT = "https://xvi-16k.netlify.app/";
-
-const LAYOUT_RECIPES = {
-  folio: { titleSize: 56, titleWeight: 700, lineHeight: 1.88, paragraphSpacing: 1, pagePadding: 88, compositionStyle: "editorial", indent: true },
-  book: { titleSize: 58, titleWeight: 600, lineHeight: 1.92, paragraphSpacing: 1, pagePadding: 88, compositionStyle: "editorial", indent: true },
-  letter: { titleSize: 54, titleWeight: 600, lineHeight: 2, paragraphSpacing: 1.25, pagePadding: 86, compositionStyle: "open", indent: false },
-  section: { titleSize: 68, titleWeight: 600, lineHeight: 1.86, paragraphSpacing: 1.25, pagePadding: 84, compositionStyle: "open", indent: false }
-};
-
-const FORBIDDEN_LINE_START = new Set([..."，。！？；：、）》】」』〕〉”’…—～·,.!?;:%)]}›»"]);
-const FORBIDDEN_LINE_END = new Set([..."（《【「『〔〈“‘([{‹«"]);
-
-const FONT_STACKS = {
-  latinDisplay: 'Didot, "Bodoni 72", "Bodoni MT", "Times New Roman", serif',
-  latinSerif: 'Baskerville, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif',
-  latinHumanist: '"Avenir Next", Avenir, "Segoe UI", Arial, sans-serif',
-  latinGrotesk: '"Helvetica Neue", Helvetica, Arial, sans-serif',
-  latinMono: '"SFMono-Regular", Menlo, Monaco, Consolas, monospace',
-  serif: '"Songti SC", STSong, SimSun, serif',
-  pingfang: '"PingFang SC", "PingFang TC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
-  "sans-serif": '"PingFang SC", "Microsoft YaHei", sans-serif',
-  lxgw: '"LXGW WenKai", "Kaiti SC", KaiTi, serif',
-  neoZhiSong: '"LXGW Neo ZhiSong", "Songti SC", SimSun, serif',
-  huiwen: '"Huiwen-mincho", "Songti SC", SimSun, serif',
-  zhuque: '"Zhuque Fangsong (technical preview)", "Zhuque Fangsong", STFangsong, FangSong, serif',
-  yozai: '"Yozai", "Kaiti SC", KaiTi, serif',
-  wenjin: '"WenJin Mincho Plane 0", "Songti SC", STSong, serif',
-  winsong: '"CorpSrcWinSong", "Songti SC", STSong, serif',
-  kai: '"Kaiti SC", STKaiti, KaiTi, serif',
-  fangSong: 'STFangsong, FangSong, "FangSong SC", serif',
-  rounded: '"Hiragino Maru Gothic ProN", "Yuanti SC", "Arial Rounded MT Bold", sans-serif',
-  lanting: '"Lantinghei SC", "FZLanTingHeiS", "PingFang SC", sans-serif',
-  hannotate: '"Hannotate SC", "Hannotate TC", "Kaiti SC", serif',
-  hanzipen: '"HanziPen SC", "HanziPen TC", "Kaiti SC", serif',
-  xingkai: '"STXingkai", "Xingkai SC", "Kaiti SC", serif',
-  libian: '"STLibian", "Libian SC", "Songti SC", serif',
-  weibei: '"Weibei SC", "STXinwei", "Songti SC", serif',
-  mono: '"SFMono-Regular", Menlo, Monaco, "Noto Sans Mono CJK SC", monospace'
-};
+const {
+  PRESETS,
+  PALETTE_FAMILIES,
+  PALETTE_NAMES,
+  SPECIAL_PRESETS,
+  SPECIAL_PRESET_NAMES,
+  FEEDBACK_ENDPOINT,
+  LAYOUT_RECIPES,
+  FONT_STACKS
+} = window.XVIConfig;
+const { PALETTE_NAMES_EN, SPECIAL_PRESET_NAMES_EN, UI_TEXT_EN, UI_ATTRIBUTE_EN, RUNTIME_TEXT_EN } = window.XVII18n;
+const {
+  convertQuoteMarks,
+  textConvertersForSelection,
+  composeText
+} = window.XVITextLayout;
 
 // DOM bindings and mutable editor state.
 const $ = (selector) => document.querySelector(selector);
@@ -172,70 +92,6 @@ const PREVIEW_EDITORS = {
   section: { label: "节号", size: "sectionNumberSize", color: "accentColor", step: 2, suffix: " px" }
 };
 
-const PALETTE_NAMES_EN = {
-  light: { neutral: "Morning Mist", rose: "Dusk", green: "Moss Court", purple: "Dream Lilac", amber: "Wheat Light", blue: "Indigo" },
-  dark: { neutral: "Night Voyage", rose: "Wine Stain", green: "Deep Pine", purple: "Night Plum", amber: "Amber", blue: "Blue Night" }
-};
-
-const SPECIAL_PRESET_NAMES_EN = {
-  blueprint: "Cyanotype", vermilion: "Glass Sea", newsprint: "Letterpress", acidNight: "Firefly Night",
-  farTide: "Far Tide", roseLetter: "Ivy", oriole: "Scarlet Page", seaMark: "Tide Mark",
-  blueCurtain: "Blue Chime", mulberry: "Sundial", pineSmoke: "Verdant Desk", latePeach: "Star Chart",
-  gooseShadow: "Spring Thunder", nightSakura: "Night Sakura", camelliaPaper: "Camellia Paper", aster: "Night Tide"
-};
-
-const UI_TEXT_EN = {
-  "十六开": "XVI Studio", "已保存": "Saved", "设置": "Settings", "语言": "Language", "中文": "Chinese",
-  "来信": "Feedback", "快速导出": "Quick export", "写": "Write", "文字": "Text", "形": "Shape", "样式": "Style",
-  "存": "Save", "导出": "Export", "标题": "Title", "署名": "Byline", "正文": "Body", "0 字": "0 characters",
-  "简繁": "Script", "简中": "Simplified", "繁中（港）": "Traditional (HK)", "繁中（台）": "Traditional (TW)",
-  "正文与生成图片只在本地浏览器处理，不会上传云端。": "Your text and generated images stay in this browser and are never uploaded.",
-  "文本处理": "Text processing", "清理并智能分段": "Clean and detect paragraphs", "仅在粘贴后的换行混乱时开启": "Use when pasted line breaks are inconsistent",
-  "生成排版": "Compose", "清空": "Clear", "配色灵感": "Color inspiration", "随机": "Random", "浅色": "Light", "深色": "Dark",
-  "特别配色": "Curated palettes", "背景": "Background", "强调": "Accent", "刊页模板": "Editorial templates",
-  "标准刊页": "Folio", "书页": "Book page", "信笺": "Letter", "分节长页": "Section page",
-  "正文字体": "Body typeface", "标题字体": "Title typeface", "宋体": "Songti", "苹方": "PingFang", "霞鹜新致宋": "LXGW Neo ZhiSong",
-  "文津宋体": "WenJin Mincho", "汇文明朝体": "Huiwen Mincho", "朱雀仿宋": "Zhuque Fangsong", "司源赢宋": "CorpSrc WinSong",
-  "霞鹜文楷": "LXGW WenKai", "悠哉字体": "Yozai", "等宽": "Monospace", "＋ 导入本地字体": "+ Import local font",
-  "展示衬线": "Display Serif", "编辑衬线": "Editorial Serif", "人文无衬线": "Humanist Sans", "新无衬线": "Neo Grotesk", "拉丁等宽": "Latin Mono",
-  "正文字号": "Body size", "标题字号": "Title size", "行距": "Line height", "段落": "Paragraphs", "首行缩进": "First-line indent",
-  "每段开头退两个字": "Indent each paragraph by two characters", "首段强调": "Opening paragraph", "无": "None", "引线": "Rule", "变色": "Accent color",
-  "首段字号": "Opening scale", "段间": "Paragraph gap", "高级排版": "Advanced layout", "展开": "Expand", "标题字重": "Title weight",
-  "版式结构": "Composition", "标准": "Standard", "紧凑": "Compact", "舒展": "Open", "右上角文字": "Top-right text",
-  "标题上方文字": "Text above title", "章节标识": "Chapter label", "章节字号": "Chapter size", "节号（仅分节长页）": "Section number (section template)",
-  "节号字号": "Section number size", "字距": "Letter spacing", "段距": "Paragraph spacing", "画布宽度": "Canvas width", "页边距": "Page margins",
-  "对齐": "Alignment", "左对齐": "Left", "两端": "Justify", "居中": "Center", "版头信息": "Masthead", "显示 XVI、版次与信号条": "Show XVI, edition, and signal mark",
-  "底部署名": "Footer byline", "在正文后显示作者": "Show the author after the article", "导出尺寸": "Export size", "格式": "Format",
-  "清晰度": "Resolution", "保存名称": "File name", "放心使用": "Private by default",
-  "正文、字体与生成图片只在本地浏览器处理，不会上传云端。只有主动提交“来信”时，反馈内容才会发送给我们。": "Text, fonts, and generated images stay in your browser. Only feedback you explicitly submit is sent to us.",
-  "保存图片": "Save image", "长图预览": "Longform preview", "尚未生成": "Not composed yet", "不要填写": "Leave blank",
-  "反馈": "Feedback", "发送": "Send", "由 Netlify 代收。": "Collected by Netlify.", "或直接通过邮件联系：": "Or email us directly:",
-  "线": "Rule", "色": "Color", "节号": "Section number", "首段": "Opening paragraph", "倍": "×"
-};
-
-const UI_ATTRIBUTE_EN = {
-  "标题": "Title", "作者": "Author", "文字格式": "Text formatting", "粗体": "Bold", "斜体": "Italic", "下划线": "Underline",
-  "删除线": "Strikethrough", "清除格式": "Clear formatting", "可留空，或填写章节 / 日期 / 栏目": "Optional chapter, date, or section",
-  "例如 01 / 第一章；留空不显示": "For example 01 or Chapter One; leave blank to hide", "留空则使用标题": "Leave blank to use the title",
-  "长图编辑器": "Longform editor", "创作流程": "Creation workflow", "明暗主题": "Light or dark theme", "色系": "Color family",
-  "长图预览": "Longform preview", "缩小预览": "Zoom out", "放大预览": "Zoom in", "颜色": "Color", "关闭": "Close",
-  "减小字号": "Decrease size", "增大字号": "Increase size", "加粗": "Bold", "可直接编辑的正文": "Editable body text",
-  "设置": "Settings", "界面语言": "Interface language", "想对开发者说的话……": "Share feedback with the developer...",
-  "从全部配色中随机选择": "Choose randomly from all palettes", "中性色系": "Neutral family", "红色系": "Red family", "绿色系": "Green family",
-  "紫色系": "Purple family", "黄色系": "Yellow family", "蓝色系": "Blue family"
-};
-
-const RUNTIME_TEXT_EN = {
-  "字形转换暂时无法使用": "Script conversion is temporarily unavailable",
-  "请先选中要转换的文字": "Select the text you want to convert",
-  "请先完成正文输入": "Add body text before composing",
-  "请先完成自动排版": "Compose the document before exporting",
-  "正在保存...": "Saving...", "已自动保存": "Autosaved", "先写一点内容": "Add a message first",
-  "发送中": "Sending", "来信已收到": "Feedback received", "暂时没发送出去，内容还在": "Could not send yet; your message is still here",
-  "字体文件不能超过 20 MB": "Font files must be under 20 MB", "字体已载入并应用到正文": "Font loaded and applied to the body",
-  "无法读取这个字体文件": "This font file could not be read", "导出失败，请稍后重试": "Export failed. Please try again"
-};
-
 const staticTextNodes = [];
 const staticAttributes = [];
 
@@ -277,6 +133,13 @@ function localizedPaletteName() {
   return uiLanguage === "en" ? PALETTE_NAMES_EN[paletteMode][paletteFamily] : PALETTE_NAMES[paletteMode][paletteFamily];
 }
 
+function syncLanguageSwitch() {
+  const languageButton = $("#languageToggleButton");
+  languageButton?.classList.toggle("show-english", uiLanguage === "en");
+  languageButton?.setAttribute("aria-label", uiLanguage === "en" ? "Switch interface language" : "切换界面语言");
+  languageButton?.setAttribute("title", uiLanguage === "en" ? "Switch interface language" : "切换界面语言");
+}
+
 function applyUiLanguage(nextLanguage, persist = true) {
   uiLanguage = nextLanguage === "en" ? "en" : "zh";
   document.documentElement.lang = uiLanguage === "en" ? "en" : "zh-CN";
@@ -293,12 +156,12 @@ function applyUiLanguage(nextLanguage, persist = true) {
     element.setAttribute(name, uiLanguage === "en" ? (UI_ATTRIBUTE_EN[source] || source) : source);
   });
   const blankDocument = !generatedDocument && !elements.title.value.trim() && !elements.author.value.trim() && !bodyText();
-  if (blankDocument && uiLanguage === "en" && settings.fontFamily.value === "serif" && settings.titleFontFamily.value === "serif") {
-    settings.fontFamily.value = "latinSerif";
+  if (blankDocument && uiLanguage === "en" && settings.fontFamily.value === "pingfang" && settings.titleFontFamily.value === "pingfang") {
+    settings.fontFamily.value = "latinCambria";
     settings.titleFontFamily.value = "latinDisplay";
-  } else if (blankDocument && uiLanguage === "zh" && settings.fontFamily.value === "latinSerif" && settings.titleFontFamily.value === "latinDisplay") {
-    settings.fontFamily.value = "serif";
-    settings.titleFontFamily.value = "serif";
+  } else if (blankDocument && uiLanguage === "zh" && settings.fontFamily.value === "latinCambria" && settings.titleFontFamily.value === "latinDisplay") {
+    settings.fontFamily.value = "pingfang";
+    settings.titleFontFamily.value = "pingfang";
   }
   const footerEdition = $("#previewFooter .footer-edition");
   if (footerEdition) footerEdition.textContent = uiLanguage === "en" ? "XVI / LONGFORM" : "XVI / 十六开";
@@ -306,7 +169,7 @@ function applyUiLanguage(nextLanguage, persist = true) {
   elements.saveState.textContent = uiLanguage === "en"
     ? (savingNow ? "Saving..." : "Autosaved")
     : (savingNow ? "正在保存..." : "已自动保存");
-  $$('[data-language]').forEach((button) => button.classList.toggle("active", button.dataset.language === uiLanguage));
+  syncLanguageSwitch();
   if (persist) localStorage.setItem("xvi-ui-language", uiLanguage);
   syncPaletteControls();
   updateControlLabels();
@@ -335,36 +198,6 @@ function setBodyText(text) {
     paragraph.textContent = content;
     return paragraph;
   }));
-}
-
-function convertQuoteMarks(text, nextMode) {
-  if (nextMode === "traditional-tw") {
-    return text
-      .replace(/“/g, "「")
-      .replace(/”/g, "」")
-      .replace(/‘/g, "『")
-      .replace(/’/g, "』");
-  }
-  return text
-    .replace(/「/g, "“")
-    .replace(/」/g, "”")
-    .replace(/『/g, "‘")
-    .replace(/』/g, "’");
-}
-
-function scriptLocale(mode) {
-  if (mode === "traditional-hk") return "hk";
-  if (mode === "traditional-tw") return "tw";
-  return "cn";
-}
-
-function textConvertersForSelection(nextMode) {
-  if (nextMode === "simplified") return [OpenCC.Converter({ from: "tw", to: "cn" })];
-  const sourceLocale = nextMode === "traditional-hk" ? "tw" : "hk";
-  return [
-    OpenCC.Converter({ from: sourceLocale, to: "cn" }),
-    OpenCC.Converter({ from: "cn", to: scriptLocale(nextMode) })
-  ];
 }
 
 function closeScriptPicker() {
@@ -661,42 +494,7 @@ function render() {
   scheduleSave();
 }
 
-function joinSoftWrappedLines(block) {
-  return block.split("\n").map((line) => line.trim()).filter(Boolean).reduce((result, line) => {
-    if (!result) return line;
-    const needsSpace = /[A-Za-z0-9]$/.test(result) && /^[A-Za-z0-9]/.test(line);
-    return `${result}${needsSpace ? " " : ""}${line}`;
-  }, "");
-}
-
-function splitIntoBalancedParagraphs(text) {
-  if ([...text].length < 520) return [text];
-  const sentences = text.match(/[^。！？!?…]+(?:[。！？!?…]+[”’」』》】]?)?|.+$/g) || [text];
-  const paragraphs = [];
-  let paragraph = "";
-  sentences.forEach((sentence) => {
-    paragraph += sentence;
-    if ([...paragraph].length >= 150) {
-      paragraphs.push(paragraph.trim());
-      paragraph = "";
-    }
-  });
-  if (paragraph.trim()) {
-    if (paragraphs.length && [...paragraph].length < 60) paragraphs[paragraphs.length - 1] += paragraph;
-    else paragraphs.push(paragraph.trim());
-  }
-  return paragraphs;
-}
-
 // Generation, persistence, and explicit feedback submission.
-function composeText(rawText) {
-  const normalized = rawText.replace(/\r\n?/g, "\n").replace(/\u00a0/g, " ").trim();
-  if (!settings.smartParagraph.checked) return normalized;
-  const explicitBlocks = normalized.split(/\n\s*\n+/).map(joinSoftWrappedLines).filter(Boolean);
-  if (explicitBlocks.length > 1) return explicitBlocks.join("\n\n");
-  return splitIntoBalancedParagraphs(explicitBlocks[0] || "").join("\n\n");
-}
-
 function applyAutomaticTypography(characterCount) {
   let values;
   if (characterCount <= 360) values = { fontSize: 32, titleSize: 64, lineHeight: 2, letterSpacing: 2, paragraphSpacing: 1.5, pagePadding: 96 };
@@ -715,7 +513,7 @@ function generateDocument() {
     elements.body.focus();
     return;
   }
-  const body = composeText(rawText);
+  const body = composeText(rawText, settings.smartParagraph.checked);
   const characterCount = body.replace(/\s/g, "").length;
   const sourceParagraphs = extractRichParagraphs();
   if (!generatedDocument) applyAutomaticTypography(characterCount);
@@ -901,16 +699,6 @@ async function submitFeedback(event) {
   }
 }
 
-function openSettings() {
-  $("#settingsModal").hidden = false;
-  requestAnimationFrame(() => $("#settingsModal").classList.add("show"));
-}
-
-function closeSettings() {
-  $("#settingsModal").classList.remove("show");
-  setTimeout(() => { $("#settingsModal").hidden = true; }, 160);
-}
-
 function activatePanel(name) {
   $$('[data-tab]').forEach((tab) => {
     const active = tab.dataset.tab === name;
@@ -1025,314 +813,18 @@ function buttonLabel(name) {
   return document.querySelector(`[data-layout-template="${name}"] strong`)?.textContent || "所选";
 }
 
-function drawTextWithSpacing(ctx, text, x, y, spacing) {
-  let currentX = x;
-  for (const char of [...text]) {
-    ctx.fillText(char, currentX, y);
-    currentX += ctx.measureText(char).width + spacing;
-  }
-}
-
-function measuredWidth(ctx, text, spacing) {
-  const chars = [...text];
-  return ctx.measureText(text).width + Math.max(0, chars.length - 1) * spacing;
-}
-
-function wrapText(ctx, text, maxWidth, spacing) {
-  return wrapCharacters(ctx, text, maxWidth, spacing, 0);
-}
-
-function wrapCharacters(ctx, text, maxWidth, spacing, firstLineIndent) {
-  const lines = [];
-  let line = "";
-  for (const char of [...text]) {
-    const candidate = line + char;
-    const availableWidth = maxWidth - (lines.length === 0 ? firstLineIndent : 0);
-    if (line && measuredWidth(ctx, candidate, spacing) > availableWidth) {
-      if (FORBIDDEN_LINE_START.has(char)) {
-        line = candidate;
-        continue;
-      }
-      let carry = "";
-      while (line) {
-        const characters = [...line];
-        const last = characters[characters.length - 1];
-        if (!FORBIDDEN_LINE_END.has(last)) break;
-        carry = last + carry;
-        characters.pop();
-        line = characters.join("");
-      }
-      if (line) lines.push(line);
-      line = carry + char;
-    } else {
-      line = candidate;
-    }
-  }
-  if (line) lines.push(line);
-  return lines;
-}
-
-function wrapParagraph(ctx, text, maxWidth, spacing, indentWidth) {
-  const lines = [];
-  text.split("\n").forEach((forcedLine) => {
-    if (!forcedLine) {
-      lines.push("");
-      return;
-    }
-    lines.push(...wrapCharacters(ctx, forcedLine, maxWidth, spacing, lines.length === 0 ? indentWidth : 0));
-  });
-  return lines;
-}
-
-function richFont(run, fontSize) {
-  return `${run.italic ? "italic " : ""}${run.bold ? "700" : "400"} ${fontSize}px ${FONT_STACKS[settings.fontFamily.value]}`;
-}
-
-function richLineWidth(ctx, line, fontSize, spacing) {
-  return line.reduce((width, glyph, index) => {
-    ctx.font = richFont(glyph, fontSize);
-    return width + ctx.measureText(glyph.char).width + (index ? spacing : 0);
-  }, 0);
-}
-
-function wrapRichParagraph(ctx, runs, maxWidth, fontSize, spacing, indentWidth) {
-  const glyphs = runs.flatMap((run) => [...run.text].map((char) => ({ ...run, char })));
-  const lines = [];
-  let line = [];
-  for (const glyph of glyphs) {
-    if (glyph.char === "\n") {
-      lines.push(line);
-      line = [];
-      continue;
-    }
-    const availableWidth = maxWidth - (lines.length === 0 ? indentWidth : 0);
-    const candidate = [...line, glyph];
-    if (line.length && richLineWidth(ctx, candidate, fontSize, spacing) > availableWidth) {
-      if (FORBIDDEN_LINE_START.has(glyph.char)) {
-        line.push(glyph);
-        continue;
-      }
-      const carry = [];
-      while (line.length && FORBIDDEN_LINE_END.has(line[line.length - 1].char)) carry.unshift(line.pop());
-      if (line.length) lines.push(line);
-      line = [...carry, glyph];
-    } else {
-      line = candidate;
-    }
-  }
-  if (line.length) lines.push(line);
-  return lines.length ? lines : [[]];
-}
-
-function drawRichLine(ctx, line, x, baseline, fontSize, spacing) {
-  let currentX = x;
-  line.forEach((glyph, index) => {
-    ctx.font = richFont(glyph, fontSize);
-    const width = ctx.measureText(glyph.char).width;
-    ctx.fillText(glyph.char, currentX, baseline);
-    if (glyph.underline) ctx.fillRect(currentX, baseline + fontSize * 0.12, width, Math.max(1, fontSize * 0.045));
-    if (glyph.strike) ctx.fillRect(currentX, baseline - fontSize * 0.32, width, Math.max(1, fontSize * 0.045));
-    currentX += width + (index < line.length - 1 ? spacing : 0);
-  });
-}
-
-function getCanvasLayout(scale = 2) {
-  const width = Number(settings.contentWidth.value);
-  const padding = Number(settings.pagePadding.value);
-  const fontSize = Number(settings.fontSize.value);
-  const titleSize = Number(settings.titleSize.value);
-  const titleWeight = Number(settings.titleWeight.value);
-  const lineHeight = fontSize * Number(settings.lineHeight.value);
-  const letterSpacing = Number(settings.letterSpacing.value);
-  const paragraphGap = fontSize * Number(settings.paragraphSpacing.value);
-  const leadScale = Number(settings.leadScale.value);
-  const fullWidth = width - padding * 2;
-  const composition = settings.compositionStyle.value;
-  const sectionNumber = settings.sectionNumber.value.trim();
-  const folioGeometry = composition === "compact"
-    ? { inset: 0, ratio: 1, indexStep: 38, accentWidth: 20, accentHeight: 20, accentStep: 38, ruleGap: 34 }
-    : composition === "open"
-      ? { inset: 0, ratio: 1, indexStep: 110, accentWidth: 34, accentHeight: 34, accentStep: 68, ruleGap: 82 }
-      : { inset: 0, ratio: 1, indexStep: 76, accentWidth: 27, accentHeight: 27, accentStep: 48, ruleGap: 54 };
-  const templateGeometry = {
-    folio: { ...folioGeometry, titleOffset: 0, bodyOffset: 0, frameInset: 0 },
-    book: { inset: 0, ratio: 1, indexStep: 76, accentWidth: 0, accentHeight: 0, accentStep: 40, ruleGap: 68, titleOffset: 0, bodyOffset: 0, frameInset: 0 },
-    letter: { inset: 0, ratio: 1, indexStep: 72, accentWidth: 46, accentHeight: 2, accentStep: 42, ruleGap: 54, titleOffset: 0, bodyOffset: 0, frameInset: 0 },
-    section: { inset: 0, ratio: 1, indexStep: 84, accentWidth: 0, accentHeight: 0, accentStep: sectionNumber ? Math.max(92, Number(settings.sectionNumberSize.value) * .92) : 38, ruleGap: 68, titleOffset: 0, bodyOffset: 0, frameInset: 0 }
-  }[layoutTemplate] || null;
-  const contentX = padding + templateGeometry.inset;
-  const usableWidth = fullWidth * templateGeometry.ratio - templateGeometry.inset * 2;
-  const sectionTitleInset = layoutTemplate === "section" && sectionNumber ? Math.min(170, Number(settings.sectionNumberSize.value) * 1.35) : 0;
-  const titleX = contentX + sectionTitleInset;
-  const titleWidth = layoutTemplate === "section" ? usableWidth - sectionTitleInset : (["book", "letter"].includes(layoutTemplate) ? usableWidth * 0.84 : usableWidth);
-  const bodyX = contentX;
-  const bodyWidth = usableWidth;
-  const measure = document.createElement("canvas").getContext("2d");
-  const indentWidth = settings.indent.checked ? fontSize * 2 : 0;
-  const paragraphFontSizes = textParagraphs().map((_, index) => index === 0 ? fontSize * leadScale : fontSize);
-  const paragraphLineHeights = paragraphFontSizes.map((size) => lineHeight * (size / fontSize));
-  const paragraphs = textParagraphs().map((runs, index) => {
-    const firstLineOffset = index === 0 && settings.leadStyle.value === "line" ? 38 : (index === 0 && settings.leadStyle.value === "color" ? 42 : 0);
-    const paragraphIndent = settings.indent.checked && !(index === 0 && settings.leadStyle.value !== "none") ? paragraphFontSizes[index] * 2 : 0;
-    return wrapRichParagraph(measure, runs, bodyWidth - firstLineOffset, paragraphFontSizes[index], letterSpacing, paragraphIndent);
-  });
-  measure.font = `${titleWeight} ${titleSize}px ${FONT_STACKS[settings.titleFontFamily.value]}`;
-  const titleLines = wrapText(measure, generatedDocument.title, titleWidth, 0);
-  const bodyHeight = paragraphs.reduce((height, lines, index) => height + lines.length * paragraphLineHeights[index] + paragraphGap, 0);
-  const topPadding = 48;
-  const titleLineHeight = titleSize * 1.22;
-  const { indexStep, accentWidth, accentHeight, accentStep, ruleGap } = templateGeometry;
-  const titleStart = settings.header.checked
-    ? (layoutTemplate === "section"
-      ? topPadding + indexStep + titleSize * .9
-      : topPadding + indexStep + accentStep + titleSize)
-    : topPadding + titleSize + 40;
-  const bodyStart = titleStart + titleLines.length * titleLineHeight + (layoutTemplate === "folio" ? ruleGap : 16 + ruleGap);
-  const footerHeight = settings.signature.checked ? padding + 45 : padding;
-  const accentX = padding;
-  const ruleWidth = layoutTemplate === "section" ? usableWidth : titleWidth;
-  const ruleX = layoutTemplate === "section" ? contentX : titleX;
-  return { scale, width, padding, topPadding, fontSize, titleSize, titleWeight, titleLineHeight, lineHeight, letterSpacing, paragraphGap, fullWidth, contentX, usableWidth, bodyX, bodyWidth, titleX, titleWidth, paragraphs, paragraphFontSizes, paragraphLineHeights, titleLines, indexStep, accentX, accentWidth, accentHeight, accentStep, ruleX, ruleWidth, ruleGap, titleStart, bodyStart, frameInset: templateGeometry.frameInset, height: Math.ceil(bodyStart + bodyHeight + footerHeight) };
-}
-
-async function exportImage() {
-  if (!generatedDocument || contentIsDirty) {
-    showToast("请先完成自动排版");
-    return;
-  }
-  await document.fonts.ready;
-  const layout = getCanvasLayout(Number($("#exportScale").value));
-  const canvas = document.createElement("canvas");
-  canvas.width = layout.width * layout.scale;
-  canvas.height = layout.height * layout.scale;
-  const ctx = canvas.getContext("2d");
-  ctx.scale(layout.scale, layout.scale);
-
-  ctx.fillStyle = settings.backgroundColor.value;
-  ctx.fillRect(0, 0, layout.width, layout.height);
-  let y = layout.topPadding;
-  if (settings.header.checked) {
-    const headerLeft = layout.padding;
-    const headerRight = layout.width - layout.padding;
-    ctx.fillStyle = settings.textColor.value;
-    ctx.font = "900 20px Arial, sans-serif";
-    ctx.fillText("XVI", headerLeft, y + 16);
-    ctx.globalAlpha = 0.56;
-    ctx.font = "700 11px Arial, sans-serif";
-    const edition = settings.editionText.value.trim() || "XVI / 016";
-    ctx.fillText(edition, headerRight - ctx.measureText(edition).width, y + 14);
-    ctx.globalAlpha = 1;
-    if (layoutTemplate === "book") {
-      ctx.globalAlpha = 0.55;
-      ctx.fillRect(layout.padding, y + 30, layout.fullWidth, 1);
-      ctx.globalAlpha = 1;
-    }
-    y += layout.indexStep;
-
-    const decorationY = y;
-
-    ctx.fillStyle = settings.accentColor.value;
-    if (layoutTemplate === "folio") {
-      ctx.beginPath();
-      ctx.roundRect(layout.accentX, decorationY, layout.accentWidth, layout.accentHeight, [14, 14, 14, 4]);
-      ctx.fill();
-    } else if (layoutTemplate === "letter") {
-      ctx.fillRect(layout.accentX, decorationY, layout.accentWidth, layout.accentHeight);
-    } else if (layoutTemplate === "book" && settings.chapterText.value.trim()) {
-      ctx.font = `italic ${Number(settings.chapterSize.value)}px Georgia, serif`;
-      ctx.fillText(settings.chapterText.value.trim(), layout.contentX, decorationY + Number(settings.chapterSize.value));
-    }
-    const kicker = settings.kickerText.value.trim();
-    if (layoutTemplate === "section" && settings.sectionNumber.value.trim()) {
-      const sectionSize = Number(settings.sectionNumberSize.value);
-      ctx.font = `italic ${sectionSize}px Georgia, serif`;
-      ctx.fillText(settings.sectionNumber.value.trim(), layout.contentX, decorationY + sectionSize * .8);
-      if (kicker) {
-        ctx.font = "700 16px Arial, sans-serif";
-        drawTextWithSpacing(ctx, kicker, layout.titleX, decorationY + Math.min(56, sectionSize * .65), 1.4);
-      }
-    } else if (layoutTemplate !== "book" && kicker) {
-      ctx.font = "700 16px Arial, sans-serif";
-      const kickerX = layout.titleX + (layoutTemplate === "folio" ? layout.accentWidth + 13 : 0);
-      const kickerY = layoutTemplate === "folio" ? decorationY + Math.min(layout.accentHeight * .67, 22) : decorationY + 20;
-      drawTextWithSpacing(ctx, kicker, kickerX, kickerY, 2);
-    }
-    y = layout.titleStart;
-  } else {
-    y = layout.titleStart;
-  }
-
-  ctx.fillStyle = settings.titleColor.value;
-  ctx.font = `${layout.titleWeight} ${layout.titleSize}px ${FONT_STACKS[settings.titleFontFamily.value]}`;
-  layout.titleLines.forEach((line) => {
-    ctx.fillText(line, layout.titleX, y);
-    y += layout.titleLineHeight;
-  });
-  ctx.textAlign = "left";
-  if (layoutTemplate !== "folio" && layoutTemplate !== "book") {
-    y += 16;
-    ctx.globalAlpha = layoutTemplate === "section" ? 1 : 0.48;
-    ctx.fillStyle = settings.accentColor.value;
-    ctx.fillRect(layout.ruleX, y, layout.ruleWidth, layoutTemplate === "section" ? 3 : 1);
-    ctx.globalAlpha = 1;
-    y += layout.ruleGap;
-  } else {
-    y += layout.ruleGap;
-  }
-
-  ctx.fillStyle = settings.textColor.value;
-  layout.paragraphs.forEach((lines, paragraphIndex) => {
-    const paragraphTop = y;
-    const paragraphFontSize = layout.paragraphFontSizes[paragraphIndex];
-    const paragraphLineHeight = layout.paragraphLineHeights[paragraphIndex];
-    if (paragraphIndex === 0 && settings.leadStyle.value === "line") {
-      ctx.fillStyle = settings.accentColor.value;
-      ctx.fillRect(layout.contentX, paragraphTop - paragraphFontSize * 0.8, 3, Math.max(paragraphLineHeight, lines.length * paragraphLineHeight - paragraphFontSize * 0.15));
-    }
-    lines.forEach((line, lineIndex) => {
-      let x = layout.bodyX;
-      const allowIndent = !(paragraphIndex === 0 && settings.leadStyle.value !== "none");
-      const indent = settings.indent.checked && allowIndent && lineIndex === 0 ? paragraphFontSize * 2 : 0;
-      const lineWidth = richLineWidth(ctx, line, paragraphFontSize, layout.letterSpacing);
-      if (alignment === "center") x += (layout.bodyWidth - lineWidth) / 2;
-      else if (paragraphIndex === 0 && settings.leadStyle.value === "color") x += 42;
-      else if (paragraphIndex === 0 && settings.leadStyle.value === "line") x += 38;
-      else x += indent;
-      if (paragraphIndex === 0 && settings.leadStyle.value === "color") ctx.fillStyle = settings.accentColor.value;
-      else ctx.fillStyle = settings.textColor.value;
-      drawRichLine(ctx, line, x, y, paragraphFontSize, layout.letterSpacing);
-      y += paragraphLineHeight;
-    });
-    y += layout.paragraphGap;
-  });
-
-  if (settings.signature.checked) {
-    y += 32;
-    ctx.fillStyle = settings.accentColor.value;
-    ctx.fillRect(layout.bodyX, y - 8, 48, 4);
-    ctx.fillStyle = settings.textColor.value;
-    ctx.font = `600 14px ${FONT_STACKS["sans-serif"]}`;
-    drawTextWithSpacing(ctx, generatedDocument.author, layout.bodyX + 64, y, 1);
-    ctx.globalAlpha = 0.5;
-    ctx.font = "700 10px Arial, sans-serif";
-    const mark = uiLanguage === "en" ? "XVI / LONGFORM" : "XVI / 十六开";
-    ctx.fillText(mark, layout.bodyX + layout.bodyWidth - ctx.measureText(mark).width, y);
-    ctx.globalAlpha = 1;
-  }
-
-  const mimeType = exportFormat === "jpeg" ? "image/jpeg" : "image/png";
-  const extension = exportFormat === "jpeg" ? "jpg" : "png";
-  canvas.toBlob((blob) => {
-    if (!blob) return showToast("导出失败，请稍后重试");
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    const requestedName = $("#exportFileName").value.trim() || generatedDocument.title;
-    link.download = `${requestedName.replace(/[\\/:*?"<>|]/g, "-")}.${extension}`;
-    link.click();
-    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
-    showToast(`${exportScaleLabel()}图片已保存`);
-  }, mimeType, exportFormat === "jpeg" ? 0.94 : undefined);
-}
+const { exportImage } = window.XVIExporter.createExporter({
+  settings,
+  getGeneratedDocument: () => generatedDocument,
+  isContentDirty: () => contentIsDirty,
+  getLayoutTemplate: () => layoutTemplate,
+  getAlignment: () => alignment,
+  getExportFormat: () => exportFormat,
+  getUiLanguage: () => uiLanguage,
+  textParagraphs,
+  showToast,
+  exportScaleLabel
+});
 
 // Event wiring and initial state restoration.
 $$('[data-tab]').forEach((button) => button.addEventListener("click", () => activatePanel(button.dataset.tab)));
@@ -1425,9 +917,7 @@ $("#randomPresetButton").addEventListener("click", () => {
   else setPaletteFamily(choice.mode, choice.family);
 });
 $("#customFontInput").addEventListener("change", (event) => loadCustomFont(event.target.files[0]));
-$("#settingsOpenButton").addEventListener("click", openSettings);
-$$('[data-settings-close]').forEach((button) => button.addEventListener("click", closeSettings));
-$$('[data-language]').forEach((button) => button.addEventListener("click", () => applyUiLanguage(button.dataset.language)));
+$("#languageToggleButton").addEventListener("click", () => applyUiLanguage(uiLanguage === "zh" ? "en" : "zh"));
 $("#feedbackOpenButton").addEventListener("click", openFeedback);
 $$("[data-feedback-close]").forEach((button) => button.addEventListener("click", closeFeedback));
 elements.feedbackForm.addEventListener("submit", submitFeedback);
@@ -1435,7 +925,6 @@ elements.feedbackForm.addEventListener("input", syncFeedbackSubmitState);
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     if (!$("#scriptPickerMenu").hidden) closeScriptPicker();
-    else if (!$("#settingsModal").hidden) closeSettings();
     else if (!elements.feedbackModal.hidden) closeFeedback();
     else if (activePreviewTarget) closePreviewInspector();
     return;

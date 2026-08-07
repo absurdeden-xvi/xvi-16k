@@ -15,7 +15,7 @@ Every new commit on `main` triggers a Cloudflare Pages production deployment. `_
 ## Before deployment
 
 1. Confirm that the version and release date match in `README.md` and `CHANGELOG.md`.
-2. Use one cache-version query parameter across `styles.css`, `xvi-next.css`, and `app-next.js`.
+2. Use one cache-version query parameter across `styles.css`, `xvi-next.css`, `modules/*.js`, and `app-next.js`.
 3. Confirm that `index.html` and `_redirects` still point to the current production workspace.
 4. Test desktop input, generation, style controls, preview, and export.
 5. Test input, preview, and bottom navigation at common iOS and Android widths.
@@ -66,7 +66,7 @@ For a code-level rollback, create a new revert commit and push it to `main`. `le
 ## 发布前
 
 1. 确认 `README.md` 和 `CHANGELOG.md` 的版本号与发布日期。
-2. 将 `styles.css`、`xvi-next.css` 和 `app-next.js` 的查询参数统一为同一版本。
+2. 将 `styles.css`、`xvi-next.css`、`modules/*.js` 和 `app-next.js` 的查询参数统一为同一版本。
 3. 检查 `index.html` 和 `_redirects` 仍指向当前正式入口。
 4. 检查桌面端输入、生成、样式、预览和导出。
 5. 检查 iOS 与 Android 常见宽度下的输入、预览和底部导航。

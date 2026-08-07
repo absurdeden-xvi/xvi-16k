@@ -2,7 +2,7 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#eef1ef" />
     <meta name="description" content="XVI / 十六开，为中文创作者设计的文本长图排版器。" />
     <meta name="apple-mobile-web-app-title" content="XVI / 十六开" />
@@ -22,8 +22,8 @@
     <link rel="stylesheet" href="https://fontsapi.zeoseven.com/192/main/result.css" />
     <link rel="stylesheet" href="https://fontsapi.zeoseven.com/376/main/result.css" />
     <link rel="stylesheet" href="https://fontsapi.zeoseven.com/634/main/result.css" />
-    <link rel="stylesheet" href="styles.css?v=0.7.8" />
-    <link rel="stylesheet" href="xvi-next.css?v=0.7.8" />
+  <link rel="stylesheet" href="styles.css?v=0.7.9-mobile1" />
+  <link rel="stylesheet" href="xvi-next.css?v=0.7.9-mobile1" />
   </head>
   <body data-mobile-tab="content">
     <header class="app-header">
@@ -33,7 +33,9 @@
       </div>
       <div class="header-actions">
         <span class="save-state" id="saveState">已保存</span>
-        <button class="button settings-button" id="settingsOpenButton" type="button" title="设置" aria-label="设置"><span class="settings-glyph" aria-hidden="true"><b>中</b><i>/</i><em>EN</em></span></button>
+        <button class="header-switch language-switch" id="languageToggleButton" type="button" title="切换界面语言" aria-label="切换界面语言">
+          <b data-language-label="zh">中</b><i>/</i><em data-language-label="en">EN</em>
+        </button>
         <button class="button feedback-button" id="feedbackOpenButton" type="button">来信</button>
         <button class="button button-primary" id="exportButton" type="button" title="PNG · 1792 px · 自动高度" disabled><span aria-hidden="true">↓</span>快速导出</button>
       </div>
@@ -80,7 +82,7 @@
         </section>
 
         <section class="tab-panel" data-panel="design">
-          <div class="field-group">
+          <div class="field-group palette-section">
             <div class="field-group-title"><span>配色灵感</span><button id="randomPresetButton" type="button" title="从全部配色中随机选择" aria-label="从全部配色中随机选择">随机</button></div>
             <div class="palette-mode" aria-label="明暗主题">
               <button class="active" data-palette-mode="light" type="button">浅色</button>
@@ -121,6 +123,11 @@
             <label>标题<span class="color-input-wrap"><input id="titleColor" type="color" value="#26333a" /><output id="titleColorValue">#26333A</output></span></label>
             <label>强调<span class="color-input-wrap"><input id="accentColor" type="color" value="#9ebbc4" /><output id="accentColorValue">#9EBBC4</output></span></label>
           </div>
+          <div class="field-group compact-grid font-selectors">
+            <label>正文字体<select id="fontFamily"><optgroup label="拉丁 / Latin"><option value="latinCambria">Cambria</option><option value="latinSerif">Baskerville</option><option value="latinGeorgia">Georgia</option><option value="latinPalatino">Palatino</option><option value="latinHumanist">Avenir Next</option><option value="latinGrotesk">Helvetica Neue</option><option value="latinMono">SF Mono</option></optgroup><optgroup label="中文 / CJK"><option value="serif">宋体</option><option value="pingfang" selected>苹方</option><option value="neoZhiSong">霞鹜新致宋</option><option value="wenjin">文津宋体</option><option value="huiwen">汇文明朝体</option><option value="zhuque">朱雀仿宋</option><option value="winsong">司源赢宋</option><option value="lxgw">霞鹜文楷</option><option value="yozai">悠哉字体</option><option value="mono">等宽</option></optgroup></select></label>
+            <label>标题字体<select id="titleFontFamily"><optgroup label="拉丁 / Latin"><option value="latinDisplay">Didot / Bodoni</option><option value="latinCambria">Cambria</option><option value="latinSerif">Baskerville</option><option value="latinGeorgia">Georgia</option><option value="latinPalatino">Palatino</option><option value="latinHumanist">Avenir Next</option><option value="latinGrotesk">Helvetica Neue</option><option value="latinMono">SF Mono</option></optgroup><optgroup label="中文 / CJK"><option value="serif">宋体</option><option value="pingfang" selected>苹方</option><option value="neoZhiSong">霞鹜新致宋</option><option value="wenjin">文津宋体</option><option value="huiwen">汇文明朝体</option><option value="zhuque">朱雀仿宋</option><option value="winsong">司源赢宋</option><option value="lxgw">霞鹜文楷</option><option value="yozai">悠哉字体</option><option value="mono">等宽</option></optgroup></select></label>
+          </div>
+          <label class="font-upload" for="customFontInput"><input id="customFontInput" type="file" accept=".ttf,.otf,.woff,.woff2,font/ttf,font/otf,font/woff,font/woff2" /><span>＋ 导入本地字体</span><small id="customFontName">TTF · OTF · WOFF</small></label>
           <div class="field-group layout-family">
             <div class="field-group-title"><span>刊页模板</span></div>
             <div class="layout-template-grid">
@@ -130,11 +137,6 @@
               <button class="layout-template layout-section" data-layout-template="section" type="button"><i><b></b><em></em><span></span></i><strong>分节长页</strong></button>
             </div>
           </div>
-          <div class="field-group compact-grid font-selectors">
-            <label>正文字体<select id="fontFamily"><optgroup label="拉丁 / Latin"><option value="latinSerif">编辑衬线</option><option value="latinHumanist">人文无衬线</option><option value="latinGrotesk">新无衬线</option><option value="latinMono">拉丁等宽</option></optgroup><optgroup label="中文 / CJK"><option value="serif">宋体</option><option value="pingfang">苹方</option><option value="neoZhiSong">霞鹜新致宋</option><option value="wenjin">文津宋体</option><option value="huiwen">汇文明朝体</option><option value="zhuque">朱雀仿宋</option><option value="winsong">司源赢宋</option><option value="lxgw">霞鹜文楷</option><option value="yozai">悠哉字体</option><option value="mono">等宽</option></optgroup></select></label>
-            <label>标题字体<select id="titleFontFamily"><optgroup label="拉丁 / Latin"><option value="latinDisplay">展示衬线</option><option value="latinSerif">编辑衬线</option><option value="latinHumanist">人文无衬线</option><option value="latinGrotesk">新无衬线</option><option value="latinMono">拉丁等宽</option></optgroup><optgroup label="中文 / CJK"><option value="serif">宋体</option><option value="pingfang">苹方</option><option value="neoZhiSong">霞鹜新致宋</option><option value="wenjin">文津宋体</option><option value="huiwen">汇文明朝体</option><option value="zhuque">朱雀仿宋</option><option value="winsong">司源赢宋</option><option value="lxgw">霞鹜文楷</option><option value="yozai">悠哉字体</option><option value="mono">等宽</option></optgroup></select></label>
-          </div>
-          <label class="font-upload" for="customFontInput"><input id="customFontInput" type="file" accept=".ttf,.otf,.woff,.woff2,font/ttf,font/otf,font/woff,font/woff2" /><span>＋ 导入本地字体</span><small id="customFontName">TTF · OTF · WOFF</small></label>
           <div class="control-row"><label>正文字号<span><input class="number-field" data-setting="fontSize" type="number" min="16" max="72" value="32" /> px</span></label><input id="fontSize" type="range" min="16" max="72" value="32" /></div>
           <div class="control-row"><label>标题字号<span><input class="number-field" data-setting="titleSize" type="number" min="32" max="120" value="56" /> px</span></label><input id="titleSize" type="range" min="32" max="120" step="2" value="56" /></div>
           <div class="control-row"><label>行距<span><input class="number-field" data-setting="lineHeight" type="number" min="1.2" max="3" step="0.05" value="1.9" /></span></label><input id="lineHeight" type="range" min="1.2" max="3" step="0.05" value="1.9" /></div>
@@ -232,22 +234,6 @@
         </div>
       </section>
     </main>
-    <div class="settings-modal" id="settingsModal" hidden>
-      <div class="settings-backdrop" data-settings-close></div>
-      <section class="settings-card" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
-        <div class="settings-head">
-          <strong id="settingsTitle">设置</strong>
-          <button type="button" data-settings-close aria-label="关闭">×</button>
-        </div>
-        <div class="settings-row">
-          <span>语言</span>
-          <div class="settings-language" role="group" aria-label="界面语言">
-            <button class="active" type="button" data-language="zh">中文</button>
-            <button type="button" data-language="en">English</button>
-          </div>
-        </div>
-      </section>
-    </div>
     <!-- Only this explicit form is sent to the legacy receiver; article content is never included. -->
     <div class="feedback-modal" id="feedbackModal" hidden>
       <div class="feedback-backdrop" data-feedback-close></div>
@@ -267,6 +253,10 @@
     </div>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <script src="vendor/opencc.full.js"></script>
-    <script src="app-next.js?v=0.7.8"></script>
+    <script src="modules/config.js?v=0.7.9-font2"></script>
+    <script src="modules/i18n.js?v=0.7.9"></script>
+    <script src="modules/text-layout.js?v=0.7.9"></script>
+    <script src="modules/exporter.js?v=0.7.9"></script>
+  <script src="app-next.js?v=0.7.9-font3"></script>
   </body>
 </html>

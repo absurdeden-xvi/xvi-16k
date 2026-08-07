@@ -2,7 +2,7 @@
 
 XVI is a privacy-first, browser-based longform typesetting studio for Chinese writers. Finish the text first, generate a stable editorial composition, refine it, and export a publication-ready long image.
 
-- Current release: `v0.7.8`
+- Current release: `v0.7.9`
 - Product stage: public preview, not yet V1
 - Live demo: [xvi-16k.pages.dev](https://xvi-16k.pages.dev/)
 - Repository: [absurdeden-xvi/xvi-16k](https://github.com/absurdeden-xvi/xvi-16k)
@@ -63,6 +63,12 @@ The product principles remained the creator's own: composition begins only after
 ### Run and test
 
 Open [`index.html`](./index.html) directly in a modern browser, or visit the live demo. No installation, API key, sample account, or server is required. A useful judging path is: enter Chinese text, apply rich-text or regional conversion to a selection, generate the layout, edit the preview directly, switch templates and colors, then export at a chosen resolution.
+
+After changing JavaScript module boundaries, run the zero-dependency smoke test:
+
+```bash
+node tests/module-smoke.test.js
+```
 
 ## Current capabilities
 
@@ -128,7 +134,11 @@ Only an intentional feedback submission sends the entered feedback to the legacy
 | `xvi-next.html` | Workspace structure and feedback form |
 | `styles.css` | Shared controls and long-page composition styles |
 | `xvi-next.css` | Current desktop and mobile interface |
-| `app-next.js` | Editing, localization, composition, persistence, and export |
+| `app-next.js` | Interface state, preview orchestration, persistence, and export |
+| `modules/config.js` | Palettes, layout recipes, font stacks, and punctuation rules |
+| `modules/i18n.js` | English interface dictionaries and runtime messages |
+| `modules/text-layout.js` | Script conversion, paragraph cleanup, and Canvas line breaking |
+| `modules/exporter.js` | Canvas layout, rich-text drawing, and image download |
 | `vendor/opencc.full.js` | Regional Chinese conversion runtime |
 | `THIRD_PARTY_NOTICES.md` | Third-party software and font boundaries |
 | `legacy-v0.6.3.html` | Historical rollback reference |
@@ -169,7 +179,7 @@ Third-party components and online fonts retain their own licenses. See [Third-Pa
 
 为中文创作者设计的文本长图排版器。完整输入文字后，生成可继续微调并导出的长图。
 
-- 当前版本：`v0.7.8`
+- 当前版本：`v0.7.9`
 - 产品阶段：公开预览版，尚未进入 V1
 - 在线使用：[xvi-16k.pages.dev](https://xvi-16k.pages.dev/)
 - 代码仓库：[absurdeden-xvi/xvi-16k](https://github.com/absurdeden-xvi/xvi-16k)
@@ -237,6 +247,12 @@ Build Week 期间的主要协作方式是：创作者用自然语言和截图指
 
 项目是静态网页，没有安装和构建步骤。本地可直接打开 [`index.html`](./index.html)，正式页面由根网址加载。
 
+调整 JavaScript 模块边界后，可运行零依赖冒烟测试：
+
+```bash
+node tests/module-smoke.test.js
+```
+
 ## 隐私
 
 正文、导入字体和图片导出均在浏览器本地处理，不上传到项目服务器。草稿存放在浏览器的 `localStorage` 中。
@@ -251,7 +267,11 @@ Build Week 期间的主要协作方式是：创作者用自然语言和截图指
 | `xvi-next.html` | 当前工作台结构与反馈表单 |
 | `styles.css` | 共享基础样式与长图画布样式 |
 | `xvi-next.css` | 当前工作台的视觉与移动端样式 |
-| `app-next.js` | 编辑、排版、预览、本地保存和导出逻辑 |
+| `app-next.js` | 界面状态、预览编排、本地保存与导出流程 |
+| `modules/config.js` | 配色、版式参数、字体栈与中文标点禁则 |
+| `modules/i18n.js` | 英文界面字典与运行时提示 |
+| `modules/text-layout.js` | 简繁转换、段落清理与 Canvas 断行工具 |
+| `modules/exporter.js` | Canvas 布局、富文本绘制与图片下载 |
 | `vendor/opencc.full.js` | 简繁转换运行库 |
 | `THIRD_PARTY_NOTICES.md` | 第三方组件与在线字体授权边界 |
 | `legacy-v0.6.3.html` | 历史回退快照 |

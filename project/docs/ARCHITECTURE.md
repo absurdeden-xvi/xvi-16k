@@ -1,5 +1,18 @@
 # Frontend Architecture / 前端结构
 
+## Runtime modules
+
+XVI remains a no-build static site. The browser loads classic scripts in dependency order so the editor still works when `index.html` is opened directly from `file://`:
+
+1. `vendor/opencc.full.js`: regional Chinese conversion runtime
+2. `modules/config.js`: palettes, recipes, fonts, and punctuation rules
+3. `modules/i18n.js`: translation dictionaries
+4. `modules/text-layout.js`: pure text normalization and line-breaking helpers
+5. `modules/exporter.js`: Canvas layout, rich-text drawing, and image download
+6. `app-next.js`: DOM state, preview orchestration, persistence, and feedback
+
+Each module registers one narrow, read-only namespace on `window`. Mutable document state remains owned by `app-next.js`; modules do not read article content or browser storage.
+
 ## Data flow
 
 1. The user edits rich text inside `#bodyInput`.
@@ -46,6 +59,19 @@ The public interface runs on Cloudflare Pages and posts only the `xvi-feedback` 
 ---
 
 # 中文架构说明
+
+## 运行时模块
+
+XVI 仍是无构建步骤的静态网页。浏览器按依赖顺序加载经典脚本，因此直接通过 `file://` 打开 `index.html` 时仍可使用：
+
+1. `vendor/opencc.full.js`：地区简繁转换运行库
+2. `modules/config.js`：配色、版式参数、字体与标点禁则
+3. `modules/i18n.js`：双语翻译字典
+4. `modules/text-layout.js`：纯文本规范化与断行工具
+5. `modules/exporter.js`：Canvas 布局、富文本绘制与图片下载
+6. `app-next.js`：DOM 状态、预览编排、本地保存与反馈
+
+每个模块只在 `window` 上登记一个边界明确的只读命名空间。可变文档状态仍统一由 `app-next.js` 管理；模块不会读取正文或浏览器存储。
 
 ## 数据流
 

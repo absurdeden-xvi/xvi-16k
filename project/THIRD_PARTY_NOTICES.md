@@ -6,6 +6,10 @@ XVI / 十六开 includes or loads third-party software and fonts. Those works ar
 
 The bundled Simplified and Traditional Chinese conversion library in `vendor/opencc.full.js` is distributed under the MIT License. Its full notice is preserved in [`vendor/opencc-js.LICENSE`](./vendor/opencc-js.LICENSE).
 
+## Noto Serif SC
+
+`assets/fonts/NotoSerifSC-Regular.otf` is bundled to provide consistent Chinese serif rendering across desktop, iOS, Android, and image export. Copyright 2017 Adobe Systems Incorporated. Noto is a trademark of Google Inc. The font is distributed under the SIL Open Font License 1.1; the full license is preserved in [`assets/fonts/OFL-NotoSerifSC.txt`](./assets/fonts/OFL-NotoSerifSC.txt).
+
 ## Online fonts
 
 The app currently requests font stylesheets from jsDelivr and ZeoSeven Fonts. Each font remains subject to the license and terms published by its respective author or distributor. The project does not claim ownership of, sublicense, or redistribute those remote font files.
@@ -21,6 +25,10 @@ XVI / 十六开包含或在线载入第三方软件与字体。这些作品不�
 ## OpenCC-JS
 
 `vendor/opencc.full.js` 中的简繁转换运行库采用 MIT License。完整原始许可保存在 [`vendor/opencc-js.LICENSE`](./vendor/opencc-js.LICENSE)。
+
+## Noto Serif SC
+
+`assets/fonts/NotoSerifSC-Regular.otf` 用于保证桌面端、iOS、Android 与图片导出中的中文衬线体显示一致。字体版权归 Adobe Systems Incorporated 所有，Noto 为 Google Inc. 的商标。该字体采用 SIL Open Font License 1.1，完整许可保存在 [`assets/fonts/OFL-NotoSerifSC.txt`](./assets/fonts/OFL-NotoSerifSC.txt)。
 
 ## 在线字体
 

@@ -1,6 +1,14 @@
+@font-face {
+  font-family: "XVI Noto Serif SC";
+  src: url("assets/fonts/NotoSerifSC-Regular.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light;
-  font-family: Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
   color: #293330;
   background: #e6ebe9;
   font-synthesis: none;
@@ -73,7 +81,7 @@ button { color: inherit; }
 .font-upload small { color: #9aa29f; font-size: 9px; }
 input[type="text"], textarea, select, .rich-editor { width: 100%; border: 1px solid #d2d8d5; border-radius: 6px; background: #fff; color: var(--ink); outline: none; }
 input[type="text"], select { height: 42px; padding: 0 11px; }
-textarea { min-height: 390px; resize: vertical; padding: 16px; line-height: 1.8; font-family: "Songti SC", SimSun, serif; font-size: 14px; }
+textarea { min-height: 390px; resize: vertical; padding: 16px; line-height: 1.8; font-family: inherit; font-size: 14px; }
 input[type="text"]:focus, textarea:focus, select:focus, .rich-editor:focus { border-color: #9bb0a9; box-shadow: 0 0 0 3px rgba(154, 179, 170, .15); }
 .text-field { display: grid; gap: 9px; }
 .field-heading { display: flex; justify-content: space-between; color: #59635f; font-size: 11px; font-weight: 700; }
@@ -82,7 +90,7 @@ input[type="text"]:focus, textarea:focus, select:focus, .rich-editor:focus { bor
 .format-toolbar button { width: 30px; height: 26px; display: grid; place-items: center; border: 0; border-radius: 4px; background: transparent; color: #64716c; cursor: pointer; font: 13px/1 Georgia, serif; }
 .format-toolbar button:hover, .format-toolbar button.active { background: #fff; color: #31443d; box-shadow: 0 1px 4px rgba(52, 70, 63, .1); }
 .format-toolbar button:last-child { margin-left: auto; font: 17px/1 Arial, sans-serif; }
-.rich-editor { min-height: 390px; max-height: 56vh; overflow: auto; padding: 16px; font: 14px/1.8 "Songti SC", SimSun, serif; white-space: pre-wrap; }
+.rich-editor { min-height: 390px; max-height: 56vh; overflow: auto; padding: 16px; font-family: inherit; font-size: 14px; line-height: 1.8; white-space: pre-wrap; }
 .rich-editor, .poster { font-synthesis: weight style; }
 .rich-editor:empty::before { content: "粘贴或输入正文"; color: #a1aaa6; }
 .rich-editor p, .rich-editor div { margin: 0 0 1em; }
@@ -243,7 +251,7 @@ input[type="color"] { width: 28px; height: 28px; border: 2px solid #fff; padding
   --poster-font-size: 32px;
   --poster-title-size: 56px;
   --poster-title-weight: 700;
-  --poster-title-font: "Songti SC", STSong, SimSun, serif;
+  --poster-title-font: "PingFang SC", "PingFang TC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   --poster-line-height: 1.9;
   --poster-letter-spacing: 2px;
   --poster-paragraph-spacing: 1.15em;
@@ -257,7 +265,7 @@ input[type="color"] { width: 28px; height: 28px; border: 2px solid #fff; padding
   color: var(--poster-text);
   background-color: var(--poster-bg);
   box-shadow: 0 20px 50px rgba(55, 72, 65, .12);
-  font-family: "Songti SC", STSong, SimSun, serif;
+  font-family: "PingFang SC", "PingFang TC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
 }
 .poster[hidden] { display: none; }
 .poster-index { display: flex; align-items: center; justify-content: space-between; margin-bottom: 64px; font: 600 11px/1 Arial, sans-serif; letter-spacing: 1px; }

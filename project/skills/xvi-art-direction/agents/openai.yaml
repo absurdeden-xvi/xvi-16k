@@ -1,0 +1,4 @@
+interface:
+  display_name: "XVI 设计方向"
+  short_description: "依据既有判断审查并探索 XVI 的界面、刊页与品牌设计"
+  default_prompt: "使用 $xvi-art-direction 审查当前 XVI 界面，先提出不改动正式文件的设计方向。"

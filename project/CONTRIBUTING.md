@@ -19,7 +19,8 @@ Open `index.html` or `xvi-next.html` directly. Use the deployed Cloudflare site 
 
 - Shared canvas and controls: `styles.css`
 - Current workspace visual system: `xvi-next.css`
-- Editing, composition, and export logic: `app-next.js`
+- Runtime configuration and pure helpers: `modules/`
+- Editing, preview orchestration, persistence, and export: `app-next.js`
 - Current workspace structure: `xvi-next.html`
 
 Large logic sections should keep concise comments that explain boundaries, data flow, or compatibility constraints rather than restating the code.
@@ -69,7 +70,8 @@ XVI / 十六开目前是无构建步骤的静态网页项目。
 
 - 基础画布与共享控件：`styles.css`
 - 当前工作台视觉：`xvi-next.css`
-- 编辑、排版与导出逻辑：`app-next.js`
+- 运行时配置与纯工具函数：`modules/`
+- 编辑、预览编排、本地保存与导出流程：`app-next.js`
 - 当前工作台结构：`xvi-next.html`
 
 大型逻辑按文件中的分区注释维护。注释应说明边界、数据流或兼容原因，不重复描述代码字面行为。

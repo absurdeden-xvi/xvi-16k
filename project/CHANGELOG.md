@@ -2,6 +2,15 @@
 
 Versions follow `major.minor.patch`. Before V1, minor versions represent verifiable product stages and patch versions represent functional or experiential refinements within the same stage.
 
+## v0.7.9 - 2026-08-07
+
+- Split visual configuration, translation dictionaries, and pure text-layout helpers out of `app-next.js`.
+- Preserved direct `file://` use and the no-build deployment model by loading small ordered browser scripts instead of introducing a bundler.
+- Added explicit module boundaries for future pagination and multi-image export work without changing the current interface or generated output.
+- Replaced the language settings detour with a direct `中 / EN` header switch.
+- Added a locally hosted, OFL-licensed Chinese serif face so the Song typeface option renders consistently on iOS while the interface and new documents continue to default to the system font and PingFang.
+- Refined the mobile header controls and simplified the Style step with a shorter live preview, horizontal palette and template browsing, and compact two-column font controls.
+
 ## v0.7.8 - 2026-07-20
 
 - Replaced the abstract language mark with a compact `中 / EN` switch label.
@@ -113,6 +122,14 @@ Versions follow `major.minor.patch`. Before V1, minor versions represent verifia
 # 中文版本记录
 
 版本遵循 `主版本.次版本.修订号`。V1 之前的次版本代表可验证的产品阶段，修订号用于同一阶段内的功能与体验更新。
+
+## v0.7.9 - 2026-08-07
+
+- 将视觉配置、双语字典和纯文本排版工具从 `app-next.js` 拆分为独立模块。
+- 使用按顺序加载的小型浏览器脚本，继续兼容 `file://` 直接打开与无构建部署，不引入打包工具。
+- 为后续自动分页与多图导出建立明确边界，同时不改变现有界面和生成结果。
+- 加入本地托管、采用 OFL 授权的中文宋体，确保 iOS 上的“宋体”选项正常显示；界面与新建文档仍分别默认使用系统字体和苹方。
+- 调整移动端顶部操作区，并精简“样式”步骤：缩短实时预览、横向浏览配色与刊页模板、以双列紧凑呈现字体控件。
 
 ## v0.7.8 - 2026-07-20
 
