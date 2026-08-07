@@ -72,7 +72,7 @@
     latinHumanist: '"Avenir Next", Avenir, "Segoe UI", Arial, sans-serif',
     latinGrotesk: '"Helvetica Neue", Helvetica, Arial, sans-serif',
     latinMono: '"SFMono-Regular", Menlo, Monaco, Consolas, monospace',
-    serif: '"XVI Noto Serif SC", "Songti SC", STSong, "Noto Serif CJK SC", serif',
+    serif: '"Songti SC", "STSongti-SC-Regular", STSong, SimSun, "XVI Noto Serif SC", "Noto Serif CJK SC", serif',
     pingfang: '"PingFang SC", "PingFang TC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
     "sans-serif": '"PingFang SC", "Microsoft YaHei", sans-serif',
     lxgw: '"LXGW WenKai", "Kaiti SC", KaiTi, serif',
