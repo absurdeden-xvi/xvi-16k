@@ -4,7 +4,7 @@ XVI / 十六开 is a static HTML, CSS, and JavaScript project with no build step
 
 ## Local preview
 
-Open `index.html` or `xvi-next.html` directly. Use the deployed Cloudflare site when testing the cross-origin Netlify Forms receiver; local `file://` behavior is not a release signal.
+Open `index.html` directly. `xvi-next.html` is an identical compatibility copy for old links and comparison, not a second implementation. Use the deployed Cloudflare site when testing the cross-origin Netlify Forms receiver; local `file://` behavior is not a release signal.
 
 ## Change principles
 
@@ -20,8 +20,9 @@ Open `index.html` or `xvi-next.html` directly. Use the deployed Cloudflare site 
 - Shared canvas and controls: `styles.css`
 - Current workspace visual system: `xvi-next.css`
 - Runtime configuration and pure helpers: `modules/`
-- Editing, preview orchestration, persistence, and export: `app-next.js`
-- Current workspace structure: `xvi-next.html`
+- Editing, preview orchestration, persistence, direct editing, and feedback: `app-next.js`
+- Production document structure: `index.html`
+- Compatibility document mirror: `xvi-next.html`
 
 Large logic sections should keep concise comments that explain boundaries, data flow, or compatibility constraints rather than restating the code.
 
@@ -54,7 +55,7 @@ XVI / 十六开目前是无构建步骤的静态网页项目。
 
 ## 本地查看
 
-直接打开 `index.html` 或 `xvi-next.html` 即可。测试跨站投递到 Netlify Forms 时，请使用 Cloudflare 正式页面；本地 `file://` 的表现不作为发布依据。
+直接打开 `index.html` 即可。`xvi-next.html` 是为旧链接与对照保留的同内容兼容副本，不是第二套实现。测试跨站投递到 Netlify Forms 时，请使用 Cloudflare 正式页面；本地 `file://` 的表现不作为发布依据。
 
 ## 修改原则
 
@@ -71,8 +72,9 @@ XVI / 十六开目前是无构建步骤的静态网页项目。
 - 基础画布与共享控件：`styles.css`
 - 当前工作台视觉：`xvi-next.css`
 - 运行时配置与纯工具函数：`modules/`
-- 编辑、预览编排、本地保存与导出流程：`app-next.js`
-- 当前工作台结构：`xvi-next.html`
+- 编辑、预览编排、本地保存、画布编辑与反馈：`app-next.js`
+- 正式页面结构：`index.html`
+- 兼容页面副本：`xvi-next.html`
 
 大型逻辑按文件中的分区注释维护。注释应说明边界、数据流或兼容原因，不重复描述代码字面行为。
 

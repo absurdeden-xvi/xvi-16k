@@ -1,21 +1,29 @@
 # XVI / 十六开
 
-XVI is a privacy-first, browser-based longform typesetting studio for Chinese writers. Finish the text first, generate a stable editorial composition, refine it, and export a publication-ready long image.
+XVI is a privacy-first, browser-based longform typesetting studio built around Chinese writing and social publishing. Finish the text first, generate a stable editorial composition, refine it, and export a publication-ready long image.
 
 - Current release: `v0.7.9`
-- Product stage: public preview, not yet V1
+- Product stage: public beta, not yet V1
 - Live demo: [xvi-16k.pages.dev](https://xvi-16k.pages.dev/)
 - Repository: [absurdeden-xvi/xvi-16k](https://github.com/absurdeden-xvi/xvi-16k)
 - Feedback: [absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com)
 
+## Product at a glance
+
+XVI separates writing from composition. The editor stays focused while the text is being entered; the long image is generated only when the writer asks for it. From there, typography, spacing, color, structure, and local emphasis remain adjustable in the controls or directly on the preview.
+
+- Static HTML, CSS, and JavaScript; no build step, account, or API key
+- Chinese-first composition with a complete English interface
+- Desktop and mobile writing, preview, styling, and export workflows
+- Local article processing, draft storage, font import, and image generation
+- Cloudflare Pages for the public app; Netlify only receives intentional feedback submissions
+
+The production entry is [`index.html`](./index.html). [`xvi-next.html`](./xvi-next.html) is an identical compatibility copy retained for old links and local comparison; it is not a separate product version.
+
 ## OpenAI Build Week submission
 
-XVI is a privacy-first, browser-based longform typesetting studio for Chinese writers. Writers finish their text first, generate an editorial long image, and then refine typography, spacing, color, layout structure, and inline emphasis before exporting PNG or JPG files.
-
-- Live demo: [xvi-16k.pages.dev](https://xvi-16k.pages.dev/)
 - Submission track: **Apps for Your Life**
-- Runtime: static HTML, CSS, and JavaScript; no build step or account required
-- Local processing: article text, imported fonts, drafts, and image generation stay in the browser
+- Live demo: [xvi-16k.pages.dev](https://xvi-16k.pages.dev/)
 
 ### Build Week scope
 
@@ -104,7 +112,7 @@ node tests/module-smoke.test.js
 | Export | Standard, High, and Ultra resolution | Implemented | Shows final pixel width before saving |
 | Privacy | Local-only article processing | Implemented | Article text, imported fonts, drafts, and image generation stay on-device |
 | Feedback | Explicit feedback form and email notification | Implemented | Netlify receives feedback only; article content is never attached |
-| Mobile | Phone input, preview, and export workflow | In progress | Foundational layout exists; stability and ergonomics still need refinement |
+| Mobile | Phone input, preview, styling, and export | Implemented; refining | Complete three-step workflow with compact controls; real-device ergonomics remain an active polish area |
 | Export | Automatic pagination and `3:4` batch export | Planned | Intended for Xiaohongshu and other multi-image publishing workflows |
 | Templates | Save reusable custom templates | Planned | Named personal presets after the core structures stabilize |
 | Content | Images, epigraphs, and section dividers | Future | Richer long-form document structure |
@@ -131,10 +139,10 @@ Only an intentional feedback submission sends the entered feedback to the legacy
 | Path | Purpose |
 | --- | --- |
 | `index.html` | Current deployed entry point |
-| `xvi-next.html` | Workspace structure and feedback form |
+| `xvi-next.html` | Compatibility mirror of the production document structure |
 | `styles.css` | Shared controls and long-page composition styles |
 | `xvi-next.css` | Current desktop and mobile interface |
-| `app-next.js` | Interface state, preview orchestration, persistence, and export |
+| `app-next.js` | Interface state, DOM orchestration, persistence, direct editing, and feedback |
 | `modules/config.js` | Palettes, layout recipes, font stacks, and punctuation rules |
 | `modules/i18n.js` | English interface dictionaries and runtime messages |
 | `modules/text-layout.js` | Script conversion, paragraph cleanup, and Canvas line breaking |
@@ -156,10 +164,11 @@ Only an intentional feedback submission sends the entered feedback to the legacy
 - [Research index](./docs/README.md)
 - [Early product questionnaire: selected answers](./docs/EARLY_PRODUCT_QUESTIONNAIRE.md)
 - [Build Week demo script](./docs/DEMO_SCRIPT.md)
+- [Design direction (Chinese)](./docs/XVI_DESIGN_DIRECTION_ZH.md)
 
 ## Next priorities
 
-1. Improve mobile input, preview, and export stability.
+1. Continue real-device refinement of mobile input, styling, preview, and export.
 2. Complete automatic pagination and Xiaohongshu-style `3:4` batch export.
 3. Continue refining editorial structures rather than adding recolored duplicates.
 4. Audit online font provenance, licensing, and loading reliability in mainland China.
@@ -177,15 +186,34 @@ Third-party components and online fonts retain their own licenses. See [Third-Pa
 
 # 中文说明
 
-为中文创作者设计的文本长图排版器。完整输入文字后，生成可继续微调并导出的长图。
+围绕中文写作与社交平台发布场景设计的文本长图排版器。完整输入文字后，再生成可继续微调并导出的长图。
 
 - 当前版本：`v0.7.9`
-- 产品阶段：公开预览版，尚未进入 V1
+- 产品阶段：公开测试版，尚未进入 V1
 - 在线使用：[xvi-16k.pages.dev](https://xvi-16k.pages.dev/)
 - 代码仓库：[absurdeden-xvi/xvi-16k](https://github.com/absurdeden-xvi/xvi-16k)
 - 反馈邮箱：[absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com)
 
-## 创作主导与 GPT-5.6 的使用边界
+## 当前产品概况
+
+XVI 将输入和排版分开：写作时不持续重绘长图，完成后再由用户主动生成。生成结果可以继续通过控制面板或预览画布调整字体、间距、配色、结构和局部格式。
+
+- 使用原生 HTML、CSS 与 JavaScript，无需构建、账号或 API Key
+- 以中文排版为主，同时提供完整英文界面
+- 桌面端与移动端均可完成输入、预览、样式调整和导出
+- 正文、草稿、导入字体与图片生成留在浏览器本地
+- 正式页面由 Cloudflare Pages 托管；Netlify 只接收用户主动发送的反馈
+
+正式入口是 [`index.html`](./index.html)。[`xvi-next.html`](./xvi-next.html) 是为旧链接和本地对照保留的同内容兼容副本，不代表另一套产品版本。
+
+## OpenAI Build Week 参赛说明
+
+- 参赛方向：**Apps for Your Life**
+- 在线演示：[xvi-16k.pages.dev](https://xvi-16k.pages.dev/)
+
+XVI 在活动开始前已经是可运行的早期原型。2026 年 7 月 13 日后的 Git 记录与 [`CHANGELOG.md`](./CHANGELOG.md) 区分了 Build Week 阶段新增或大幅重做的内容，包括当前工作台、四种刊页结构、十六套特别配色、画布内编辑、地区简繁转换、移动端流程、双语界面、导出与部署文档。
+
+### 创作主导与 GPT-5.6 的使用边界
 
 XVI 是创作者第一个真正完整的编程项目，但它并不是由 AI 生成的产品概念。需求来自她近十年的写作爱好与真实发布场景：写完一篇文章以后，怎样更快速、更自由地把它排成适合社交平台发布的长图。最初产品问卷中的每一条回答均由创作者本人逐字写下；工作流程、隐私原则、功能优先级、配色取舍、视觉批评与最终决定也始终由她完成。
 
@@ -231,7 +259,7 @@ Build Week 期间的主要协作方式是：创作者用自然语言和截图指
 | 导出 | 普通、高清、超清 | 已实现 | 保存前直接显示最终像素宽度 |
 | 隐私 | 正文全程本地处理 | 已实现 | 正文、导入字体、草稿和图片生成不离开设备 |
 | 反馈 | 主动反馈与邮件通知 | 已实现 | Netlify 仅接收反馈文字，绝不附带文章正文 |
-| 移动端 | 手机输入、预览与导出 | 优化中 | 已有基础流程，仍需继续提高稳定性与操作效率 |
+| 移动端 | 手机输入、样式、预览与导出 | 已实现，持续打磨 | 三步流程和紧凑控件已经可用，仍需继续进行真机体验优化 |
 | 导出 | 自动分页与 `3:4` 多图导出 | 计划中 | 面向小红书等多图发布场景 |
 | 模板 | 保存自定义模板 | 计划中 | 核心刊页稳定后支持命名与复用个人样式 |
 | 内容 | 图片、题记、章节分隔 | 后续探索 | 丰富长文的内容结构 |
@@ -263,11 +291,11 @@ node tests/module-smoke.test.js
 
 | 路径 | 用途 |
 | --- | --- |
-| `index.html` | 根网址入口，转到当前正式工作台 |
-| `xvi-next.html` | 当前工作台结构与反馈表单 |
+| `index.html` | 当前正式入口与完整工作台结构 |
+| `xvi-next.html` | 与正式页面一致的旧链接兼容副本 |
 | `styles.css` | 共享基础样式与长图画布样式 |
 | `xvi-next.css` | 当前工作台的视觉与移动端样式 |
-| `app-next.js` | 界面状态、预览编排、本地保存与导出流程 |
+| `app-next.js` | 界面状态、DOM 编排、本地保存、画布编辑与反馈 |
 | `modules/config.js` | 配色、版式参数、字体栈与中文标点禁则 |
 | `modules/i18n.js` | 英文界面字典与运行时提示 |
 | `modules/text-layout.js` | 简繁转换、段落清理与 Canvas 断行工具 |
@@ -288,10 +316,12 @@ node tests/module-smoke.test.js
 - [第三方授权说明](./THIRD_PARTY_NOTICES.md)
 - [研究资料索引](./docs/README.md)
 - [早期产品问卷：精选回答](./docs/EARLY_PRODUCT_QUESTIONNAIRE.md)
+- [Build Week 演示稿](./docs/DEMO_SCRIPT.md)
+- [设计方向](./docs/XVI_DESIGN_DIRECTION_ZH.md)
 
 ## 下一阶段
 
-1. 提升手机端输入、预览和导出的稳定性。
+1. 继续打磨手机端输入、样式、预览和导出的真机体验。
 2. 完成长文自动分页与小红书 `3:4` 多图批量导出。
 3. 继续打磨刊页结构，而不是只增加换色模板。
 4. 复核在线字体来源、授权和国内网络加载稳定性。

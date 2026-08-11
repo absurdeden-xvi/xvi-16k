@@ -2,6 +2,12 @@
 
 Versions follow `major.minor.patch`. Before V1, minor versions represent verifiable product stages and patch versions represent functional or experiential refinements within the same stage.
 
+## Unreleased
+
+- Consolidated the README and product documentation around the actual `v0.7.9` release state.
+- Clarified the production entry, compatibility mirror, mobile status, module boundaries, and Cloudflare/Netlify responsibilities.
+- Updated the living design brief with the confirmed desktop/mobile typography boundary and current mobile control principles.
+
 ## v0.7.9 - 2026-08-07
 
 - Split visual configuration, translation dictionaries, and pure text-layout helpers out of `app-next.js`.
@@ -122,6 +128,12 @@ Versions follow `major.minor.patch`. Before V1, minor versions represent verifia
 # 中文版本记录
 
 版本遵循 `主版本.次版本.修订号`。V1 之前的次版本代表可验证的产品阶段，修订号用于同一阶段内的功能与体验更新。
+
+## 尚未发布
+
+- 按照 `v0.7.9` 的实际状态统一 README 与产品文档。
+- 明确正式入口、兼容副本、移动端状态、模块边界以及 Cloudflare / Netlify 的职责。
+- 将桌面端与移动端的字体边界、当前移动控件原则补充进持续更新的设计文档。
 
 ## v0.7.9 - 2026-08-07
 

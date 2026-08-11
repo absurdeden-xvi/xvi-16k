@@ -58,7 +58,7 @@ Target length: 2 minutes 30 seconds. The final video must remain under three min
 
 **Voiceover:**
 
-> XVI began as a personal tool for writers who care about both language and presentation. It is now a working public preview, and the next step is reliable multi-image slicing and a stronger mobile publishing workflow.
+> XVI began as a personal tool for writers who care about both language and presentation. It is now a working public beta, and the next step is reliable multi-image slicing and continued real-device refinement of the mobile publishing workflow.
 
 ## Recording checklist
 

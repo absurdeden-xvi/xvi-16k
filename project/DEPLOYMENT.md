@@ -10,13 +10,13 @@
 - Publish directory: `project`
 - Build command: none; Cloudflare Pages publishes the static files directly
 
-Every new commit on `main` triggers a Cloudflare Pages production deployment. `_redirects` proxies the root URL to `xvi-next.html`, so users never need a visible `.html` suffix.
+Every new commit on `main` triggers a Cloudflare Pages production deployment. The root URL serves `index.html` directly, so users never need a visible `.html` suffix. `xvi-next.html` remains only as a compatibility mirror for older links.
 
 ## Before deployment
 
 1. Confirm that the version and release date match in `README.md` and `CHANGELOG.md`.
 2. Use one cache-version query parameter across `styles.css`, `xvi-next.css`, `modules/*.js`, and `app-next.js`.
-3. Confirm that `index.html` and `_redirects` still point to the current production workspace.
+3. Confirm that `index.html` is the production entry, `xvi-next.html` still matches it, and `_redirects` contains no stale proxy rule.
 4. Test desktop input, generation, style controls, preview, and export.
 5. Test input, preview, and bottom navigation at common iOS and Android widths.
 6. Export both PNG and JPG and verify Standard, High, and Ultra pixel widths.
@@ -61,13 +61,13 @@ For a code-level rollback, create a new revert commit and push it to `main`. `le
 - 发布目录：`project`
 - 构建命令：无，直接发布静态文件
 
-`main` 有新提交时，Cloudflare Pages 自动开始生产部署。`_redirects` 将根网址代理到 `xvi-next.html`，用户无需访问带 `.html` 的地址。
+`main` 有新提交时，Cloudflare Pages 自动开始生产部署。根网址直接加载 `index.html`，用户无需访问带 `.html` 的地址；`xvi-next.html` 只作为旧链接的兼容副本保留。
 
 ## 发布前
 
 1. 确认 `README.md` 和 `CHANGELOG.md` 的版本号与发布日期。
 2. 将 `styles.css`、`xvi-next.css`、`modules/*.js` 和 `app-next.js` 的查询参数统一为同一版本。
-3. 检查 `index.html` 和 `_redirects` 仍指向当前正式入口。
+3. 检查 `index.html` 仍是正式入口、`xvi-next.html` 与其一致，并确认 `_redirects` 中没有过期代理规则。
 4. 检查桌面端输入、生成、样式、预览和导出。
 5. 检查 iOS 与 Android 常见宽度下的输入、预览和底部导航。
 6. 分别导出 PNG 与 JPG，并验证普通、高清、超清像素宽度。

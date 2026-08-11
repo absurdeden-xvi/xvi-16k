@@ -6,7 +6,7 @@ A Chinese longform image typesetting tool that accepts finished writing, generat
 
 ## Current stage
 
-`v0.7.1` is a public preview. The core workflow is usable, but mobile reliability, template maturity, font-license verification, and multi-image export have not reached the V1 standard.
+`v0.7.9` is a public beta. The complete desktop workflow and a compact mobile workflow are usable; template maturity, real-device polish, font-license verification, and multi-image export have not yet reached the V1 standard.
 
 V1 does not simply mean “more features.” XVI reaches V1 only when the core flow is stable, default output is trustworthy, and neither desktop nor mobile blocks the user.
 
@@ -68,7 +68,7 @@ Article text, imported fonts, and image export should remain local whenever poss
 
 ### P0: release stability
 
-- Critical mobile workflow
+- Real-device mobile refinement and regression testing
 - Export parity and cross-browser testing
 - Draft recovery and error reporting
 - Reliable font fallback when online loading fails
@@ -122,7 +122,7 @@ Article text, imported fonts, and image export should remain local whenever poss
 
 ## 当前阶段
 
-`v0.7.1` 是公开预览版。核心工作流已经可用，但移动端、模板成熟度、字体授权复核和多图导出尚未达到 V1 标准。
+`v0.7.9` 是公开测试版。桌面端完整流程与紧凑的移动端流程已经可用，但真机细节、模板成熟度、字体授权复核和多图导出仍未达到 V1 标准。
 
 V1 不是“功能更多”的代称。只有核心流程稳定、默认结果可信、手机和桌面端都不会阻断用户时，才进入 V1。
 
@@ -184,7 +184,7 @@ V1 不是“功能更多”的代称。只有核心流程稳定、默认结果�
 
 ### P0：发布稳定性
 
-- 移动端关键流程
+- 移动端真机细节与回归测试
 - 导出一致性与跨浏览器测试
 - 草稿恢复与错误提示
 - 字体加载失败时的可靠回退

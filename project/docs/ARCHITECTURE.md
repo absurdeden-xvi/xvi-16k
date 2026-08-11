@@ -13,6 +13,8 @@ XVI remains a no-build static site. The browser loads classic scripts in depende
 
 Each module registers one narrow, read-only namespace on `window`. Mutable document state remains owned by `app-next.js`; modules do not read article content or browser storage.
 
+`index.html` is the production entry. `xvi-next.html` intentionally mirrors the same document structure for old links and local comparison. Behavioral changes must keep the two files identical until that compatibility file is retired.
+
 ## Data flow
 
 1. The user edits rich text inside `#bodyInput`.
@@ -72,6 +74,8 @@ XVI 仍是无构建步骤的静态网页。浏览器按依赖顺序加载经典�
 6. `app-next.js`：DOM 状态、预览编排、本地保存与反馈
 
 每个模块只在 `window` 上登记一个边界明确的只读命名空间。可变文档状态仍统一由 `app-next.js` 管理；模块不会读取正文或浏览器存储。
+
+`index.html` 是正式入口。`xvi-next.html` 为旧链接和本地对照保留，刻意维持相同的页面结构；在兼容副本正式移除前，行为修改必须保持两者一致。
 
 ## 数据流
 

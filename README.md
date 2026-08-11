@@ -1,46 +1,46 @@
+<p align="right">
+  <strong>English</strong> · <a href="./README.zh-CN.md">简体中文</a>
+</p>
+
 # XVI / 十六开
 
-XVI is a privacy-first, browser-based longform typesetting studio for Chinese writers. Finish the text first, generate a stable editorial composition, refine it, and export a publication-ready long image.
+XVI is a privacy-first, browser-based longform typesetting studio built around Chinese writing and social publishing. Finish the text first, generate a stable editorial composition, refine it, and export a publication-ready long image.
 
-- Current release: `v0.7.8`
-- Product stage: public preview, not yet V1
-- Live demo: [xvi-16k.pages.dev](https://xvi-16k.pages.dev/)
-- Repository: [absurdeden-xvi/xvi-16k](https://github.com/absurdeden-xvi/xvi-16k)
-- Feedback: [absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com)
+- **Current release:** `v0.7.9`
+- **Product stage:** public beta, not yet V1
+- **Live app:** [xvi-16k.pages.dev](https://xvi-16k.pages.dev/)
+- **Feedback:** [absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com)
 
-## OpenAI Build Week submission
+## Product at a glance
 
-XVI is a privacy-first, browser-based longform typesetting studio for Chinese writers. Writers finish their text first, generate an editorial long image, and then refine typography, spacing, color, layout structure, and inline emphasis before exporting PNG or JPG files.
+XVI separates writing from composition. The editor stays focused while text is being entered; the long image is generated only when the writer asks for it. Typography, spacing, color, structure, and local emphasis can then be refined through the controls or directly on the preview.
 
-- Live demo: [xvi-16k.pages.dev](https://xvi-16k.pages.dev/)
-- Submission track: **Apps for Your Life**
-- Runtime: static HTML, CSS, and JavaScript; no build step or account required
-- Local processing: article text, imported fonts, drafts, and image generation stay in the browser
+- Static HTML, CSS, and JavaScript; no build step, account, or API key
+- Chinese-first composition with a complete English interface
+- Desktop and mobile writing, styling, preview, and export workflows
+- Local article processing, draft storage, font import, and image generation
+- Cloudflare Pages for the public app; Netlify only receives intentional feedback submissions
 
-### Build Week scope
+## OpenAI Build Week
 
-XVI existed before the event as an early working prototype. The dated Git history and [`CHANGELOG.md`](./project/CHANGELOG.md) distinguish the work completed after July 13, 2026. The Build Week phase added or substantially rebuilt:
+- **Track:** Apps for Your Life
+- **Demo:** [xvi-16k.pages.dev](https://xvi-16k.pages.dev/)
 
-- the current editorial workspace and root deployment;
-- four layout structures and sixteen curated special color systems;
-- direct on-canvas editing for headings, body text, chapter labels, size, color, and inline styles;
-- Simplified Chinese, Traditional Chinese (Hong Kong), and Traditional Chinese (Taiwan) conversion;
-- local font import and explicit privacy boundaries;
-- mobile input and preview adaptation;
-- clearer export formats, resolutions, and final pixel widths;
-- bilingual localization, hybrid feedback delivery, deployment recovery, architecture notes, and release documentation.
+XVI existed before Build Week as an early working prototype. The dated Git history and [changelog](./project/CHANGELOG.md) distinguish the work completed after July 13, 2026. During Build Week, the current editorial workspace, four layout structures, sixteen named palettes, direct preview editing, regional Chinese conversion, mobile workflow, bilingual interface, export controls, deployment recovery, and judging documentation were added or substantially rebuilt.
 
 ### Human direction and authorship
 
-XVI is the creator's first complete coding project, but it is not an AI-generated product concept. The original need came from her own writing practice: after finishing a piece, she wanted a faster and more flexible way to turn it into a carefully typeset image for social platforms. She completed the initial product questionnaire by typing every answer herself, defined the workflow and privacy boundaries, named or rejected visual directions, and made the final call on every feature and design iteration.
+XVI is the creator's first complete coding project, but it is not an AI-generated product concept. The original need came from her own writing practice: after finishing a piece, she wanted a faster and more flexible way to turn it into a carefully typeset image for social platforms.
+
+She wrote every answer in the initial product questionnaire herself, defined the workflow and privacy boundaries, accepted or rejected each visual direction, and made the final decision on every feature and design iteration.
 
 > **GPT-5.6 was used inside Codex for implementation, debugging, testing, deployment, and documentation. It did not invent the product brief, answer the questionnaire, choose the aesthetic, write users' articles, or make final product decisions.**
 
-A curated bilingual selection of the creator's early, pre-implementation answers is preserved in [Early Product Questionnaire: Selected Answers](./project/docs/EARLY_PRODUCT_QUESTIONNAIRE.md).
+A curated bilingual selection of the creator's early answers is preserved in [Early Product Questionnaire: Selected Answers](./project/docs/EARLY_PRODUCT_QUESTIONNAIRE.md).
 
 ### How Codex and GPT-5.6 were used
 
-During OpenAI Build Week, GPT-5.6 and Codex served as the engineering partner for this human-directed product. The working loop was conversational and concrete:
+The working loop was conversational and concrete:
 
 1. The creator described a real usability or visual problem in natural language, often with a screenshot and precise criticism.
 2. Codex inspected the existing code and translated that direction into a scoped HTML, CSS, or JavaScript change.
@@ -49,74 +49,66 @@ During OpenAI Build Week, GPT-5.6 and Codex served as the engineering partner fo
 
 GPT-5.6 and Codex materially accelerated:
 
-- implementing the editorial workspace from the creator's written requirements and successive visual decisions;
-- debugging rich-text parity across the input editor, DOM preview, and Canvas export so bold, italic, underline, strikethrough, color, and size survive image generation;
-- building Chinese-aware line breaking and punctuation handling for exported images;
-- integrating local Simplified Chinese, Traditional Chinese (Hong Kong), and Traditional Chinese (Taiwan) conversion;
-- restructuring mobile input, preview, and export behavior without replacing the desktop workflow;
+- implementing the editorial workspace from creator-written requirements and successive visual decisions;
+- keeping bold, italic, underline, strikethrough, color, and size consistent across the editor, DOM preview, and Canvas export;
+- building Chinese-aware line breaking and punctuation handling;
+- integrating selected-text conversion for Simplified Chinese, Traditional Chinese (Hong Kong), and Traditional Chinese (Taiwan);
+- restructuring mobile input, styling, preview, and export without replacing the desktop workflow;
 - auditing the local-only privacy boundary and separating Cloudflare hosting from the feedback receiver;
-- migrating deployment from Netlify to Cloudflare Pages while preserving a clean root URL;
-- organizing bilingual README, privacy, architecture, deployment, changelog, and judging documentation.
+- migrating production from Netlify to Cloudflare Pages while preserving a clean root URL;
+- maintaining bilingual product, architecture, deployment, privacy, and release documentation.
 
-The product principles remained the creator's own: composition begins only after the writer finishes entering text; writing is never uploaded; automation must still leave room for precise control; color systems are deliberately curated; and templates must change editorial structure instead of merely recoloring the same page. The dated Git history, [`CHANGELOG.md`](./project/CHANGELOG.md), and questionnaire excerpts make that division of authorship and implementation visible.
-
-### Run and test
-
-Open [`index.html`](./project/index.html) directly in a modern browser, or visit the live demo. No installation, API key, sample account, or server is required. A useful judging path is: enter Chinese text, apply rich-text or regional conversion to a selection, generate the layout, edit the preview directly, switch templates and colors, then export at a chosen resolution.
+The product principles remained the creator's own: composition begins only after the writer finishes entering text; writing is never uploaded; automation must leave room for precise control; palettes are manually curated; and templates must change editorial structure instead of merely recoloring the same page.
 
 ## Current capabilities
 
 | Area | Capability | Status | Notes |
 | --- | --- | --- | --- |
-| Writing | Title, body, and byline | Implemented | Blank-first writing flow without continuous long-image rendering |
+| Writing | Title, body, and byline | Implemented | Blank-first flow without continuous long-image rendering |
 | Writing | Inline rich text | Implemented | Bold, italic, underline, strikethrough, and clear formatting |
-| Writing | Character count | Implemented | Ignores whitespace and line breaks |
-| Writing | Browser-local autosave | Implemented | Drafts remain in the current browser |
-| Localization | Simplified and regional Traditional Chinese | Implemented | Converts selected text to Simplified Chinese, Traditional Chinese (Hong Kong), or Traditional Chinese (Taiwan) |
+| Writing | Character count and local autosave | Implemented | Drafts remain in the current browser |
+| Localization | Regional Chinese conversion | Implemented | Simplified, Traditional Hong Kong, and Traditional Taiwan for selected text |
 | Localization | Chinese and English interface | Implemented | Interface language persists without translating user content |
 | Composition | Deliberate automatic composition | Implemented | Generates only after the writer finishes entering text |
-| Composition | Text cleanup and paragraph detection | Implemented | Repairs pasted soft line breaks and optionally detects paragraphs |
-| Typography | Separate body and title typefaces | Implemented | CJK and Latin font groups can be selected independently |
-| Typography | Local font import | Implemented | Supports TTF, OTF, WOFF, and WOFF2 without uploading files |
-| Typography | Body and title size, title weight | Implemented | Range controls plus precise numeric input |
-| Typography | Line, letter, and paragraph spacing | Implemented | Includes classic paragraph-gap presets and continuous fine tuning |
-| Layout | Canvas width and page margins | Implemented | Adjustable long-image dimensions and reading measure |
-| Layout | Alignment and first-line indentation | Implemented | Left, justified, and centered text with optional two-character indent |
-| Layout | Opening-paragraph treatment | Implemented | None, rule, or accent color with adjustable opening scale |
-| Templates | Folio | Implemented | Primary editorial structure and current default |
-| Templates | Book Page | Implemented | Optional editable chapter label |
-| Templates | Letter | Implemented | More open correspondence-oriented composition |
-| Templates | Sectioned Long Page | Implemented | User-defined section marker and expanded hierarchy |
-| Color | Light and dark color families | Implemented | Six curated families across light and dark modes |
-| Color | Sixteen named special palettes | Implemented | Curated combinations designed for long-form readability |
-| Color | Independent color controls | Implemented | Background, body, title, and accent colors can be changed separately |
-| Color | Random inspiration | Implemented | Samples from the complete curated palette collection |
-| Preview | Post-composition preview | Implemented | Avoids disruptive reflow while the user is still writing |
-| Preview | Direct canvas editing | Implemented | Title, kicker, body, chapter label, and section marker are editable |
-| Preview | Local text styling | Implemented | Size, color, bold, italic, underline, and strikethrough remain exportable |
-| Export | PNG and JPG long images | Implemented | Custom file name and automatic image height |
-| Export | Standard, High, and Ultra resolution | Implemented | Shows final pixel width before saving |
-| Privacy | Local-only article processing | Implemented | Article text, imported fonts, drafts, and image generation stay on-device |
-| Feedback | Explicit feedback form and email notification | Implemented | Netlify receives feedback only; article content is never attached |
-| Mobile | Phone input, preview, and export workflow | In progress | Foundational layout exists; stability and ergonomics still need refinement |
-| Export | Automatic pagination and `3:4` batch export | Planned | Intended for Xiaohongshu and other multi-image publishing workflows |
-| Templates | Save reusable custom templates | Planned | Named personal presets after the core structures stabilize |
-| Content | Images, epigraphs, and section dividers | Future | Richer long-form document structure |
-| Cloud | Accounts and cloud drafts | Deferred | Local-first use remains the product default |
+| Composition | Cleanup and paragraph detection | Implemented | Repairs pasted soft line breaks and detects paragraphs when requested |
+| Typography | Body and title typefaces | Implemented | Separate CJK and Latin font choices |
+| Typography | Local font import | Implemented | TTF, OTF, WOFF, and WOFF2 stay in the browser |
+| Typography | Size, weight, line, letter, and paragraph spacing | Implemented | Sliders, presets, and precise values |
+| Layout | Width, margins, alignment, and indentation | Implemented | Adjustable reading measure and paragraph behavior |
+| Layout | Opening-paragraph treatment | Implemented | None, rule, or accent color with adjustable scale |
+| Templates | Folio, Book Page, Letter, and Sectioned Long Page | Implemented | Four distinct editorial structures |
+| Color | Light and dark families | Implemented | Six curated color families |
+| Color | Sixteen named palettes | Implemented | Manually reviewed for long-form reading |
+| Color | Independent and random controls | Implemented | Background, body, title, and accent remain editable |
+| Preview | Direct editing | Implemented | Title, kicker, body, chapter label, and section marker |
+| Preview | Exportable local styling | Implemented | Size, color, bold, italic, underline, and strikethrough |
+| Export | PNG and JPG | Implemented | Custom name, automatic height, and visible final pixel width |
+| Export | Standard, High, and Ultra | Implemented | Explicit output resolution choices |
+| Privacy | Local-only article processing | Implemented | Article, drafts, imported fonts, and images stay on-device |
+| Feedback | Explicit form and email notification | Implemented | Feedback never includes article content |
+| Mobile | Input, styling, preview, and export | Implemented; refining | Complete three-step workflow; real-device polish continues |
+| Export | Automatic pagination and `3:4` batch export | Planned | Intended for multi-image social publishing |
+| Templates | Reusable custom presets | Planned | After the core editorial structures stabilize |
 
-## Usage
+## Try it
 
-1. Enter the complete body text and optionally add a title and author.
+1. Enter the complete body text and optionally add a title and byline.
 2. Apply rich text or regional Chinese conversion to a selection when needed.
-3. Select Generate Composition.
-4. Choose a layout, palette, font, and spacing, or edit the preview directly.
+3. Select **Generate Composition**.
+4. Choose a layout, palette, typeface, and spacing, or edit the preview directly.
 5. Select an export format and resolution, then save the image.
 
-The project is a static site with no build step. Open [`index.html`](./project/index.html) locally or use the deployed root URL.
+Open [`project/index.html`](./project/index.html) directly in a modern browser or use the live app. No installation, sample account, server, or API key is required.
+
+After changing JavaScript module boundaries, run the zero-dependency smoke test:
+
+```bash
+node project/tests/module-smoke.test.js
+```
 
 ## Privacy
 
-Article text, imported fonts, draft state, composition, and image export are processed in the browser. Drafts are stored in `localStorage`. XVI does not upload article content to an application server.
+Article text, imported fonts, drafts, composition, and image export are processed in the browser. Drafts are stored in `localStorage`. XVI does not upload article content to an application server.
 
 Only an intentional feedback submission sends the entered feedback to the legacy Netlify Forms receiver; the article is never attached. See [Privacy](./project/PRIVACY.md).
 
@@ -124,15 +116,17 @@ Only an intentional feedback submission sends the entered feedback to the legacy
 
 | Path | Purpose |
 | --- | --- |
-| `project/index.html` | Current deployed entry point |
-| `project/xvi-next.html` | Workspace structure and feedback form |
-| `project/styles.css` | Shared controls and long-page composition styles |
-| `project/xvi-next.css` | Current desktop and mobile interface |
-| `project/app-next.js` | Editing, localization, composition, persistence, and export |
+| `project/index.html` | Production entry and complete workspace structure |
+| `project/xvi-next.html` | Compatibility mirror for older links |
+| `project/styles.css` | Shared controls and composition styles |
+| `project/xvi-next.css` | Desktop and mobile workspace interface |
+| `project/app-next.js` | State, DOM orchestration, persistence, direct editing, and feedback |
+| `project/modules/config.js` | Palettes, layout recipes, font stacks, and punctuation rules |
+| `project/modules/i18n.js` | Interface dictionaries and runtime messages |
+| `project/modules/text-layout.js` | Script conversion, cleanup, and Canvas line breaking |
+| `project/modules/exporter.js` | Canvas layout, rich-text drawing, and image download |
 | `project/vendor/opencc.full.js` | Regional Chinese conversion runtime |
-| `project/THIRD_PARTY_NOTICES.md` | Third-party software and font boundaries |
-| `project/legacy-v0.6.3.html` | Historical rollback reference |
-| `project/docs/` | Architecture, research references, and historical previews |
+| `project/docs/` | Architecture, product evidence, design studies, and historical previews |
 
 ## Documentation
 
@@ -141,148 +135,21 @@ Only an intentional feedback submission sends the entered feedback to the legacy
 - [Privacy](./project/PRIVACY.md)
 - [Deployment and rollback](./project/DEPLOYMENT.md)
 - [Contributing](./project/CONTRIBUTING.md)
-- [License](./LICENSE)
-- [Third-party notices](./project/THIRD_PARTY_NOTICES.md)
+- [Architecture](./project/docs/ARCHITECTURE.md)
+- [Design direction](./project/docs/XVI_DESIGN_DIRECTION_ZH.md)
 - [Research index](./project/docs/README.md)
-- [Early product questionnaire: selected answers](./project/docs/EARLY_PRODUCT_QUESTIONNAIRE.md)
-- [Build Week demo script](./project/docs/DEMO_SCRIPT.md)
+- [Third-party notices](./project/THIRD_PARTY_NOTICES.md)
 
 ## Next priorities
 
-1. Improve mobile input, preview, and export stability.
+1. Continue real-device refinement of the mobile workflow.
 2. Complete automatic pagination and Xiaohongshu-style `3:4` batch export.
-3. Continue refining editorial structures rather than adding recolored duplicates.
+3. Develop stronger editorial structures rather than recolored duplicates.
 4. Audit online font provenance, licensing, and loading reliability in mainland China.
 5. Expand accessibility, error handling, and cross-browser export testing.
 
-## Publishing and license
-
-Cloudflare Pages deploys the `main` branch automatically. The legacy Netlify site remains only as the form receiver and fallback deployment. Before a release, align asset versions, update [`CHANGELOG.md`](./project/CHANGELOG.md), and complete the checks in [`DEPLOYMENT.md`](./project/DEPLOYMENT.md).
+## License
 
 Project-owned code is available under [PolyForm Noncommercial 1.0.0](./LICENSE). Personal, educational, research, and other noncommercial uses are permitted; commercial use is not licensed. XVI is source-available for noncommercial use, not open source under the OSI definition.
 
-Third-party components and online fonts retain their own licenses. See [Third-Party Notices](./project/THIRD_PARTY_NOTICES.md) and [`vendor/opencc-js.LICENSE`](./project/vendor/opencc-js.LICENSE).
-
----
-
-# 中文说明
-
-为中文创作者设计的文本长图排版器。完整输入文字后，生成可继续微调并导出的长图。
-
-- 当前版本：`v0.7.8`
-- 产品阶段：公开预览版，尚未进入 V1
-- 在线使用：[xvi-16k.pages.dev](https://xvi-16k.pages.dev/)
-- 代码仓库：[absurdeden-xvi/xvi-16k](https://github.com/absurdeden-xvi/xvi-16k)
-- 反馈邮箱：[absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com)
-
-## 创作主导与 GPT-5.6 的使用边界
-
-XVI 是创作者第一个真正完整的编程项目，但它并不是由 AI 生成的产品概念。需求来自她近十年的写作爱好与真实发布场景：写完一篇文章以后，怎样更快速、更自由地把它排成适合社交平台发布的长图。最初产品问卷中的每一条回答均由创作者本人逐字写下；工作流程、隐私原则、功能优先级、配色取舍、视觉批评与最终决定也始终由她完成。
-
-> **GPT-5.6 在 Codex 中承担实现、调试、测试、部署和文档整理。它没有提出最初的产品需求，没有代答问卷，没有决定审美方向，不参与用户正文创作，也不替创作者作最终决定。**
-
-早期原话的精选与英译见 [《早期产品问卷：精选回答》](./project/docs/EARLY_PRODUCT_QUESTIONNAIRE.md)。
-
-Build Week 期间的主要协作方式是：创作者用自然语言和截图指出问题，Codex 阅读现有代码并实施修改，GPT-5.6 协助分析复杂行为和回归问题，浏览器测试后再由创作者决定接受、推翻或继续调整。它具体加速了富文本在输入框、预览和 Canvas 导出之间的一致性、中文标点避头尾、地区简繁转换、移动端工作流、本地隐私边界、Cloudflare 迁移，以及双语 README、架构、部署和版本文档的整理。
-
-“写完后再生成”“正文不上传”“自动化与精细控制并存”“配色必须经过人工筛选”“模板不能只是换色”等核心原则均来自创作者本人。Git 历史、[`CHANGELOG.md`](./project/CHANGELOG.md) 和问卷摘录共同保留了这一过程。
-
-## 当前能力
-
-| 模块 | 功能 | 状态 | 设计说明 |
-| --- | --- | --- | --- |
-| 写作 | 标题、正文、署名 | 已实现 | 空白开始，输入阶段不持续渲染长图 |
-| 写作 | 行内富文本 | 已实现 | 粗体、斜体、下划线、删除线与清除格式 |
-| 写作 | 字数统计 | 已实现 | 忽略空格和换行统计 |
-| 写作 | 浏览器本地自动保存 | 已实现 | 草稿只保存在当前浏览器 |
-| 文字 | 简中与地区繁体转换 | 已实现 | 选中文字后转换为简中、繁中（港）或繁中（台） |
-| 文字 | 中英文界面 | 已实现 | 记住界面语言，不翻译用户正文 |
-| 排版 | 主动生成与自动排版 | 已实现 | 写完后再生成，不在输入中反复重排 |
-| 排版 | 文本清理与智能分段 | 已实现 | 修复粘贴软换行，并按需识别自然段 |
-| 字体 | 标题与正文字体 | 已实现 | 中文与拉丁字体组可分别选择 |
-| 字体 | 导入本地字体 | 已实现 | 支持 TTF、OTF、WOFF、WOFF2，不上传字体文件 |
-| 字体 | 正文与标题字号、标题字重 | 已实现 | 滑杆调节与精确数值输入并存 |
-| 排版 | 行距、字距、段距 | 已实现 | 经典段间距档位与连续微调并存 |
-| 排版 | 画布宽度、页边距 | 已实现 | 调整长图尺寸与正文阅读宽度 |
-| 排版 | 对齐与首行缩进 | 已实现 | 左对齐、两端对齐、居中及两字缩进 |
-| 排版 | 首段强调 | 已实现 | 无、引线、变色三种形式，并可调整首段字号 |
-| 模板 | 标准刊页 | 已实现 | 主要刊页结构与当前默认模板 |
-| 模板 | 书页 | 已实现 | 支持可编辑章节标识 |
-| 模板 | 信笺 | 已实现 | 更舒展、接近书信的空间结构 |
-| 模板 | 分节长页 | 已实现 | 支持用户指定节号与更明显的层级关系 |
-| 配色 | 深浅模式与六个色系 | 已实现 | 分别整理浅色与深色阅读方案 |
-| 配色 | 十六套具名特别配色 | 已实现 | 以长文可读性为前提进行人工筛选 |
-| 配色 | 自定义颜色 | 已实现 | 背景、正文、标题与强调色可独立调整 |
-| 配色 | 随机灵感 | 已实现 | 从全部已整理配色中随机选择 |
-| 预览 | 生成后预览 | 已实现 | 避免输入长文时持续重排和跳动 |
-| 预览 | 画布内直接编辑 | 已实现 | 标题、题头、正文、章节标识与节号均可编辑 |
-| 预览 | 局部文字样式 | 已实现 | 字号、颜色、粗体、斜体、下划线与删除线可同步导出 |
-| 导出 | PNG / JPG 长图 | 已实现 | 支持自定义文件名与自动高度 |
-| 导出 | 普通、高清、超清 | 已实现 | 保存前直接显示最终像素宽度 |
-| 隐私 | 正文全程本地处理 | 已实现 | 正文、导入字体、草稿和图片生成不离开设备 |
-| 反馈 | 主动反馈与邮件通知 | 已实现 | Netlify 仅接收反馈文字，绝不附带文章正文 |
-| 移动端 | 手机输入、预览与导出 | 优化中 | 已有基础流程，仍需继续提高稳定性与操作效率 |
-| 导出 | 自动分页与 `3:4` 多图导出 | 计划中 | 面向小红书等多图发布场景 |
-| 模板 | 保存自定义模板 | 计划中 | 核心刊页稳定后支持命名与复用个人样式 |
-| 内容 | 图片、题记、章节分隔 | 后续探索 | 丰富长文的内容结构 |
-| 云服务 | 登录和云端草稿 | 暂缓 | 本地优先仍是产品默认方向 |
-
-## 使用
-
-1. 输入完整正文，并按需填写标题和署名。
-2. 需要时选中文字进行格式或简繁转换。
-3. 点击“生成排版”。
-4. 在“样式”中选择刊页、配色、字体和间距，也可以直接编辑预览。
-5. 在“导出”中选择格式与清晰度并保存图片。
-
-项目是静态网页，没有安装和构建步骤。本地可直接打开 [`index.html`](./project/index.html)，正式页面由根网址加载。
-
-## 隐私
-
-正文、导入字体和图片导出均在浏览器本地处理，不上传到项目服务器。草稿存放在浏览器的 `localStorage` 中。
-
-只有用户主动提交“来信”时，反馈文字才会交给 Netlify Forms；文章正文不会随反馈发送。也可以不经过表单，直接发送邮件至 [absurdedenxvi@gmail.com](mailto:absurdedenxvi@gmail.com)。详见 [PRIVACY.md](./project/PRIVACY.md)。
-
-## 项目结构
-
-| 路径 | 用途 |
-| --- | --- |
-| `project/index.html` | 根网址入口，转到当前正式工作台 |
-| `project/xvi-next.html` | 当前工作台结构与反馈表单 |
-| `project/styles.css` | 共享基础样式与长图画布样式 |
-| `project/xvi-next.css` | 当前工作台的视觉与移动端样式 |
-| `project/app-next.js` | 编辑、排版、预览、本地保存和导出逻辑 |
-| `project/vendor/opencc.full.js` | 简繁转换运行库 |
-| `project/THIRD_PARTY_NOTICES.md` | 第三方组件与在线字体授权边界 |
-| `project/legacy-v0.6.3.html` | 历史回退快照 |
-| `project/docs/` | 研究资料、预览图与维护文档索引 |
-
-## 文档
-
-- [产品方向](./project/PRODUCT_DIRECTION.md)
-- [版本记录](./project/CHANGELOG.md)
-- [隐私说明](./project/PRIVACY.md)
-- [部署与回退](./project/DEPLOYMENT.md)
-- [参与开发](./project/CONTRIBUTING.md)
-- [项目许可](./LICENSE)
-- [第三方授权说明](./project/THIRD_PARTY_NOTICES.md)
-- [研究资料索引](./project/docs/README.md)
-- [早期产品问卷：精选回答](./project/docs/EARLY_PRODUCT_QUESTIONNAIRE.md)
-
-## 下一阶段
-
-1. 提升手机端输入、预览和导出的稳定性。
-2. 完成长文自动分页与小红书 `3:4` 多图批量导出。
-3. 继续打磨刊页结构，而不是只增加换色模板。
-4. 复核在线字体来源、授权和国内网络加载稳定性。
-5. 完善无障碍、错误提示和跨浏览器导出测试。
-
-## 发布
-
-`main` 分支由 Cloudflare Pages 自动部署；原 Netlify 页面仅保留为表单收件端与备用部署。正式发布前必须统一页面资源版本、更新 `CHANGELOG.md`，并完成 [DEPLOYMENT.md](./project/DEPLOYMENT.md) 中的检查项。
-
-## 许可
-
-XVI / 十六开的自有代码采用 [PolyForm Noncommercial 1.0.0](./LICENSE) 许可：可以用于个人、学习、研究及其他非商业用途，但不授权商业使用。这是一个**源码公开的非商业项目**，不属于 OSI 定义下的开源软件。
-
-第三方组件与在线字体不适用上述许可，仍分别遵循原作者的授权条款。详见 [第三方授权说明](./project/THIRD_PARTY_NOTICES.md) 与 [`vendor/opencc-js.LICENSE`](./project/vendor/opencc-js.LICENSE)。
+Third-party components and online fonts retain their own licenses. See [Third-Party Notices](./project/THIRD_PARTY_NOTICES.md).

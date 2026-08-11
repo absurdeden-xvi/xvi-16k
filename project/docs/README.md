@@ -7,6 +7,7 @@ This directory preserves visual studies and historical previews from the develop
 - [`EARLY_PRODUCT_QUESTIONNAIRE.md`](./EARLY_PRODUCT_QUESTIONNAIRE.md): selected creator-written answers from the early product questionnaire, with English translations
 - [`DEMO_SCRIPT.md`](./DEMO_SCRIPT.md): Build Week narration and screen direction
 - [`ARCHITECTURE.md`](./ARCHITECTURE.md): runtime, local-data boundary, export path, and deployment architecture
+- [`XVI_DESIGN_DIRECTION_ZH.md`](./XVI_DESIGN_DIRECTION_ZH.md): current Chinese design brief distilled from accepted and rejected iterations
 
 ## Research pages
 
@@ -17,7 +18,7 @@ This directory preserves visual studies and historical previews from the develop
 - [`research/research-fonts.html`](./research/research-fonts.html): font candidates and licensing reminders
 - [`research/ui-study.html`](./research/ui-study.html): workspace visual studies
 
-Some conclusions were superseded by later versions. Treat the repository-root `README.md`, `project/PRODUCT_DIRECTION.md`, and the live product as the current source of truth.
+Some conclusions were superseded by later versions. Treat the repository-root `README.md`, `project/PRODUCT_DIRECTION.md`, `project/docs/XVI_DESIGN_DIRECTION_ZH.md`, and the live product as the current sources of truth for product status, priorities, design decisions, and behavior respectively.
 
 ## Mobile previews
 
@@ -37,6 +38,7 @@ These images record specific versions and viewport sizes. They are historical re
 - [`EARLY_PRODUCT_QUESTIONNAIRE.md`](./EARLY_PRODUCT_QUESTIONNAIRE.md)：早期产品问卷中由创作者本人逐字写下的精选回答及英译
 - [`DEMO_SCRIPT.md`](./DEMO_SCRIPT.md)：Build Week 演示旁白与页面操作安排
 - [`ARCHITECTURE.md`](./ARCHITECTURE.md)：运行方式、本地数据边界、导出路径与部署架构
+- [`XVI_DESIGN_DIRECTION_ZH.md`](./XVI_DESIGN_DIRECTION_ZH.md)：从多轮接受与否决记录中整理出的当前中文设计原则
 
 ## 研究页
 
@@ -47,7 +49,7 @@ These images record specific versions and viewport sizes. They are historical re
 - [`research/research-fonts.html`](./research/research-fonts.html)：字体候选与授权提醒
 - [`research/ui-study.html`](./research/ui-study.html)：工作台视觉样稿
 
-部分研究结论已经被后续版本修改。产品现状以根目录的 `README.md`、`PRODUCT_DIRECTION.md` 和正式页面为准。
+部分研究结论已经被后续版本修改。版本状态、产品优先级、设计判断和实际行为分别以根目录的 `README.md`、`PRODUCT_DIRECTION.md`、`docs/XVI_DESIGN_DIRECTION_ZH.md` 与正式页面为准。
 
 ## 移动端预览
 
